@@ -24,6 +24,7 @@ extension ConfigureCategoryCLog {
 }
 
 enum Category: String {
+    case parsing
     case login
     case loadFiles
 }
