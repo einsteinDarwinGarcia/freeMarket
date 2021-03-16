@@ -22,25 +22,23 @@ protocol NetworkConfiguration {
 
 class NetworkManager<configuration: NetworkConfiguration> {
     
-    var configuration: configuration
+    private var configuration: configuration
+    private var persistenceBridge: PersistenceManager<configuration.responseDataType>?
     
     init(configuration: configuration) {
         self.configuration = configuration
     }
     
     func getData() {
-        
-        var jsonName:String
-        
         switch self.configuration.provider {
         case .mock(let name):
-            jsonName = name
-        default:
-            jsonName = ""
+            self.persistenceBridge = PersistenceManager<configuration.responseDataType>(persistenceType: MockPersistence(name: name))
+        case .APIRest:
+            break
+        case .coreData:
+            break
         }
-        
-        let persistence = PersistenceManager<configuration.responseDataType>(persistenceType: MockPersistence(name: jsonName))
-        self.configuration.networkResponse.value = persistence.getData()
+        self.configuration.networkResponse.value = self.persistenceBridge?.getData()
     }
     
 }
