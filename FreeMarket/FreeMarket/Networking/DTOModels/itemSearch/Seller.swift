@@ -10,7 +10,7 @@ import Foundation
 struct Seller : Decodable {
 
         let carDealer : Bool?
-        let id : String?
+        let id : Double?
         let powerSellerStatus : String?
         let realEstateAgency : Bool?
         let tags : [String]?
@@ -26,7 +26,7 @@ struct Seller : Decodable {
         init(from decoder: Decoder) throws {
                 let values = try decoder.container(keyedBy: CodingKeys.self)
                 carDealer = try values.decodeIfPresent(Bool.self, forKey: .carDealer)
-                id = try values.decodeIfPresent(String.self, forKey: .id)
+                id = try values.decodeIfPresent(Double.self, forKey: .id)
                 powerSellerStatus = try values.decodeIfPresent(String.self, forKey: .powerSellerStatus)
                 realEstateAgency = try values.decodeIfPresent(Bool.self, forKey: .realEstateAgency)
                 tags = try values.decodeIfPresent([String].self, forKey: .tags)

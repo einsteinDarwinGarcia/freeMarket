@@ -11,6 +11,7 @@ import Combine
 
 class ContentModelStore: ObservableObject {
     @Published var isLoggedOut: Bool = true
+    @Published var items: [ItemsModel] = []
 }
 
 class ContentViewStore<D: FluxDispatcher, MS: ContentModelStore >: FluxStore where D.L == ContentListActions {
@@ -28,6 +29,11 @@ class ContentViewStore<D: FluxDispatcher, MS: ContentModelStore >: FluxStore whe
             switch ContentListActions {
             case .isLoggedOut(let value):
                 strongSelf.modelStore.isLoggedOut = value
+            case .setItems(let items):
+                guard let items = items else {
+                    return
+                }
+                strongSelf.modelStore.items = items
             }
         }
     }

@@ -16,7 +16,7 @@ struct Attribute : Decodable {
         let source : Int?
         let valueId : String?
         let valueName : String?
-        let valueStruct : String?
+        let valueStruct : ValueStruct?
 
         enum CodingKeys: String, CodingKey {
                 case attributeGroupId = "attribute_group_id"
@@ -38,7 +38,12 @@ struct Attribute : Decodable {
                 source = try values.decodeIfPresent(Int.self, forKey: .source)
                 valueId = try values.decodeIfPresent(String.self, forKey: .valueId)
                 valueName = try values.decodeIfPresent(String.self, forKey: .valueName)
-                valueStruct = try values.decodeIfPresent(String.self, forKey: .valueStruct)
+                valueStruct = try values.decodeIfPresent(ValueStruct.self, forKey: .valueStruct)
         }
 
+}
+
+struct ValueStruct: Decodable {
+    let number: Double?
+    let unit: String?
 }

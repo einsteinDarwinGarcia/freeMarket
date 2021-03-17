@@ -36,7 +36,8 @@ final class MockPersistence: Persistence {
             decoder.dateDecodingStrategy = .iso8601
           return try decoder.decode(T.self, from: data)
         } catch let DecodingError.dataCorrupted(context) {
-            CLogger.log(category: .parsing).fault("data corrupted \(context.debugDescription)")
+            
+            CLogger.log(category: .parsing).fault("Key '\(context.codingPath)' data corrupted \(context.debugDescription)")
             return nil
         } catch let DecodingError.keyNotFound(key, context) {
             CLogger.log(category: .parsing).fault("Key '\(key.stringValue)' not found: \(context.debugDescription), codingPath: \(context.codingPath)")

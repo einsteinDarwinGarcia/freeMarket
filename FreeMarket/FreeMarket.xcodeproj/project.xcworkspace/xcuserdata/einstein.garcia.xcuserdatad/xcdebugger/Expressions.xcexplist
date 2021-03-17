@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "NetworkManager.getData():NetworkManager.swift">
+      </ContextState>
+      <ContextState
+         contextName = "CastingModelsTest.testCasting():CastingModelsTest.swift">
+      </ContextState>
+      <ContextState
+         contextName = "FreeMarketTests.testExample():FreeMarketTests.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in CastingModels.casting(rootClass:):CastingModels.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "rootClass">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>

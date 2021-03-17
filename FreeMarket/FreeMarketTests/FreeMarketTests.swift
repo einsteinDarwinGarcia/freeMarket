@@ -9,14 +9,14 @@ import XCTest
 @testable import FreeMarket
 import Combine
 
+enum ParsingError: Error {
+    case parsingError
+}
+
 class FreeMarketTests: XCTestCase {
     
     var sut: ConfigurationSearchService!
     
-    enum ParsingError: Error {
-        case parsingError
-    }
-
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
         try super.setUpWithError()
@@ -28,7 +28,7 @@ class FreeMarketTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() throws {
+    func testNetworkMock() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         var error: Error?
@@ -44,7 +44,7 @@ class FreeMarketTests: XCTestCase {
 
         candies = result
         
-        XCTAssertEqual(candies.results?.first?.siteId, "MLA")
+        XCTAssertEqual(candies.results?.first?.siteId, "MCO")
         
     }
 
