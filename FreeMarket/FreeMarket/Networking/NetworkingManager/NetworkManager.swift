@@ -8,18 +8,6 @@
 import Combine
 
 
-enum Provider {
-    case mock(jsonName: String)
-    case APIRest
-    case coreData
-}
-
-protocol NetworkConfiguration {
-    associatedtype responseDataType: Decodable
-    var provider: Provider { get set }
-    var networkResponse: CurrentValueSubject<responseDataType?, Never> { get set }
-}
-
 class NetworkManager<configuration: NetworkConfiguration> {
     
     private var configuration: configuration
@@ -42,3 +30,5 @@ class NetworkManager<configuration: NetworkConfiguration> {
     }
     
 }
+
+

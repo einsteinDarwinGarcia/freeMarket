@@ -32,7 +32,7 @@ class FreeMarketTests: XCTestCase {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         var error: Error?
-        var candies: RootClass
+        var iphones: RootClass
         let networkmanager = NetworkManager(configuration: sut)
         networkmanager.getData()
         
@@ -42,9 +42,9 @@ class FreeMarketTests: XCTestCase {
             return
         }
 
-        candies = result
+        iphones = result
         
-        XCTAssertEqual(candies.results?.first?.siteId, "MCO")
+        XCTAssertEqual(iphones.results?.first?.siteId, "MCO")
         
     }
 

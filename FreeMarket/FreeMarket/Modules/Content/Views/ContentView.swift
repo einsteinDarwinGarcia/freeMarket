@@ -8,11 +8,14 @@
 //
 
 import SwiftUI
+import Combine
 
 struct ContentView<A: ContentActionsProtocol>: View where A.M == ContentModelStore {
     
     @ObservedObject var store: ContentModelStore
     @ObservedObject var searchBar: SearchBar = SearchBar()
+    private var cancellable: AnyCancellable?
+   
     private var actions: A
     
     init(actions: A,  modelStore: ContentModelStore) {
@@ -23,6 +26,7 @@ struct ContentView<A: ContentActionsProtocol>: View where A.M == ContentModelSto
     }
     
     var body: some View {
+        
         NavigationView {
             Group {
                 ZStack {
@@ -32,11 +36,11 @@ struct ContentView<A: ContentActionsProtocol>: View where A.M == ContentModelSto
                         ScrollView {
                             
                             LazyVStack(alignment: .leading) {
-                                ForEach(store.items.filter {
+                                ForEach(store.items.lazy.filter {
                                     searchBar.text.isEmpty ||
-                                        $0.title.localizedStandardContains(searchBar.text)
+                                        $0.id.localizedStandardContains(searchBar.text)
                                 }) { eachItem in
-                                    RowSearchBar(title: eachItem.title)
+                                    RowSearchBar(title: eachItem.id)
                                 }
                             }
                             
@@ -52,11 +56,15 @@ struct ContentView<A: ContentActionsProtocol>: View where A.M == ContentModelSto
                 .add(self.searchBar)
                 .navigationBarTitleDisplayMode(.inline)
             }
-        }
-        .onAppear {
-            self.actions.loadData()
+        }.onAppear {
+            triggerSearchService()
         }
     }
+    
+    private func triggerSearchService() {
+        actions.loadData(text: searchBar.activeSearchService.eraseToAnyPublisher())
+    }
+    
 }
 
 

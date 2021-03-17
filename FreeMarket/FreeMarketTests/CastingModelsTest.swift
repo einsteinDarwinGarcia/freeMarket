@@ -11,13 +11,13 @@ import Combine
 
 class CastingModelsTest: XCTestCase {
     
-    var sut: CastingModels!
+    var sut: CastingToSearchViewModels!
     var helper: ConfigurationSearchService!
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
         try super.setUpWithError()
-        sut = CastingModels()
+        sut = CastingToSearchViewModels()
         helper = ConfigurationSearchService()
     }
 
@@ -44,7 +44,7 @@ class CastingModelsTest: XCTestCase {
             return
         }
         print(resultCasting)
-        XCTAssertEqual(resultCasting.first?.siteId, "MCO")
+        XCTAssertEqual(resultCasting.itemSearch.first?.id, "iPhone 11")
     }
 
     func testPerformanceExample() throws {

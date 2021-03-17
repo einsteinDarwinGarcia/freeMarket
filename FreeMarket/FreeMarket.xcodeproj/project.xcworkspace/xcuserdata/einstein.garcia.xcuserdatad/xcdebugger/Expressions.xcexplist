@@ -6,6 +6,28 @@
          contextName = "NetworkManager.getData():NetworkManager.swift">
       </ContextState>
       <ContextState
+         contextName = "closure #2 in ContentActions.loadData():ContentActions.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self?.totalItemsSearched">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "CastingModels.casting(rootClass:):CastingModels.swift">
+      </ContextState>
+      <ContextState
+         contextName = "NetworkingSearchItemTest.testNetworkingLayerService():NetworkingSearchItemTest.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "removeDuplicates">
+            </PersistentString>
+            <PersistentString
+               value = "result?.itemSearch">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "CastingModelsTest.testCasting():CastingModelsTest.swift">
       </ContextState>
       <ContextState

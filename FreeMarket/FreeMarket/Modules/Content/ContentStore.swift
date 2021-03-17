@@ -11,7 +11,7 @@ import Combine
 
 class ContentModelStore: ObservableObject {
     @Published var isLoggedOut: Bool = true
-    @Published var items: [ItemsModel] = []
+    @Published var items: [ItemSearchModel] = []
 }
 
 class ContentViewStore<D: FluxDispatcher, MS: ContentModelStore >: FluxStore where D.L == ContentListActions {

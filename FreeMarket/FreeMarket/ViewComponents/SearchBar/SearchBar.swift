@@ -7,11 +7,13 @@
 
 
 import SwiftUI
+import Combine
 
 class SearchBar: NSObject, ObservableObject {
     
     @Published var text: String = ""
     @Published var beginEditing: Bool = false
+    var activeSearchService = CurrentValueSubject<String, Never>("")
     let searchController: UISearchController = UISearchController(searchResultsController: nil)
     
     override init() {
@@ -23,10 +25,12 @@ class SearchBar: NSObject, ObservableObject {
 }
 
 extension SearchBar: UISearchResultsUpdating {
-   
     func updateSearchResults(for searchController: UISearchController) {
         if let searchBarText = searchController.searchBar.text {
             self.text = searchBarText
+            if SearchBarValidations.isValidateTextToActiveSearchService(text: self.text) {
+                activeSearchService.value = self.text
+            }
         }
     }
 }
@@ -39,5 +43,11 @@ extension SearchBar: UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         self.beginEditing = false
+    }
+}
+
+struct SearchBarValidations {
+    static func isValidateTextToActiveSearchService(text: String) -> Bool {
+        return text.count > 2
     }
 }

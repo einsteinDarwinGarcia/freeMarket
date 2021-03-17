@@ -10,13 +10,14 @@ import Foundation
 struct ItemsModel: Identifiable, Hashable {
     var id: UUID = UUID()
     var siteId: String?
+    var categoryId: String?
     var title: String
     var price: Int?
     var availableQuantity: Int?
     var thumbnail: String?
     var cityName: String?
     var freeChipping: Bool?
-    var model: String?
+    var model: String
     var attributes: [Attributes]?
 }
 
