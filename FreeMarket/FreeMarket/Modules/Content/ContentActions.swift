@@ -12,7 +12,7 @@ import Combine
 protocol ContentActionsProtocol: ViewActionsProtocol {
     associatedtype V: View
     func loadData(text: AnyPublisher<String, Never>)
-    func goToSomewhere(isPresented: Binding<Bool>) -> V
+    func presentListResult(isPresented: Binding<Bool>, itemSelected: ItemSearchModel) -> V
 }
 
 enum ContentListActions: ListActions {
@@ -52,8 +52,11 @@ class ContentActions<C: ContentViewCoordinator, D: FluxDispatcher>:  Action<C>, 
         }.store(in: &cancellables)
     }
     
-    func goToSomewhere(isPresented: Binding<Bool>) -> some View {
-        return coordinator?.presentSomewhere(isPresented: isPresented)
+    func presentListResult(isPresented: Binding<Bool>, itemSelected: ItemSearchModel) -> some View {
+        
+        let itemSearched = self.totalItemsSearched?.filter { $0.model == itemSelected.id }
+        
+        return coordinator?.presentListResult(isPresented: isPresented, itemSelected: itemSearched, totalItems: self.totalItemsSearched)
     }
 }
 

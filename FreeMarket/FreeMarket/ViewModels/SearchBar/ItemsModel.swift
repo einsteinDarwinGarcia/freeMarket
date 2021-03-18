@@ -19,6 +19,10 @@ struct ItemsModel: Identifiable, Hashable {
     var freeChipping: Bool?
     var model: String
     var attributes: [Attributes]?
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(model + title)
+    }
 }
 
 struct Attributes: Hashable {

@@ -22,31 +22,22 @@ struct ContentView<A: ContentActionsProtocol>: View where A.M == ContentModelSto
         self.store = modelStore
         self.actions = actions
         self.actions.configureViewStore(modelStore: store)
-        UITableView.appearance().separatorStyle = .none
     }
     
     var body: some View {
-        
         NavigationView {
             Group {
                 ZStack {
-                    
                     if searchBar.beginEditing {
-                        
-                        ScrollView {
-                            
-                            LazyVStack(alignment: .leading) {
-                                ForEach(store.items.lazy.filter {
-                                    searchBar.text.isEmpty ||
-                                        $0.id.localizedStandardContains(searchBar.text)
-                                }) { eachItem in
-                                    RowSearchBar(title: eachItem.id)
-                                }
-                            }
-                            
-                        }.animation(.linear)
-                        
-                        
+                        ListView(items: store.items.lazy.filter {
+                            searchBar.text.isEmpty ||
+                                $0.id.localizedStandardContains(searchBar.text)
+                        }) { item  in
+                            NavigationButton(contentView: RowSearchBar(title: item.id),
+                                             navigationView: { isPresented in
+                                                self.actions.presentListResult(isPresented: isPresented, itemSelected: item)
+                            })
+                        }
                     } else {
                         Text("Hello, world!")
                             .padding()

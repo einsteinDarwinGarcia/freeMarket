@@ -15,9 +15,8 @@ import Combine
 protocol ContentViewCoordinator: Coordinator {} // empty for now
 
 extension ContentViewCoordinator {
-    func presentSomewhere(isPresented: Binding<Bool>) -> some View {
-        // send to true view
-        let coordinator = ContentCoordinator<Self>(isPresented: isPresented)
+    func presentListResult(isPresented: Binding<Bool>, itemSelected: [ItemsModel]?, totalItems: [ItemsModel]?) -> some View {
+        let coordinator = SearchListResultCoordinator<Self>(isPresented: isPresented, searchedItem: itemSelected, totalItems: totalItems)
         return coordinate(to: coordinator)
     }
 }
