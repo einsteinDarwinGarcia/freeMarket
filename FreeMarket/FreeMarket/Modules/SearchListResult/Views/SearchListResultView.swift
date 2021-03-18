@@ -23,17 +23,9 @@ struct SearchListResultView<A: SearchListResultActionsProtocol>: View where A.M 
     var body: some View {
         VStack {
             ListView(items: store.searchedItem) { item  in
-                
-                HStack {
-                    Text(item.title)
-                        .padding()
-                    Text(item.categoryId ?? "***")
-                }
-                
-                
+               RowListResults(item: item)
             }
         }.onAppear{
-            print("La RE CONCHA QUE SI ESTOY CARGANDO *******")
             self.actions.combineItems()
         }
     }

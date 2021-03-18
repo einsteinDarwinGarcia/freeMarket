@@ -19,9 +19,18 @@ struct ItemsModel: Identifiable, Hashable {
     var freeChipping: Bool?
     var model: String
     var attributes: [Attributes]?
+    var important: Bool = false
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(model + title)
+    }
+    
+    static func ==(lhs: ItemsModel, rhs: ItemsModel) -> Bool {
+        return lhs.model == rhs.model && lhs.title == rhs.title
+    }
+    
+    mutating func changeStateImportant() {
+        self.important = true
     }
 }
 

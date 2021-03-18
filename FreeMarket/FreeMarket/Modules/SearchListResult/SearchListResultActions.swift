@@ -46,9 +46,11 @@ class SearchListResultActions<C: SearchListResultViewCoordinator, D: FluxDispatc
         
         var removeSearched: [ItemsModel] = []
         
-        guard let searchedItem = searchedItem, let totalItems = totalItems else {
+        guard var searchedItem = searchedItem, let totalItems = totalItems else {
              return // TODO: logger
          }
+        
+        for (index, _) in searchedItem.enumerated() { searchedItem[index].changeStateImportant() }
         
         let combineItems = searchedItem + totalItems
         removeSearched = combineItems.removingDuplicates()

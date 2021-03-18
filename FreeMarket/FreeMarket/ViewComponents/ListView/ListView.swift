@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ListView<Element: Identifiable, view: View>: View {
+struct ListView<Element: Hashable, view: View>: View {
     
     var items: [Element]
     var response: (Element) -> view
@@ -20,7 +20,7 @@ struct ListView<Element: Identifiable, view: View>: View {
     var body: some View {
         ScrollView {
             LazyVStack(alignment: .leading) {
-                ForEach(items) { eachItem in
+                ForEach(items, id: \.self) { eachItem in
                     response(eachItem)
                 }
             }

@@ -53,9 +53,7 @@ class ContentActions<C: ContentViewCoordinator, D: FluxDispatcher>:  Action<C>, 
     }
     
     func presentListResult(isPresented: Binding<Bool>, itemSelected: ItemSearchModel) -> some View {
-        
         let itemSearched = self.totalItemsSearched?.filter { $0.model == itemSelected.id }
-        
         return coordinator?.presentListResult(isPresented: isPresented, itemSelected: itemSearched, totalItems: self.totalItemsSearched)
     }
 }
