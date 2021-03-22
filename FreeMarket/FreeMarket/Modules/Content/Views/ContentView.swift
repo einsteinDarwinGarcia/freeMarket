@@ -14,7 +14,7 @@ struct ContentView<A: ContentActionsProtocol>: View where A.M == ContentModelSto
     
     @ObservedObject var store: ContentModelStore
     @ObservedObject var searchBar: SearchBar = SearchBar()
-    private var cancellable: AnyCancellable?
+    
    
     private var actions: A
     
@@ -29,11 +29,12 @@ struct ContentView<A: ContentActionsProtocol>: View where A.M == ContentModelSto
             Group {
                 ZStack {
                     if searchBar.beginEditing {
+                        
                         ListView(items: store.items.lazy.filter {
                             searchBar.text.isEmpty ||
                                 $0.id.localizedStandardContains(searchBar.text)
                         }) { item  in
-                            NavigationButton(contentView: RowSearchBar(title: item.id),
+                            NavigationButton(contentView: RowSearchBar(title: item.id, saved: item.saved),
                                              navigationView: { isPresented in
                                                 self.actions.presentListResult(isPresented: isPresented, itemSelected: item)
                             })
@@ -48,14 +49,9 @@ struct ContentView<A: ContentActionsProtocol>: View where A.M == ContentModelSto
                 .navigationBarTitleDisplayMode(.inline)
             }
         }.onAppear {
-            triggerSearchService()
+            actions.initSearchBar(searchBar: searchBar)
         }
     }
-    
-    private func triggerSearchService() {
-        actions.loadData(text: searchBar.activeSearchService.eraseToAnyPublisher())
-    }
-    
 }
 
 

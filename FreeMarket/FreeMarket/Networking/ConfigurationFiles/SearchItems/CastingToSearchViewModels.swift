@@ -43,7 +43,8 @@ class CastingToSearchViewModels: CastingToModels {
                                        attributes: attributes)
             
             itemSearchModel?.append(ItemSearchModel(id: modelProduct ?? String(),
-                category: model.categoryId ?? String()))
+                                                    category: model.categoryId ?? String(),
+                                                    saved: false))
             
             return itemModel
         })

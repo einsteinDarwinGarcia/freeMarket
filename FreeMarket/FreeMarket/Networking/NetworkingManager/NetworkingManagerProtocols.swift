@@ -6,33 +6,40 @@
 //
 
 import Combine
+import CoreData
+
+protocol CoreDataEntity {
+   associatedtype CoreDataEntity
+}
 
 enum Provider {
     case mock(jsonName: String)
     case APIRest
-    case coreData
+    case coreData(coreDataPersistence: Persistence)
 }
 
 protocol NetworkConfiguration {
     associatedtype responseDataType: Decodable
     var provider: Provider { get set }
-    var networkResponse: CurrentValueSubject<responseDataType?, Never> { get set }
 }
 
 protocol CastingToModels {
-    associatedtype T
-    associatedtype BC
-    var itemCasted: CurrentValueSubject<T?, Never> { get set }
-    func casting(rootClass: BC?)
+    associatedtype FinalData
+    associatedtype BaseClass
+    
+    var itemCasted: CurrentValueSubject<FinalData?, Never> { get set }
+    func casting(rootClass: BaseClass?)
 }
 
 protocol NetworkingLayer {
-    associatedtype NC: NetworkConfiguration where CM.BC == NC.responseDataType
-    associatedtype CM: CastingToModels
-    var configurationService: NC { get set }
-    var networkManager: NetworkManager<NC> { get set }
-    var castingModel: CM  { get set }
+//     where CastingModel.BaseClass == NetworkingConfiguration.responseDataType
+    associatedtype NetworkingConfiguration: NetworkConfiguration
+    associatedtype CastingModel: CastingToModels
+    
+    var configurationService: NetworkingConfiguration { get set }
+    var networkManager: NetworkManager<NetworkingConfiguration> { get set }
+    var castingModel: CastingModel  { get set }
     var cancellables: Set<AnyCancellable> { get set}
     
-    func networkingLayerService() -> Future<CM.T?, Never>
+    func networkingLayerService() -> Future<CastingModel.FinalData?, Never>
 }

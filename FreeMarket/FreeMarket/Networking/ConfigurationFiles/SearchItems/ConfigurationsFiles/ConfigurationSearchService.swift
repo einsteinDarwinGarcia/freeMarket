@@ -8,9 +8,6 @@
 import Combine
 
 class ConfigurationSearchService: NetworkConfiguration {
-    
     typealias responseDataType = RootClass
     var provider: Provider = .mock(jsonName: "itemSearch")
-    var networkResponse = CurrentValueSubject<RootClass?, Never>(nil)
-  
 }

@@ -31,10 +31,17 @@ class SearchListResultActions<C: SearchListResultViewCoordinator, D: FluxDispatc
     private var searchedItem: [ItemsModel]?
     private var totalItems: [ItemsModel]?
     
+    var bag: [AnyCancellable] = []
+    
+    lazy var coreDataStore: CoreDataStoring = {
+        return CoreDataStore.default
+    }()
+    
     init(coordinator: C, dispatcher: D, searchedItem: [ItemsModel]?, totalItems: [ItemsModel]?) {
         self.dispatcher = dispatcher
         self.searchedItem = searchedItem
         self.totalItems = totalItems
+        
         super.init(coordinator: coordinator)
     }
     
@@ -50,6 +57,8 @@ class SearchListResultActions<C: SearchListResultViewCoordinator, D: FluxDispatc
              return // TODO: logger
          }
         
+        saveCoreData()
+        
         for (index, _) in searchedItem.enumerated() { searchedItem[index].changeStateImportant() }
         
         let combineItems = searchedItem + totalItems
@@ -60,5 +69,29 @@ class SearchListResultActions<C: SearchListResultViewCoordinator, D: FluxDispatc
     
     func goToSomewhere(isPresented: Binding<Bool>) -> some View {
         return coordinator?.presentSomewhere(isPresented: isPresented)
+    }
+    
+    
+    func saveCoreData() {
+        
+        let action: ActionCoreData = { [coreDataStore, searchedItem] in
+            let item: ItemSearchEntity = coreDataStore.createEntity()
+            item.id = searchedItem?.first?.model
+            item.category = searchedItem?.first?.categoryId
+        }
+        
+        coreDataStore
+            .publicher(save: action)
+            .sink { completion in
+                if case .failure(let error) = completion {
+                    print(error.localizedDescription)
+                }
+            } receiveValue: { success in
+                if success {
+                  print("Saving entities succeeded")
+                }
+            }
+            .store(in: &bag)
+        
     }
 }

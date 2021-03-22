@@ -31,7 +31,7 @@ class ContentViewStore<D: FluxDispatcher, MS: ContentModelStore >: FluxStore whe
                 strongSelf.modelStore.isLoggedOut = value
             case .setItems(let items):
                 guard let items = items else {
-                    return
+                    return // TODO: logger
                 }
                 strongSelf.modelStore.items = items
             }

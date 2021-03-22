@@ -5,7 +5,7 @@
 //  Created by Einstein Darwin Garcia Mendez on 15/03/21.
 //
 
-import Foundation
+import Combine
 
 final class PersistenceManager<T: Decodable>: Switch {
     
@@ -15,8 +15,12 @@ final class PersistenceManager<T: Decodable>: Switch {
         self.persistence = persistenceType
     }
     
-    func getData() -> T? {
+    func getData() -> AnyPublisher<T?, Never> {
         return self.persistence.getData()
+    }
+    
+    func getItems() -> AnyPublisher<[T]?, Never> {
+        return self.persistence.getItems()
     }
     
 }

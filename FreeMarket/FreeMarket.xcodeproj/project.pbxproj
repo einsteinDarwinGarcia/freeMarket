@@ -69,6 +69,14 @@
 		0C47290D2603BD1000EE9FBC /* LineBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C47290C2603BD1000EE9FBC /* LineBar.swift */; };
 		0C4729162603C23D00EE9FBC /* RowListResultImportant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4729152603C23D00EE9FBC /* RowListResultImportant.swift */; };
 		0C47291B2603C2F700EE9FBC /* RowListResultDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C47291A2603C2F700EE9FBC /* RowListResultDefault.swift */; };
+		0C47292B2603FD2700EE9FBC /* CoreDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C47292A2603FD2700EE9FBC /* CoreDataStore.swift */; };
+		0C4729332603FF5500EE9FBC /* CoreDataFetchResultsPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4729322603FF5500EE9FBC /* CoreDataFetchResultsPublisher.swift */; };
+		0C4729382604009D00EE9FBC /* CoreDataSaveModelPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4729372604009D00EE9FBC /* CoreDataSaveModelPublisher.swift */; };
+		0C47293E2604035C00EE9FBC /* FreeMarketCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0C47293C2604035C00EE9FBC /* FreeMarketCoreData.xcdatamodeld */; };
+		0C47294426041FCF00EE9FBC /* CoreDataPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C47294326041FCF00EE9FBC /* CoreDataPersistence.swift */; };
+		0C4729502604FA3400EE9FBC /* ConfigurationSearchEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C47294F2604FA3400EE9FBC /* ConfigurationSearchEntity.swift */; };
+		0C47295F2604FDC400EE9FBC /* CoreDataSearchItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C47295E2604FDC400EE9FBC /* CoreDataSearchItems.swift */; };
+		0C472964260507FF00EE9FBC /* CastingCoreDataToViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C472963260507FF00EE9FBC /* CastingCoreDataToViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -156,6 +164,14 @@
 		0C47290C2603BD1000EE9FBC /* LineBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineBar.swift; sourceTree = "<group>"; };
 		0C4729152603C23D00EE9FBC /* RowListResultImportant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowListResultImportant.swift; sourceTree = "<group>"; };
 		0C47291A2603C2F700EE9FBC /* RowListResultDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RowListResultDefault.swift; sourceTree = "<group>"; };
+		0C47292A2603FD2700EE9FBC /* CoreDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStore.swift; sourceTree = "<group>"; };
+		0C4729322603FF5500EE9FBC /* CoreDataFetchResultsPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataFetchResultsPublisher.swift; sourceTree = "<group>"; };
+		0C4729372604009D00EE9FBC /* CoreDataSaveModelPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataSaveModelPublisher.swift; sourceTree = "<group>"; };
+		0C47293D2604035C00EE9FBC /* FreeMarketCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FreeMarketCoreData.xcdatamodel; sourceTree = "<group>"; };
+		0C47294326041FCF00EE9FBC /* CoreDataPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataPersistence.swift; sourceTree = "<group>"; };
+		0C47294F2604FA3400EE9FBC /* ConfigurationSearchEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationSearchEntity.swift; sourceTree = "<group>"; };
+		0C47295E2604FDC400EE9FBC /* CoreDataSearchItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataSearchItems.swift; sourceTree = "<group>"; };
+		0C472963260507FF00EE9FBC /* CastingCoreDataToViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastingCoreDataToViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -218,6 +234,7 @@
 				0C47276425FFA80800EE9FBC /* Assets.xcassets */,
 				0C47276925FFA80800EE9FBC /* LaunchScreen.storyboard */,
 				0C47276C25FFA80800EE9FBC /* Info.plist */,
+				0C47293C2604035C00EE9FBC /* FreeMarketCoreData.xcdatamodeld */,
 				0C47281A2600099200EE9FBC /* itemSearch.json */,
 				0C47276625FFA80800EE9FBC /* Preview Content */,
 			);
@@ -265,6 +282,7 @@
 		0C47279A25FFABFF00EE9FBC /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				0C4729292603FC7100EE9FBC /* CoreDataPublishers */,
 				0C47279B25FFAC1900EE9FBC /* AssociatedObjects.swift */,
 				0C4727BD25FFB44F00EE9FBC /* Logs.swift */,
 				0C47285B26011A8100EE9FBC /* ViewControllerResolver.swift */,
@@ -333,6 +351,7 @@
 		0C4727F925FFCA0300EE9FBC /* Bridge */ = {
 			isa = PBXGroup;
 			children = (
+				0C47294226041FB500EE9FBC /* CoreData */,
 				0C47280725FFCE5500EE9FBC /* Mock */,
 				0C4727FA25FFCAA700EE9FBC /* Persistence.swift */,
 				0C47280225FFCD6100EE9FBC /* PersistenceManager.swift */,
@@ -351,9 +370,7 @@
 		0C47282326000FC200EE9FBC /* ConfigurationFiles */ = {
 			isa = PBXGroup;
 			children = (
-				0C472824260010C600EE9FBC /* ConfigurationSearchService.swift */,
-				0C4728B926029B6E00EE9FBC /* NetworkingSearchItems.swift */,
-				0C4728852601504600EE9FBC /* CastingToSearchViewModels.swift */,
+				0C47294B2604F8A300EE9FBC /* SearchItems */,
 			);
 			path = ConfigurationFiles;
 			sourceTree = "<group>";
@@ -462,6 +479,45 @@
 				0C4729072603B52400EE9FBC /* RowListResults.swift */,
 			);
 			path = RowListResults;
+			sourceTree = "<group>";
+		};
+		0C4729292603FC7100EE9FBC /* CoreDataPublishers */ = {
+			isa = PBXGroup;
+			children = (
+				0C47292A2603FD2700EE9FBC /* CoreDataStore.swift */,
+				0C4729322603FF5500EE9FBC /* CoreDataFetchResultsPublisher.swift */,
+				0C4729372604009D00EE9FBC /* CoreDataSaveModelPublisher.swift */,
+			);
+			path = CoreDataPublishers;
+			sourceTree = "<group>";
+		};
+		0C47294226041FB500EE9FBC /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				0C47294326041FCF00EE9FBC /* CoreDataPersistence.swift */,
+			);
+			path = CoreData;
+			sourceTree = "<group>";
+		};
+		0C47294B2604F8A300EE9FBC /* SearchItems */ = {
+			isa = PBXGroup;
+			children = (
+				0C4729572604FC8600EE9FBC /* ConfigurationsFiles */,
+				0C4728B926029B6E00EE9FBC /* NetworkingSearchItems.swift */,
+				0C47295E2604FDC400EE9FBC /* CoreDataSearchItems.swift */,
+				0C4728852601504600EE9FBC /* CastingToSearchViewModels.swift */,
+				0C472963260507FF00EE9FBC /* CastingCoreDataToViewModel.swift */,
+			);
+			path = SearchItems;
+			sourceTree = "<group>";
+		};
+		0C4729572604FC8600EE9FBC /* ConfigurationsFiles */ = {
+			isa = PBXGroup;
+			children = (
+				0C47294F2604FA3400EE9FBC /* ConfigurationSearchEntity.swift */,
+				0C472824260010C600EE9FBC /* ConfigurationSearchService.swift */,
+			);
+			path = ConfigurationsFiles;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -614,36 +670,44 @@
 				0C472846260030C400EE9FBC /* StateCountry.swift in Sources */,
 				0C4728E52602D2AB00EE9FBC /* SearchListResultViewCoordinator.swift in Sources */,
 				0C4728AF2602769700EE9FBC /* RemoveDuplicatesElements+Array.swift in Sources */,
+				0C4729332603FF5500EE9FBC /* CoreDataFetchResultsPublisher.swift in Sources */,
+				0C47292B2603FD2700EE9FBC /* CoreDataStore.swift in Sources */,
 				0C47291B2603C2F700EE9FBC /* RowListResultDefault.swift in Sources */,
 				0C47283F260030C400EE9FBC /* Address.swift in Sources */,
 				0C4727D825FFB83800EE9FBC /* FluxBaseActions.swift in Sources */,
 				0C4727C625FFB4C400EE9FBC /* FluxBaseClass.swift in Sources */,
 				0C47280925FFCE6C00EE9FBC /* MockPersistence.swift in Sources */,
 				0C4727BE25FFB44F00EE9FBC /* Logs.swift in Sources */,
+				0C4729502604FA3400EE9FBC /* ConfigurationSearchEntity.swift in Sources */,
 				0C4728E62602D2AB00EE9FBC /* SearchListResultStore.swift in Sources */,
 				0C47286326011EE600EE9FBC /* SearchBar.swift in Sources */,
 				0C4727E025FFBB0500EE9FBC /* ContentActions.swift in Sources */,
 				0C472842260030C400EE9FBC /* RootClass.swift in Sources */,
+				0C47295F2604FDC400EE9FBC /* CoreDataSearchItems.swift in Sources */,
 				0C47279325FFABBC00EE9FBC /* Coordinator.swift in Sources */,
 				0C472841260030C400EE9FBC /* Results.swift in Sources */,
 				0C472848260030C400EE9FBC /* Attribute.swift in Sources */,
 				0C4728862601504600EE9FBC /* CastingToSearchViewModels.swift in Sources */,
 				0C47279C25FFAC1900EE9FBC /* AssociatedObjects.swift in Sources */,
+				0C472964260507FF00EE9FBC /* CastingCoreDataToViewModel.swift in Sources */,
 				0C4728162600087F00EE9FBC /* NetworkManager.swift in Sources */,
 				0C47289326018D0B00EE9FBC /* RowSearchBar.swift in Sources */,
 				0C47290D2603BD1000EE9FBC /* LineBar.swift in Sources */,
 				0C472845260030C400EE9FBC /* SellerAddress.swift in Sources */,
 				0C472825260010C600EE9FBC /* ConfigurationSearchService.swift in Sources */,
+				0C4729382604009D00EE9FBC /* CoreDataSaveModelPublisher.swift in Sources */,
 				0C4728BA26029B6E00EE9FBC /* NetworkingSearchItems.swift in Sources */,
 				0C47280325FFCD6100EE9FBC /* PersistenceManager.swift in Sources */,
 				0C4727E125FFBB0500EE9FBC /* ContentViewCoordinator.swift in Sources */,
 				0C4728F02602D2C500EE9FBC /* SearchListResultView.swift in Sources */,
 				0C472843260030C400EE9FBC /* Seller.swift in Sources */,
+				0C47293E2604035C00EE9FBC /* FreeMarketCoreData.xcdatamodeld in Sources */,
 				0C47275F25FFA7FE00EE9FBC /* AppDelegate.swift in Sources */,
 				0C47283D260030C400EE9FBC /* Country.swift in Sources */,
 				0C4729162603C23D00EE9FBC /* RowListResultImportant.swift in Sources */,
 				0C4727D325FFB64E00EE9FBC /* FluxBaseStore.swift in Sources */,
 				0C4728E42602D2AB00EE9FBC /* SearchListResultActions.swift in Sources */,
+				0C47294426041FCF00EE9FBC /* CoreDataPersistence.swift in Sources */,
 				0C472847260030C400EE9FBC /* Paging.swift in Sources */,
 				0C47276125FFA7FE00EE9FBC /* SceneDelegate.swift in Sources */,
 				0C4727E225FFBB0500EE9FBC /* ContentStore.swift in Sources */,
@@ -981,6 +1045,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		0C47293C2604035C00EE9FBC /* FreeMarketCoreData.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				0C47293D2604035C00EE9FBC /* FreeMarketCoreData.xcdatamodel */,
+			);
+			currentVersion = 0C47293D2604035C00EE9FBC /* FreeMarketCoreData.xcdatamodel */;
+			path = FreeMarketCoreData.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 0C47275325FFA7FE00EE9FBC /* Project object */;
 }

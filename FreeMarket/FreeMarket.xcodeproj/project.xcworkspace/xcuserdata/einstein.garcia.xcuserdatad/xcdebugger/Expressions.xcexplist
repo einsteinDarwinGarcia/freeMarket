@@ -3,7 +3,12 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "closure #1 in Array&lt;A&gt;.removingDuplicates():RemoveDuplicatesElements+Array.swift">
+         contextName = "Array&lt;A&gt;.removingDuplicates():RemoveDuplicatesElements+Array.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "Element">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "closure #2 in ContentActions.loadData():ContentActions.swift">
@@ -14,16 +19,30 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "NavigationLinkWrapper.body.getter:Navigations+View.swift">
+         contextName = "closure #1 in Array&lt;A&gt;.removingDuplicates():RemoveDuplicatesElements+Array.swift">
       </ContextState>
       <ContextState
          contextName = "CastingModels.casting(rootClass:):CastingModels.swift">
       </ContextState>
       <ContextState
-         contextName = "Array&lt;A&gt;.removingDuplicates():RemoveDuplicatesElements+Array.swift">
+         contextName = "NavigationLinkWrapper.body.getter:Navigations+View.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #2 in CoreDataPersistence.searchCoreData():CoreDataPersistence.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ManagedParser.convertToArray(managedObjects:parentNode:):CoreDataPersistence.swift">
          <PersistentStrings>
             <PersistentString
-               value = "Element">
+               value = "self.parsedObjs">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #2 in closure #1 in CoreDataPersistence.getData&lt;A&gt;():CoreDataPersistence.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "T">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -37,13 +56,24 @@
          contextName = "FreeMarketTests.testExample():FreeMarketTests.swift">
       </ContextState>
       <ContextState
+         contextName = "CoreDataPersistence.convertArray&lt;A, B&gt;(array:):CoreDataPersistence.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #2 in ContentActions.searchCoreData():ContentActions.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "entity">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "NetworkingSearchItemTest.testNetworkingLayerService():NetworkingSearchItemTest.swift">
          <PersistentStrings>
             <PersistentString
-               value = "removeDuplicates">
+               value = "result?.itemSearch">
             </PersistentString>
             <PersistentString
-               value = "result?.itemSearch">
+               value = "removeDuplicates">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

@@ -13,6 +13,7 @@ class SearchBar: NSObject, ObservableObject {
     
     @Published var text: String = ""
     @Published var beginEditing: Bool = false
+    @Published var resetSearching: Bool = false
     var activeSearchService = CurrentValueSubject<String, Never>("")
     let searchController: UISearchController = UISearchController(searchResultsController: nil)
     
@@ -26,6 +27,7 @@ class SearchBar: NSObject, ObservableObject {
 
 extension SearchBar: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
+        self.resetSearching = searchController.searchBar.text?.isEmpty ?? false
         if let searchBarText = searchController.searchBar.text {
             self.text = searchBarText
             if SearchBarValidations.isValidateTextToActiveSearchService(text: self.text) {
@@ -43,6 +45,7 @@ extension SearchBar: UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         self.beginEditing = false
+        self.resetSearching = true
     }
 }
 

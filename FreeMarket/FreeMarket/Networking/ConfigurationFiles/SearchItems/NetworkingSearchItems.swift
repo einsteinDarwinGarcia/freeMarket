@@ -9,6 +9,7 @@ import Combine
 
 final class NetworkingSearchItems: NetworkingLayer {
     
+    
     var configurationService: ConfigurationSearchService
     var networkManager: NetworkManager<ConfigurationSearchService>
     var castingModel: CastingToSearchViewModels
@@ -22,18 +23,14 @@ final class NetworkingSearchItems: NetworkingLayer {
     }
     
     func networkingLayerService() -> Future<SearchingModel?, Never> {
-        self.networkManager.getData()
-    
-        return Future<SearchingModel?, Never> { [castingModel, configurationService] promise in
-            
-            configurationService.networkResponse.sink { [castingModel] (response) in
+        return Future<SearchingModel?, Never> { [castingModel] promise in
+            self.networkManager.getData().sink { [castingModel] (response) in
                 castingModel.casting(rootClass: response)
             }.store(in: &self.cancellables)
             
             castingModel.itemCasted.sink { (items) in
                 return promise(.success(items))
             }.store(in: &self.cancellables)
-            
         }
     }
     

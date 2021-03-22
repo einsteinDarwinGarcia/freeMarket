@@ -12,11 +12,13 @@ import Combine
 class NetworkingSearchItemTest: XCTestCase {
     
     var sut: NetworkingSearchItems!
+    var ay: CoreDataPersistence<ItemSearchEntity>!
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
         try super.setUpWithError()
         sut = NetworkingSearchItems()
+        ay = CoreDataPersistence()
     }
 
     override func tearDownWithError() throws {
@@ -40,6 +42,11 @@ class NetworkingSearchItemTest: XCTestCase {
         }
         
         XCTAssertLessThan( removeDuplicates.filter { $0.id == "iPhone 11"}.count, 2)
+        
+    }
+    
+    func testAY() throws {
+        ay.searchCoreData()
         
     }
 

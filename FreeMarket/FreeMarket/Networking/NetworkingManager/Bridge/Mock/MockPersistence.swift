@@ -8,8 +8,6 @@
 import Foundation
 import Combine
 
-
-
 final class MockPersistence: Persistence {
     
     var jsonName: String
@@ -18,8 +16,10 @@ final class MockPersistence: Persistence {
         self.jsonName = name
     }
     
-    func getData<T: Decodable>() -> T? {
-        return self.jsonFetch()
+    func getData<T: Decodable>() -> AnyPublisher<T?, Never> {
+        return Future<T?, Never> { promise in
+            return promise(.success(self.jsonFetch())) // TODO: logger
+        }.eraseToAnyPublisher()
     }
     
     func jsonFetch<T: Decodable>() -> T? {
@@ -31,6 +31,14 @@ final class MockPersistence: Persistence {
             return nil
         }
         
+        return JsonFetch.jsonFetch(data: data)
+        
+    }
+    
+}
+
+struct JsonFetch {
+    static func jsonFetch<T: Decodable>(data: Data) -> T? {
         do {
           let decoder = JSONDecoder()
             decoder.dateDecodingStrategy = .iso8601
@@ -52,7 +60,5 @@ final class MockPersistence: Persistence {
             print("error: ", error)
             return nil
         }
-        
     }
-    
 }
