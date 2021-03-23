@@ -8,7 +8,7 @@
 import Foundation
 
 struct ItemsModel: Identifiable, Hashable {
-    var id: UUID = UUID()
+    var id: String
     var siteId: String?
     var categoryId: String?
     var title: String

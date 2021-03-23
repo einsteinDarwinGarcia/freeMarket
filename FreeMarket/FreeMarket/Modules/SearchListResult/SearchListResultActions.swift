@@ -12,7 +12,7 @@ import Combine
 protocol SearchListResultActionsProtocol: ViewActionsProtocol {
     associatedtype V: View
     func combineItems()
-    func goToSomewhere(isPresented: Binding<Bool>) -> V
+    func goToItemDetail(isPresented: Binding<Bool>, item: ItemsModel) -> V
 }
 
 enum SearchListResultListActions: ListActions {
@@ -67,8 +67,8 @@ class SearchListResultActions<C: SearchListResultViewCoordinator, D: FluxDispatc
         self.dispatcher.dispatch(.loadItems(removeSearched))
     }
     
-    func goToSomewhere(isPresented: Binding<Bool>) -> some View {
-        return coordinator?.presentSomewhere(isPresented: isPresented)
+    func goToItemDetail(isPresented: Binding<Bool>, item: ItemsModel) -> some View {
+        return coordinator?.presentDetailItem(isPresented: isPresented, itemDetail: item)
     }
     
     

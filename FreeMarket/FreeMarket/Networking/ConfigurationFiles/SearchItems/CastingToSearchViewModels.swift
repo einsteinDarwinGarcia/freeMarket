@@ -31,7 +31,8 @@ class CastingToSearchViewModels: CastingToModels {
             })
             
             
-            let itemModel = ItemsModel(siteId: model.siteId,
+            let itemModel = ItemsModel(id:model.id ?? "",
+                                       siteId: model.siteId,
                                        categoryId: model.categoryId,
                                        title: model.title ?? String(),
                                        price: model.price,

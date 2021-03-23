@@ -64,7 +64,7 @@ class ContentActions<C: ContentViewCoordinator, D: FluxDispatcher>:  Action<C>, 
         
         self.searchBar?.activeSearchService.sink(receiveValue: { [weak self] searchingText in
             if SearchBarValidations.isValidateTextToActiveSearchService(text: searchingText) {
-                self?.networkingAction()
+                self?.networkingAction(text: searchingText)
             }
         }).store(in: &cancellables)
         
@@ -74,16 +74,11 @@ class ContentActions<C: ContentViewCoordinator, D: FluxDispatcher>:  Action<C>, 
         
     }
     
-    func loadData(text: AnyPublisher<String, Never>) {
-        searchSavedItems()
-        text.sink { [weak self] searchingText in
-            if SearchBarValidations.isValidateTextToActiveSearchService(text: searchingText) {
-                self?.networkingAction()
-            }
-        }.store(in: &cancellables)
-    }
-    
     func presentListResult(isPresented: Binding<Bool>, itemSelected: ItemSearchModel) -> some View {
+       /* if self.totalItemsSearched == nil {
+            self.networkingAction(text: itemSelected.category) // TODO: waiting to make a search
+        }
+        */
         let itemSearched = self.totalItemsSearched?.filter { $0.model == itemSelected.id }
         return coordinator?.presentListResult(isPresented: isPresented, itemSelected: itemSearched, totalItems: self.totalItemsSearched)
     }
@@ -109,7 +104,7 @@ extension ContentActions {
         cancellables = []
     }
     
-    func networkingAction() {
+    func networkingAction(text: String) {
         self.networkingLayer.networkingLayerService().sink(receiveValue: { (items) in
             
             self.totalItemsSearched = items?.items

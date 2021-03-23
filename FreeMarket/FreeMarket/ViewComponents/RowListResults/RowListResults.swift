@@ -21,7 +21,7 @@ struct RowListResults: View {
 }
 
 struct RowListResults_Previews: PreviewProvider {
-    static let item = ItemsModel(id: UUID(),
+    static let item = ItemsModel(id: "asdffasd",
                           siteId: "CO",
                           categoryId: "8758",
                           title: "iPhone 11 128 Gb Verde ",
@@ -34,7 +34,7 @@ struct RowListResults_Previews: PreviewProvider {
                           attributes: nil,
                           important: true)
     
-    static let item2 = ItemsModel(id: UUID(),
+    static let item2 = ItemsModel(id: "wertwert",
                           siteId: "CO",
                           categoryId: "8758",
                           title: "iPhone 11 128 Gb Verde iPhone 11 128 Gb Verde iPhone 11 128 Gb Verde iPhone 11 128 Gb Verde ",

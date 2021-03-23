@@ -23,7 +23,13 @@ struct SearchListResultView<A: SearchListResultActionsProtocol>: View where A.M 
     var body: some View {
         VStack {
             ListView(items: store.searchedItem) { item  in
-               RowListResults(item: item)
+                
+                NavigationButton(contentView: RowListResults(item: item),
+                                 navigationView: { isPresented in
+                                    self.actions.goToItemDetail(isPresented: isPresented, item: item)
+                })
+                
+               
             }
         }.onAppear{
             self.actions.combineItems()
