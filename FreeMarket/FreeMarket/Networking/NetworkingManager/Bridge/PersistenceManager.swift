@@ -15,8 +15,8 @@ final class PersistenceManager<T: Decodable>: Switch {
         self.persistence = persistenceType
     }
     
-    func getData() -> AnyPublisher<T?, Never> {
-        return self.persistence.getData()
+    func getData(text: String) -> AnyPublisher<T?, Never> {
+        return self.persistence.getData(text: text)
     }
     
     func getItems() -> AnyPublisher<[T]?, Never> {

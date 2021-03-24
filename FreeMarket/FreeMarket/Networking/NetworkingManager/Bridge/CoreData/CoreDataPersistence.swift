@@ -16,7 +16,7 @@ final class CoreDataPersistence<Entity: NSManagedObject>: Persistence {
     
     var bag: [AnyCancellable] = []
     
-    func getData<T : Decodable>() -> AnyPublisher<T?, Never>  {
+    func getData<T : Decodable>(text: String) -> AnyPublisher<T?, Never>  {
         return Future<T?,Never> { promise in
             
         }.eraseToAnyPublisher()

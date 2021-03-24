@@ -11,7 +11,7 @@ struct ItemDetailModel: Hashable, Identifiable {
     let id: String
     let condition: String?
     let title: String?
-    let photos: [String]?
+    let photos: [String]
     let attributes: [AttributesItem]
     let price: Double?
     let mercadoPago: Bool?

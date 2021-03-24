@@ -8,6 +8,7 @@
 import Foundation
 
 class ConfigurationDetailItemService: NetworkConfiguration {
-    typealias responseDataType = DetailRootClass
-    var provider: Provider = .mock(jsonName: "itemDetail")
+    typealias responseDataType = [DetailRootClass]
+//    var provider: Provider = .mock(jsonName: "itemDetail")
+    var provider: Provider = .APIRest(serviceItem: .detailItems)
 }

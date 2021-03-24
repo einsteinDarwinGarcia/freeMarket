@@ -14,11 +14,13 @@ struct RowListResultDefault: View {
         VStack {
             HStack(alignment:.top) {
                 VStack {
-                    
-                }
-                .frame(width: 100, height: 120, alignment: .center)
-                .padding()
-                .background(Color(UIColor.systemGray5))
+                    AsyncImage(url: validateImage(),
+                               placeholder: { Text("Loading ...") },
+                               image: { Image(uiImage: $0).resizable() }
+                               )
+                    .aspectRatio(contentMode: .fit)
+                    .frame(idealHeight: 100 / 2 * 3)
+                }.frame(width: 150)
                 
                 VStack(alignment: .leading) {
                     Text(item?.title ?? "Product Title")
@@ -49,6 +51,11 @@ struct RowListResultDefault: View {
                 .padding(.trailing, 20)
                 .padding(.bottom, 0)
         }
+    }
+    
+    func validateImage() -> URL {
+        guard let thumbnail = item?.thumbnail, let url = URL(string: thumbnail) else { return URL(string: "")! }
+        return url
     }
 }
 

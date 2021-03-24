@@ -16,7 +16,7 @@ final class MockPersistence: Persistence {
         self.jsonName = name
     }
     
-    func getData<T: Decodable>() -> AnyPublisher<T?, Never> {
+    func getData<T: Decodable>(text: String) -> AnyPublisher<T?, Never> {
         return Future<T?, Never> { promise in
             return promise(.success(self.jsonFetch())) // TODO: logger
         }.eraseToAnyPublisher()

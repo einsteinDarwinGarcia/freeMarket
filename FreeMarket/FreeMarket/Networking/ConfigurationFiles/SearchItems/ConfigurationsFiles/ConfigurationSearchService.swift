@@ -9,5 +9,6 @@ import Combine
 
 class ConfigurationSearchService: NetworkConfiguration {
     typealias responseDataType = RootClass
-    var provider: Provider = .mock(jsonName: "itemSearch")
+//    var provider: Provider = .mock(jsonName: "itemSearch")
+    var provider: Provider = .APIRest(serviceItem: .searchItems)
 }

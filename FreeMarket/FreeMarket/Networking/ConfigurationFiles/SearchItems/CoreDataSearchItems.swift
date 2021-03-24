@@ -21,7 +21,7 @@ final class CoreDataSearchItem: NetworkingLayer {
         cancellables = []
     }
     
-    func networkingLayerService() -> Future<CastingModel.FinalData?, Never> {
+    func networkingLayerService(text: String) -> Future<CastingModel.FinalData?, Never> {
         return Future<CastingModel.FinalData?, Never> { promise in
             self.networkManager.getCoreDataResult().sink { value in
                 return promise(.success(value))

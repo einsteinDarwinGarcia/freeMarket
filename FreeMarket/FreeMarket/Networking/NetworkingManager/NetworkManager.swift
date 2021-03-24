@@ -9,7 +9,7 @@ import Combine
 
 protocol NetworkManagerLayer {
     associatedtype Configuration:NetworkConfiguration
-    func getData() -> AnyPublisher<Configuration.responseDataType?, Never>
+    func getData(text: String) -> AnyPublisher<Configuration.responseDataType?, Never>
     func getCoreDataResult() -> AnyPublisher<[Configuration.responseDataType]?, Never>
 }
 
@@ -25,18 +25,18 @@ class NetworkManager<Configuration: NetworkConfiguration>: NetworkManagerLayer {
         switch self.configuration.provider {
         case .mock(let name):
             self.persistenceBridge = PersistenceManager<Configuration.responseDataType>(persistenceType: MockPersistence(name: name))
-        case .APIRest:
-            break
+        case .APIRest(let serviceItem):
+            self.persistenceBridge = PersistenceManager<Configuration.responseDataType>(persistenceType: APIRestPersistence(serviceType: serviceItem))
         case .coreData(let coreDataPersistence):
             self.persistenceBridge = PersistenceManager<Configuration.responseDataType>(persistenceType: coreDataPersistence)
         }
     }
     
-    func getData() -> response {
+    func getData(text: String) -> response {
         guard let persistence = self.persistenceBridge else {
             return errorInitializedPersistence()
         }
-        return persistence.getData()
+        return persistence.getData(text: text)
     }
     
     func getCoreDataResult() -> AnyPublisher<[Configuration.responseDataType]?, Never> {

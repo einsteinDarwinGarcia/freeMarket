@@ -54,8 +54,7 @@ extension ItemDetailActions {
     }
     
     func loadData() {
-        let id = self.itemDetail.id
-        self.networkingLayer.networkingLayerService().sink { [dispatcher] itemDetailModel in
+        self.networkingLayer.networkingLayerService(text: self.itemDetail.id).sink { [dispatcher] itemDetailModel in
             guard let item = itemDetailModel else {
                 return // TODO: logger
             }

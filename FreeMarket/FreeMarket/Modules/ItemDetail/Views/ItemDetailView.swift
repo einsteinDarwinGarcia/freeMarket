@@ -23,25 +23,28 @@ struct ItemDetailView<A: ItemDetailActionsProtocol>: View where A.M == ItemDetai
     var body: some View {
         
         ZStack(alignment: .top) {
-            VStack(alignment:.leading) {
-                Text(store.itemDetail.condition ?? String())
-                    .font(.caption)
-                    .padding(.leading, 25)
-                Text(store.itemDetail.title ?? String())
-                    .font(.title3)
-                    .padding(.leading, 25)
-                Carousel()
-                AttributesSelectView()
-                Text("19900000").font(.largeTitle)
-                    .padding(.leading, 25)
-                
-                VStack(alignment: .leading) {
-                    RowExtraInfo(image: "creditcard", title: "Paga con Mercado Pago")
-                    RowExtraInfo(image: "server.rack", title: "Cantidad \(store.itemDetail.stock ?? 0)")
-                    RowExtraInfo(image: "rosette", title: store.itemDetail.warranty ?? String())
-                }
-               
-            }.padding(.top, 150)
+            ScrollView {
+                VStack(alignment:.leading) {
+                    Text(store.itemDetail.condition ?? String())
+                        .font(.caption)
+                        .padding(.leading, 25)
+                    Text(store.itemDetail.title ?? String())
+                        .font(.title3)
+                        .padding(.leading, 25)
+                    Carousel(images: store.itemDetail.photos)
+                    AttributesSelectView()
+                    Text(String(store.itemDetail.price ?? 0.0)).font(.largeTitle)
+                        .padding(.leading, 25)
+                    
+                    VStack(alignment: .leading) {
+                        RowExtraInfo(image: "creditcard", title: "Paga con Mercado Pago")
+                        RowExtraInfo(image: "server.rack", title: "Cantidad \(store.itemDetail.stock ?? 0)")
+                        RowExtraInfo(image: "rosette", title: store.itemDetail.warranty ?? String())
+                    }
+                    
+                }.padding(.top, 100)
+                .padding(.bottom, 200)
+            }
             
             SlideOverCard {
                 AttributesDetail(attributes: store.itemDetail.attributes)

@@ -15,12 +15,16 @@ struct RowListResultImportant: View {
         VStack {
             HStack(alignment:.top) {
                 VStack {
-                    
+                    AsyncImage(url: validateImage(),
+                               placeholder: { Text("Loading ...") },
+                               image: { Image(uiImage: $0).resizable() }
+                               )
+                    .aspectRatio(contentMode: .fit)
+                    .frame(idealHeight: 100 / 2 * 3)
                 }
-                .frame(width: 100, height: 120, alignment: .center)
                 .padding()
-                .background(Color(UIColor.systemGray5))
-                
+                .frame(width: 150)
+                 
                 VStack(alignment: .leading) {
                     Text(item?.title ?? "Product Title ")
                         .font(.subheadline)
@@ -43,10 +47,14 @@ struct RowListResultImportant: View {
             }
             .frame(height:120 ,alignment: .center)
             .padding()
-            .background(Color(UIColor.systemGray6).shadow(radius: 2))
+            .background(Color(UIColor.white).shadow(radius: 2))
             
         }
-        
+    }
+    
+    func validateImage() -> URL {
+        guard let thumbnail = item?.thumbnail, let url = URL(string: thumbnail) else { return URL(string: "")! }
+        return url
     }
 }
 

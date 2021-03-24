@@ -107,6 +107,12 @@
 		0C4729EC260959E700EE9FBC /* NetworkingDetaiIItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4729EB260959E700EE9FBC /* NetworkingDetaiIItem.swift */; };
 		0C4729F526095A6F00EE9FBC /* ConfigurationDetailItemService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4729F426095A6F00EE9FBC /* ConfigurationDetailItemService.swift */; };
 		0C472A0026095BB600EE9FBC /* CastingToIItemDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4729FF26095BB600EE9FBC /* CastingToIItemDetailModel.swift */; };
+		0C472A0F26098DAE00EE9FBC /* APIRestPersistence.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C472A0E26098DAE00EE9FBC /* APIRestPersistence.swift */; };
+		0C472A1726098EA200EE9FBC /* APIRestLayerImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C472A1626098EA200EE9FBC /* APIRestLayerImplementation.swift */; };
+		0C472A1E260ADA8600EE9FBC /* AsyncImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C472A1D260ADA8600EE9FBC /* AsyncImage.swift */; };
+		0C472A26260ADB0700EE9FBC /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C472A25260ADB0700EE9FBC /* ImageCache.swift */; };
+		0C472A2B260ADB5C00EE9FBC /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C472A2A260ADB5C00EE9FBC /* ImageLoader.swift */; };
+		0C472A30260ADBAF00EE9FBC /* EnvironmentValues+ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C472A2F260ADBAF00EE9FBC /* EnvironmentValues+ImageCache.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -232,6 +238,12 @@
 		0C4729EB260959E700EE9FBC /* NetworkingDetaiIItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingDetaiIItem.swift; sourceTree = "<group>"; };
 		0C4729F426095A6F00EE9FBC /* ConfigurationDetailItemService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationDetailItemService.swift; sourceTree = "<group>"; };
 		0C4729FF26095BB600EE9FBC /* CastingToIItemDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastingToIItemDetailModel.swift; sourceTree = "<group>"; };
+		0C472A0E26098DAE00EE9FBC /* APIRestPersistence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRestPersistence.swift; sourceTree = "<group>"; };
+		0C472A1626098EA200EE9FBC /* APIRestLayerImplementation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRestLayerImplementation.swift; sourceTree = "<group>"; };
+		0C472A1D260ADA8600EE9FBC /* AsyncImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncImage.swift; sourceTree = "<group>"; };
+		0C472A25260ADB0700EE9FBC /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
+		0C472A2A260ADB5C00EE9FBC /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
+		0C472A2F260ADBAF00EE9FBC /* EnvironmentValues+ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EnvironmentValues+ImageCache.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -349,6 +361,7 @@
 				0C47285B26011A8100EE9FBC /* ViewControllerResolver.swift */,
 				0C4728AE2602769700EE9FBC /* RemoveDuplicatesElements+Array.swift */,
 				0C4728DA2602CC8D00EE9FBC /* Navigations+View.swift */,
+				0C472A2F260ADBAF00EE9FBC /* EnvironmentValues+ImageCache.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -414,6 +427,7 @@
 		0C4727F925FFCA0300EE9FBC /* Bridge */ = {
 			isa = PBXGroup;
 			children = (
+				0C472A0D26098D6E00EE9FBC /* APIRest */,
 				0C47294226041FB500EE9FBC /* CoreData */,
 				0C47280725FFCE5500EE9FBC /* Mock */,
 				0C4727FA25FFCAA700EE9FBC /* Persistence.swift */,
@@ -461,6 +475,7 @@
 		0C47286026011B2900EE9FBC /* ViewComponents */ = {
 			isa = PBXGroup;
 			children = (
+				0C472A1C260ADA5000EE9FBC /* ImagesAsync */,
 				0C4729B226094B4500EE9FBC /* SlideOver */,
 				0C47298C26093B4800EE9FBC /* Carousel */,
 				0C4728CE2602C38500EE9FBC /* ListView */,
@@ -682,6 +697,25 @@
 			path = ConfigurationFiles;
 			sourceTree = "<group>";
 		};
+		0C472A0D26098D6E00EE9FBC /* APIRest */ = {
+			isa = PBXGroup;
+			children = (
+				0C472A0E26098DAE00EE9FBC /* APIRestPersistence.swift */,
+				0C472A1626098EA200EE9FBC /* APIRestLayerImplementation.swift */,
+			);
+			path = APIRest;
+			sourceTree = "<group>";
+		};
+		0C472A1C260ADA5000EE9FBC /* ImagesAsync */ = {
+			isa = PBXGroup;
+			children = (
+				0C472A1D260ADA8600EE9FBC /* AsyncImage.swift */,
+				0C472A25260ADB0700EE9FBC /* ImageCache.swift */,
+				0C472A2A260ADB5C00EE9FBC /* ImageLoader.swift */,
+			);
+			path = ImagesAsync;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -834,11 +868,14 @@
 				0C4728D02602C3DC00EE9FBC /* ListView.swift in Sources */,
 				0C47285C26011A8100EE9FBC /* ViewControllerResolver.swift in Sources */,
 				0C472840260030C400EE9FBC /* Installment.swift in Sources */,
+				0C472A1E260ADA8600EE9FBC /* AsyncImage.swift in Sources */,
 				0C472846260030C400EE9FBC /* StateCountry.swift in Sources */,
+				0C472A1726098EA200EE9FBC /* APIRestLayerImplementation.swift in Sources */,
 				0C4728E52602D2AB00EE9FBC /* SearchListResultViewCoordinator.swift in Sources */,
 				0C4728AF2602769700EE9FBC /* RemoveDuplicatesElements+Array.swift in Sources */,
 				0C4729332603FF5500EE9FBC /* CoreDataFetchResultsPublisher.swift in Sources */,
 				0C4729D32609518D00EE9FBC /* DetailState.swift in Sources */,
+				0C472A0F26098DAE00EE9FBC /* APIRestPersistence.swift in Sources */,
 				0C47292B2603FD2700EE9FBC /* CoreDataStore.swift in Sources */,
 				0C47291B2603C2F700EE9FBC /* RowListResultDefault.swift in Sources */,
 				0C47283F260030C400EE9FBC /* Address.swift in Sources */,
@@ -859,10 +896,12 @@
 				0C472842260030C400EE9FBC /* RootClass.swift in Sources */,
 				0C47295F2604FDC400EE9FBC /* CoreDataSearchItems.swift in Sources */,
 				0C47279325FFABBC00EE9FBC /* Coordinator.swift in Sources */,
+				0C472A2B260ADB5C00EE9FBC /* ImageLoader.swift in Sources */,
 				0C47298E26093B6300EE9FBC /* Carousel.swift in Sources */,
 				0C47297326092D4100EE9FBC /* ItemDetailModel.swift in Sources */,
 				0C472841260030C400EE9FBC /* Results.swift in Sources */,
 				0C4729882609360000EE9FBC /* ItemDetailView.swift in Sources */,
+				0C472A30260ADBAF00EE9FBC /* EnvironmentValues+ImageCache.swift in Sources */,
 				0C472848260030C400EE9FBC /* Attribute.swift in Sources */,
 				0C4728862601504600EE9FBC /* CastingToSearchViewModels.swift in Sources */,
 				0C4729CD2609518D00EE9FBC /* DetailSaleTerm.swift in Sources */,
@@ -876,6 +915,7 @@
 				0C472845260030C400EE9FBC /* SellerAddress.swift in Sources */,
 				0C472825260010C600EE9FBC /* ConfigurationSearchService.swift in Sources */,
 				0C4729382604009D00EE9FBC /* CoreDataSaveModelPublisher.swift in Sources */,
+				0C472A26260ADB0700EE9FBC /* ImageCache.swift in Sources */,
 				0C4728BA26029B6E00EE9FBC /* NetworkingSearchItems.swift in Sources */,
 				0C4729A9260946ED00EE9FBC /* AttributesDetail.swift in Sources */,
 				0C47280325FFCD6100EE9FBC /* PersistenceManager.swift in Sources */,

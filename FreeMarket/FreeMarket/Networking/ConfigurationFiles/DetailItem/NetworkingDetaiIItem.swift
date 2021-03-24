@@ -8,7 +8,7 @@
 import Combine
 
 final class NetworkingDetailItems: NetworkingLayer {
- 
+    
     var configurationService: ConfigurationDetailItemService
     var networkManager: NetworkManager<ConfigurationDetailItemService>
     var castingModel: CastingToItemDetailModels
@@ -21,15 +21,16 @@ final class NetworkingDetailItems: NetworkingLayer {
         cancellables = []
     }
     
-    func networkingLayerService() -> Future<ItemDetailModel?, Never> {
-        return Future<ItemDetailModel?, Never> { [castingModel] promise in
-            self.networkManager.getData().sink {  (response) in
-                castingModel.casting(rootClass: response)
-            }.store(in: &self.cancellables)
-            
-            castingModel.itemCasted.sink { (items) in
-                return promise(.success(items))
-            }.store(in: &self.cancellables)
+    func networkingLayerService(text: String) -> Future<ItemDetailModel?, Never> {
+        return Future<ItemDetailModel?, Never> { [weak self, castingModel] promise in
+            guard let strongSelf = self else {
+                return promise(.success(nil)) // TODO: Logger manage error
+            }
+            strongSelf.networkManager.getData(text:text).sink {  (response) in
+                castingModel.casting(rootClass: response?.first).sink { value in
+                    return promise(.success(value))
+                }.store(in: &strongSelf.cancellables)
+            }.store(in: &strongSelf.cancellables)
         }
     }
     

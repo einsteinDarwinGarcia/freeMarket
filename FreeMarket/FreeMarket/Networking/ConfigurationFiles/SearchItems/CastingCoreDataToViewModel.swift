@@ -12,10 +12,10 @@ class CastingCoreDataToViewModel: CastingToModels {
     typealias FinalData = [ItemSearchModel]
     typealias BaseClass = [ItemSearchModel]
     
-    var itemCasted = CurrentValueSubject<FinalData?, Never>(nil)
-    
-    func casting(rootClass: BaseClass?) {
-        itemCasted.value = rootClass
+    func casting(rootClass: BaseClass?) -> Future<FinalData?, Never> {
+        return Future<FinalData?, Never> { promise in
+            return promise(.success(rootClass))
+        }
     }
     
 }

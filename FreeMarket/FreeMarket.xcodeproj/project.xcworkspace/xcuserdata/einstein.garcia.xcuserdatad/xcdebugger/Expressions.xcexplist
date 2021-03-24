@@ -3,14 +3,6 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "Array&lt;A&gt;.removingDuplicates():RemoveDuplicatesElements+Array.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "Element">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
          contextName = "closure #2 in ContentActions.loadData():ContentActions.swift">
          <PersistentStrings>
             <PersistentString
@@ -19,44 +11,7 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #1 in Array&lt;A&gt;.removingDuplicates():RemoveDuplicatesElements+Array.swift">
-      </ContextState>
-      <ContextState
          contextName = "CastingModels.casting(rootClass:):CastingModels.swift">
-      </ContextState>
-      <ContextState
-         contextName = "NavigationLinkWrapper.body.getter:Navigations+View.swift">
-      </ContextState>
-      <ContextState
-         contextName = "closure #2 in CoreDataPersistence.searchCoreData():CoreDataPersistence.swift">
-      </ContextState>
-      <ContextState
-         contextName = "ManagedParser.convertToArray(managedObjects:parentNode:):CoreDataPersistence.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "self.parsedObjs">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #2 in closure #1 in CoreDataPersistence.getData&lt;A&gt;():CoreDataPersistence.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "T">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "CastingModelsTest.testCasting():CastingModelsTest.swift">
-      </ContextState>
-      <ContextState
-         contextName = "NetworkManager.getData():NetworkManager.swift">
-      </ContextState>
-      <ContextState
-         contextName = "FreeMarketTests.testExample():FreeMarketTests.swift">
-      </ContextState>
-      <ContextState
-         contextName = "CoreDataPersistence.convertArray&lt;A, B&gt;(array:):CoreDataPersistence.swift">
       </ContextState>
       <ContextState
          contextName = "closure #2 in ContentActions.searchCoreData():ContentActions.swift">
@@ -70,18 +25,44 @@
          contextName = "NetworkingSearchItemTest.testNetworkingLayerService():NetworkingSearchItemTest.swift">
          <PersistentStrings>
             <PersistentString
-               value = "result?.itemSearch">
-            </PersistentString>
-            <PersistentString
                value = "removeDuplicates">
             </PersistentString>
+            <PersistentString
+               value = "result?.itemSearch">
+            </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "NetworkManager.getData():NetworkManager.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in SearchListResultActions.combineItems():SearchListResultActions.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #2 in closure #1 in NetworkingSearchItems.networkingLayerService(text:):NetworkingSearchItems.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in Array&lt;A&gt;.removingDuplicates():RemoveDuplicatesElements+Array.swift">
+      </ContextState>
+      <ContextState
+         contextName = "NavigationLinkWrapper.body.getter:Navigations+View.swift">
       </ContextState>
       <ContextState
          contextName = "closure #1 in CastingModels.casting(rootClass:):CastingModels.swift">
          <PersistentStrings>
             <PersistentString
                value = "rootClass">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #1 in closure #1 in NetworkingSearchItems.networkingLayerService(text:):NetworkingSearchItems.swift">
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #1 in SearchListResultActions.combineItems():SearchListResultActions.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "visaje">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -97,21 +78,49 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #1 in SearchListResultActions.combineItems():SearchListResultActions.swift">
+         contextName = "closure #1 in ContentActions.networkingAction():ContentActions.swift">
+      </ContextState>
+      <ContextState
+         contextName = "Array&lt;A&gt;.removingDuplicates():RemoveDuplicatesElements+Array.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "Element">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #1 in NetworkingSearchItems.networkingLayerService(text:):NetworkingSearchItems.swift">
+      </ContextState>
+      <ContextState
+         contextName = "CastingModelsTest.testCasting():CastingModelsTest.swift">
+      </ContextState>
+      <ContextState
+         contextName = "FreeMarketTests.testExample():FreeMarketTests.swift">
+      </ContextState>
+      <ContextState
+         contextName = "Carousel.validateImage(image:):Carousel.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.images">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in ContentActions.networkingAction(text:):ContentActions.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.searchTotalFilter">
+            </PersistentString>
+            <PersistentString
+               value = "items?.itemSearch">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "closure #2 in closure #1 in SearchListResultActions.combineItems():SearchListResultActions.swift">
          <PersistentStrings>
             <PersistentString
                value = "searchedItem">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in closure #1 in SearchListResultActions.combineItems():SearchListResultActions.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "visaje">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

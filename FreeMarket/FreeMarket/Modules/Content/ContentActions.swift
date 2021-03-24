@@ -84,7 +84,7 @@ class ContentActions<C: ContentViewCoordinator, D: FluxDispatcher>:  Action<C>, 
     }
     
     func searchSavedItems() {
-        self.networkingLayerCoreData.networkingLayerService().sink { [weak self] (value) in
+        self.networkingLayerCoreData.networkingLayerService(text: String()).sink { [weak self] (value) in
             // get saved Items, remove duplicates and set true flag saved to visual propouse
             self?.searchTotalFilter = value?.map({ $0 }).removingDuplicates().map {
                 let model = ItemSearchModel(id:$0.id, category: $0.category, saved: true)
@@ -105,7 +105,7 @@ extension ContentActions {
     }
     
     func networkingAction(text: String) {
-        self.networkingLayer.networkingLayerService().sink(receiveValue: { (items) in
+        self.networkingLayer.networkingLayerService(text: text).sink(receiveValue: { (items) in
             
             self.totalItemsSearched = items?.items
             // remove items with the same category
@@ -120,7 +120,7 @@ extension ContentActions {
                 return // TODO: logger
             }
             
-            self.dispatcher.dispatch(.setItems(searchFilterSaved + searchFilterService  ))
+            self.dispatcher.dispatch(.setItems(searchFilterSaved + searchFilterService))
             
         }).store(in: &cancellables)
     }

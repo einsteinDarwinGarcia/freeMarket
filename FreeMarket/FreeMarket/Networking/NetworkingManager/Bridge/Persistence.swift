@@ -11,12 +11,12 @@ import Combine
 protocol Switch {
     associatedtype T: Decodable
     var persistence: Persistence { get set }
-    func getData() -> AnyPublisher<T?, Never>
+    func getData(text: String) -> AnyPublisher<T?, Never>
     func getItems() -> AnyPublisher<[T]?, Never>
 }
 
 protocol Persistence {
-    func getData<T: Decodable>() -> AnyPublisher<T?, Never>
+    func getData<T: Decodable>(text: String) -> AnyPublisher<T?, Never>
     func getItems<T : Decodable>() -> AnyPublisher<[T]?, Never>
 }
 

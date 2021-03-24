@@ -14,7 +14,7 @@ protocol CoreDataEntity {
 
 enum Provider {
     case mock(jsonName: String)
-    case APIRest
+    case APIRest(serviceItem: ServiceItem)
     case coreData(coreDataPersistence: Persistence)
 }
 
@@ -26,9 +26,7 @@ protocol NetworkConfiguration {
 protocol CastingToModels {
     associatedtype FinalData
     associatedtype BaseClass
-    
-    var itemCasted: CurrentValueSubject<FinalData?, Never> { get set }
-    func casting(rootClass: BaseClass?)
+    func casting(rootClass: BaseClass?) -> Future<FinalData?, Never>
 }
 
 protocol NetworkingLayer {
@@ -41,5 +39,5 @@ protocol NetworkingLayer {
     var castingModel: CastingModel  { get set }
     var cancellables: Set<AnyCancellable> { get set}
     
-    func networkingLayerService() -> Future<CastingModel.FinalData?, Never>
+    func networkingLayerService(text: String) -> Future<CastingModel.FinalData?, Never>
 }

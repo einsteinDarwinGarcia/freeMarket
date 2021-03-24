@@ -21,15 +21,16 @@ final class NetworkingSearchItems: NetworkingLayer {
         cancellables = []
     }
     
-    func networkingLayerService() -> Future<SearchingModel?, Never> {
-        return Future<SearchingModel?, Never> { [castingModel] promise in
-            self.networkManager.getData().sink {  (response) in
-                castingModel.casting(rootClass: response)
-            }.store(in: &self.cancellables)
-            
-            castingModel.itemCasted.sink { (items) in
-                return promise(.success(items))
-            }.store(in: &self.cancellables)
+    func networkingLayerService(text: String) -> Future<SearchingModel?, Never> {
+        return Future<SearchingModel?, Never> { [weak self, castingModel] promise in
+            guard let strongSelf = self else {
+                return promise(.success(nil)) // TODO: Logger manage error
+            }
+            strongSelf.networkManager.getData(text:text).sink {  (response) in
+                castingModel.casting(rootClass: response).sink { value in
+                    return promise(.success(value))
+                }.store(in: &strongSelf.cancellables)
+            }.store(in: &strongSelf.cancellables)
         }
     }
     

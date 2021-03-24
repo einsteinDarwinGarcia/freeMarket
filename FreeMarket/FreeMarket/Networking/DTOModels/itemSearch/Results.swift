@@ -23,7 +23,7 @@ struct Results : Decodable {
         let installments : Installment?
         let listingTypeId : String?
         let officialStoreId : Int?
-        let originalPrice : String?
+        let originalPrice : Double?
         let permalink : String?
         let price : Int?
         let seller : Seller?
@@ -81,7 +81,7 @@ struct Results : Decodable {
                 installments = try values.decodeIfPresent(Installment.self, forKey: .installments)
                 listingTypeId = try values.decodeIfPresent(String.self, forKey: .listingTypeId)
                 officialStoreId = try values.decodeIfPresent(Int.self, forKey: .officialStoreId)
-                originalPrice = try values.decodeIfPresent(String.self, forKey: .originalPrice)
+                originalPrice = try values.decodeIfPresent(Double.self, forKey: .originalPrice)
                 permalink = try values.decodeIfPresent(String.self, forKey: .permalink)
                 price = try values.decodeIfPresent(Int.self, forKey: .price)
                 seller = try values.decodeIfPresent(Seller.self, forKey: .seller)
