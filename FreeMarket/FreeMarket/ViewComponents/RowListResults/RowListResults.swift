@@ -12,7 +12,7 @@ struct RowListResults: View {
     var item: ItemsModel
     
     var body: some View {
-        if item.important {
+        if item.important ?? false {
             RowListResultImportant(item: item)
         } else {
             RowListResultDefault(item: item)

@@ -34,10 +34,14 @@ struct RowListResultImportant: View {
                         .font(.title2)
                         .frame(height: 15)
                     Spacer()
-                    Text("Envio Gratis")
-                        .font(.caption)
-                        .frame(height: 15)
-                    Spacer()
+                    
+                    if item?.freeChipping ?? false {
+                        Text("Envio Gratis")
+                            .font(.caption)
+                            .frame(height: 15)
+                        Spacer()
+                    }
+                    
                     Text("Disponibles \(item?.availableQuantity ?? 0)")
                         .font(.footnote)
                         .frame(height: 15)

@@ -25,10 +25,10 @@
          contextName = "NetworkingSearchItemTest.testNetworkingLayerService():NetworkingSearchItemTest.swift">
          <PersistentStrings>
             <PersistentString
-               value = "removeDuplicates">
+               value = "result?.itemSearch">
             </PersistentString>
             <PersistentString
-               value = "result?.itemSearch">
+               value = "removeDuplicates">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -67,6 +67,9 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "closure #1 in ContentActions.networkingAction():ContentActions.swift">
+      </ContextState>
+      <ContextState
          contextName = "SearchListResultActions.combineItems():SearchListResultActions.swift">
          <PersistentStrings>
             <PersistentString
@@ -76,9 +79,6 @@
                value = "totalItems">
             </PersistentString>
          </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in ContentActions.networkingAction():ContentActions.swift">
       </ContextState>
       <ContextState
          contextName = "Array&lt;A&gt;.removingDuplicates():RemoveDuplicatesElements+Array.swift">
@@ -121,6 +121,14 @@
          <PersistentStrings>
             <PersistentString
                value = "searchedItem">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "ContentActions.presentListHistoricalProminentItem(isPresented:):ContentActions.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.historicalProminentItems">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

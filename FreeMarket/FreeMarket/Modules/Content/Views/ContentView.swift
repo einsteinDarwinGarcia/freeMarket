@@ -40,10 +40,13 @@ struct ContentView<A: ContentActionsProtocol>: View where A.M == ContentModelSto
                             })
                         }
                     } else {
-                        Text("Hello, world!")
-                            .padding()
+                        if let prominent = validateProminentItem() {
+                            NavigationButton(contentView: ProminentItem(item: prominent),
+                                             navigationView: { isPresented in
+                                                self.actions.presentListHistoricalProminentItem(isPresented: isPresented, itemSelected: prominent)
+                            })
+                        }
                     }
-                    
                 }
                 .add(self.searchBar)
                 .navigationBarTitleDisplayMode(.inline)
@@ -51,6 +54,13 @@ struct ContentView<A: ContentActionsProtocol>: View where A.M == ContentModelSto
         }.onAppear {
             actions.initSearchBar(searchBar: searchBar)
         }
+    }
+    
+    func validateProminentItem() -> ItemsModel? {
+        guard let prominent = self.store.prominentItem else {
+            return nil
+        }
+        return prominent
     }
 }
 

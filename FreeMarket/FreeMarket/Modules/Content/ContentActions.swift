@@ -12,13 +12,16 @@ import CoreData
 
 protocol ContentActionsProtocol: ViewActionsProtocol {
     associatedtype V: View
+    associatedtype D: View
     func initSearchBar(searchBar: SearchBar)
     func presentListResult(isPresented: Binding<Bool>, itemSelected: ItemSearchModel) -> V
+    func presentListHistoricalProminentItem(isPresented: Binding<Bool>, itemSelected: ItemsModel) -> D
 }
 
 enum ContentListActions: ListActions {
     case isLoggedOut(Bool)
     case setItems([ItemSearchModel]?)
+    case setProminentItem(ItemsModel?)
     func setCategoryToCLog() -> Category {
         .login
     }
@@ -34,9 +37,11 @@ class ContentActions<C: ContentViewCoordinator, D: FluxDispatcher>:  Action<C>, 
     
     private var totalItemsSearched: [ItemsModel]?
     private var searchTotalFilter: [ItemSearchModel]?
+    private var historicalProminentItems: [ItemsModel]?
     
     private var networkingLayer: NetworkingSearchItems!
-    private var networkingLayerCoreData: CoreDataSearchItem!
+    private var networkingLayerSearchedItemsCoreData: CoreDataSearchItem!
+    private var networkingLayerProminentCoreData: CoreDataProminentItem!
     
     lazy var coreDataStore: CoreDataStoring = {
         return CoreDataStore.default
@@ -56,7 +61,9 @@ class ContentActions<C: ContentViewCoordinator, D: FluxDispatcher>:  Action<C>, 
     func clearData() {
         self.totalItemsSearched?.removeAll()
         self.searchTotalFilter?.removeAll()
-        searchSavedItems()
+        self.historicalProminentItems?.removeAll()
+        getSavedItems()
+        getProminentItems()
     }
     
     func initSearchBar(searchBar: SearchBar) {
@@ -83,8 +90,12 @@ class ContentActions<C: ContentViewCoordinator, D: FluxDispatcher>:  Action<C>, 
         return coordinator?.presentListResult(isPresented: isPresented, itemSelected: itemSearched, totalItems: self.totalItemsSearched)
     }
     
-    func searchSavedItems() {
-        self.networkingLayerCoreData.networkingLayerService(text: String()).sink { [weak self] (value) in
+    func presentListHistoricalProminentItem(isPresented: Binding<Bool>, itemSelected: ItemsModel) -> some View  {
+        return coordinator?.presentListResult(isPresented: isPresented, itemSelected: [itemSelected], totalItems: self.historicalProminentItems)
+    }
+    
+    func getSavedItems() {
+        self.networkingLayerSearchedItemsCoreData.networkingLayerService(text: String()).sink { [weak self] (value) in
             // get saved Items, remove duplicates and set true flag saved to visual propouse
             self?.searchTotalFilter = value?.map({ $0 }).removingDuplicates().map {
                 let model = ItemSearchModel(id:$0.id, category: $0.category, saved: true)
@@ -94,13 +105,21 @@ class ContentActions<C: ContentViewCoordinator, D: FluxDispatcher>:  Action<C>, 
         }.store(in: &cancellables)
     }
     
+    func getProminentItems() {
+        self.networkingLayerProminentCoreData.networkingLayerService(text: String()).sink { [weak self] (value) in
+            self?.historicalProminentItems = value.map { $0 }?.removingDuplicates()
+            self?.dispatcher.dispatch(.setProminentItem(self?.historicalProminentItems?.first))
+        }.store(in: &cancellables)
+    }
+    
 }
 
 // MARK: networking conection layer
 extension ContentActions {
     func setupNetworkingLayer() {
         self.networkingLayer = NetworkingSearchItems()
-        self.networkingLayerCoreData = CoreDataSearchItem()
+        self.networkingLayerSearchedItemsCoreData = CoreDataSearchItem()
+        self.networkingLayerProminentCoreData = CoreDataProminentItem()
         cancellables = []
     }
     

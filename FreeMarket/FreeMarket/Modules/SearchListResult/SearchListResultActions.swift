@@ -31,7 +31,7 @@ class SearchListResultActions<C: SearchListResultViewCoordinator, D: FluxDispatc
     private var searchedItem: [ItemsModel]?
     private var totalItems: [ItemsModel]?
     
-    var bag: [AnyCancellable] = []
+    var cancellables: [AnyCancellable] = []
     
     lazy var coreDataStore: CoreDataStoring = {
         return CoreDataStore.default
@@ -84,14 +84,14 @@ class SearchListResultActions<C: SearchListResultViewCoordinator, D: FluxDispatc
             .publicher(save: action)
             .sink { completion in
                 if case .failure(let error) = completion {
-                    print(error.localizedDescription)
+                    print(error.localizedDescription) // TODO: logger
                 }
             } receiveValue: { success in
                 if success {
-                  print("Saving entities succeeded")
+                  print("Saving entities succeeded") // TODO: logger
                 }
             }
-            .store(in: &bag)
+            .store(in: &cancellables)
         
     }
 }

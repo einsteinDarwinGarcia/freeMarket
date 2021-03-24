@@ -7,19 +7,19 @@
 
 import Foundation
 
-struct ItemsModel: Identifiable, Hashable {
+struct ItemsModel: Identifiable, Hashable, Decodable {
     var id: String
     var siteId: String?
     var categoryId: String?
     var title: String
-    var price: Int?
+    var price: Double?
     var availableQuantity: Int?
     var thumbnail: String?
     var cityName: String?
     var freeChipping: Bool?
     var model: String
     var attributes: [Attributes]?
-    var important: Bool = false
+    var important: Bool? = false
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(model + title)
@@ -34,7 +34,7 @@ struct ItemsModel: Identifiable, Hashable {
     }
 }
 
-struct Attributes: Hashable {
+struct Attributes: Hashable, Decodable {
     var id: UUID = UUID()
     var name: String?
     var value: String?

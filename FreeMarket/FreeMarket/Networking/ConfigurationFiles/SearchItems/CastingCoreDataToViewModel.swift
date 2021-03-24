@@ -7,10 +7,10 @@
 
 import Combine
 
-class CastingCoreDataToViewModel: CastingToModels {
+class CastingCoreDataToViewModel<T>: CastingToModels {
    
-    typealias FinalData = [ItemSearchModel]
-    typealias BaseClass = [ItemSearchModel]
+    typealias FinalData = [T]
+    typealias BaseClass = [T]
     
     func casting(rootClass: BaseClass?) -> Future<FinalData?, Never> {
         return Future<FinalData?, Never> { promise in

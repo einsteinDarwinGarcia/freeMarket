@@ -33,13 +33,16 @@ struct RowListResultDefault: View {
                         .font(.title2)
                         .frame(height: 15)
                     Spacer()
-                    Text("Envio Gratis")
-                        .font(.caption)
-                        .frame(height: 15)
-                    Text("Disponibles \(item?.availableQuantity ?? 0)")
-                        .font(.footnote)
-                        .frame(height: 15)
-                    
+                    if item?.freeChipping != nil {
+                        Text("Envio Gratis")
+                            .font(.caption)
+                            .frame(height: 15)
+                    }
+                    if let available = item?.availableQuantity {
+                        Text("Disponibles \(available)")
+                            .font(.footnote)
+                            .frame(height: 15)
+                    }
                 }
                 Spacer()
             }

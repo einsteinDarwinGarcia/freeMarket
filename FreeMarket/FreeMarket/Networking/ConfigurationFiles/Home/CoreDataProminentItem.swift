@@ -1,21 +1,21 @@
 //
-//  CoreDataSearchItems.swift
+//  CoreDataProminentItem.swift
 //  FreeMarket
 //
-//  Created by Einstein Darwin Garcia Mendez on 19/03/21.
+//  Created by Einstein Darwin Garcia Mendez on 24/03/21.
 //
 
 import Combine
 
-final class CoreDataSearchItem: NetworkingLayer {
- 
-    var configurationService: ConfigurationSearchEntity
-    var networkManager: NetworkManager<ConfigurationSearchEntity>
-    var castingModel: CastingCoreDataToViewModel<ItemSearchModel>
+final class CoreDataProminentItem: NetworkingLayer {
+    
+    var configurationService: ConfigurationProminentItemEntity
+    var networkManager: NetworkManager<ConfigurationProminentItemEntity>
+    var castingModel: CastingCoreDataToViewModel<ItemsModel>
     var cancellables: Set<AnyCancellable>
     
     init() {
-        self.configurationService = ConfigurationSearchEntity()
+        self.configurationService = ConfigurationProminentItemEntity()
         self.networkManager = NetworkManager(configuration: self.configurationService)
         self.castingModel = CastingCoreDataToViewModel()
         cancellables = []

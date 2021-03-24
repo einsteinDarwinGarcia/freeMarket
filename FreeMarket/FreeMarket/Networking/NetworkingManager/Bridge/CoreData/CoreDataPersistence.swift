@@ -14,7 +14,7 @@ final class CoreDataPersistence<Entity: NSManagedObject>: Persistence {
         return CoreDataStore.default
     }()
     
-    var bag: [AnyCancellable] = []
+    var cancellable: [AnyCancellable] = []
     
     func getData<T : Decodable>(text: String) -> AnyPublisher<T?, Never>  {
         return Future<T?,Never> { promise in
@@ -34,7 +34,6 @@ final class CoreDataPersistence<Entity: NSManagedObject>: Persistence {
                 } receiveValue: { entity   in
                     var items: [T] = []
                     
-                    
                     entity.forEach {
                         guard let entityJson = $0.toJSON() else {
                             return // TODO: logger
@@ -51,10 +50,7 @@ final class CoreDataPersistence<Entity: NSManagedObject>: Persistence {
                         items.append(itemCasting)
                         
                     }
-                    
-                   
-                    
-                   
+        
                     promise(.success(items))
                     
                 }

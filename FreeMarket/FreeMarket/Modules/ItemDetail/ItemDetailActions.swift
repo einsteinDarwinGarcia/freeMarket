@@ -32,15 +32,47 @@ class ItemDetailActions<C: ItemDetailViewCoordinator, D: FluxDispatcher>:  Actio
     private var networkingLayer: NetworkingDetailItems!
     private var cancellables: Set<AnyCancellable>!
     
+    lazy var coreDataStore: CoreDataStoring = {
+        return CoreDataStore.default
+    }()
+    
     init(coordinator: C, dispatcher: D, itemDetail: ItemsModel) {
         self.dispatcher = dispatcher
         self.itemDetail = itemDetail
         super.init(coordinator: coordinator)
         setupNetworkingLayer()
+        saveCoreData()
     }
     
     func configureViewStore(modelStore: ItemDetailModelStore) {
         self.contentViewStore = ItemDetailViewStore(dispatcher: self.dispatcher, modelStore: modelStore)
+    }
+    
+    func saveCoreData() {
+        
+        let action: ActionCoreData = { [coreDataStore, itemDetail] in
+            let item: ItemDetailHistoryEntity = coreDataStore.createEntity()
+            item.id = itemDetail.id
+            item.title = itemDetail.title
+            item.thumbnail = itemDetail.thumbnail
+            item.price = itemDetail.price ?? 0.0
+            item.categoryId = itemDetail.categoryId
+            item.model = itemDetail.model
+        }
+        
+        coreDataStore
+            .publicher(save: action)
+            .sink { completion in
+                if case .failure(let error) = completion {
+                    print(error.localizedDescription) // TODO: logger
+                }
+            } receiveValue: { success in
+                if success {
+                  print("Saving entities succeeded") // TODO: logger
+                }
+            }
+            .store(in: &cancellables)
+        
     }
     
 }
