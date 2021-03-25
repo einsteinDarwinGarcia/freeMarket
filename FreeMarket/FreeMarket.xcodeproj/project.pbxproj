@@ -118,6 +118,7 @@
 		0C472A54260BEAF300EE9FBC /* FreeMarketCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0C472A52260BEAF300EE9FBC /* FreeMarketCoreData.xcdatamodeld */; };
 		0C472A5A260C1A0800EE9FBC /* ItemText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C472A59260C1A0800EE9FBC /* ItemText.swift */; };
 		0C472A65260C2DA300EE9FBC /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C472A64260C2DA300EE9FBC /* Colors.swift */; };
+		0C472A6A260CD1CE00EE9FBC /* ConfigurationCategoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C472A69260CD1CD00EE9FBC /* ConfigurationCategoryService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -254,6 +255,7 @@
 		0C472A53260BEAF300EE9FBC /* FreeMarketCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FreeMarketCoreData.xcdatamodel; sourceTree = "<group>"; };
 		0C472A59260C1A0800EE9FBC /* ItemText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemText.swift; sourceTree = "<group>"; };
 		0C472A64260C2DA300EE9FBC /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
+		0C472A69260CD1CD00EE9FBC /* ConfigurationCategoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationCategoryService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -614,6 +616,7 @@
 			children = (
 				0C47294F2604FA3400EE9FBC /* ConfigurationSearchEntity.swift */,
 				0C472824260010C600EE9FBC /* ConfigurationSearchService.swift */,
+				0C472A69260CD1CD00EE9FBC /* ConfigurationCategoryService.swift */,
 			);
 			path = ConfigurationsFiles;
 			sourceTree = "<group>";
@@ -964,6 +967,7 @@
 				0C47290D2603BD1000EE9FBC /* LineBar.swift in Sources */,
 				0C472845260030C400EE9FBC /* SellerAddress.swift in Sources */,
 				0C472825260010C600EE9FBC /* ConfigurationSearchService.swift in Sources */,
+				0C472A6A260CD1CE00EE9FBC /* ConfigurationCategoryService.swift in Sources */,
 				0C4729382604009D00EE9FBC /* CoreDataSaveModelPublisher.swift in Sources */,
 				0C472A26260ADB0700EE9FBC /* ImageCache.swift in Sources */,
 				0C4728BA26029B6E00EE9FBC /* NetworkingSearchItems.swift in Sources */,

@@ -26,11 +26,13 @@ final class SearchListResultCoordinator<P: Coordinator>: SearchListResultViewCoo
     private var isPresented: Binding<Bool>
     private var searchedItem: [ItemsModel]?
     private var totalItems:  [ItemsModel]?
+    private var categoryId: String?
     
-    init(isPresented: Binding<Bool>, searchedItem: [ItemsModel]?, totalItems: [ItemsModel]?) {
+    init(isPresented: Binding<Bool>, searchedItem: [ItemsModel]?, totalItems: [ItemsModel]?, categoryId: String? = nil) {
         self.isPresented = isPresented
         self.searchedItem = searchedItem
         self.totalItems = totalItems
+        self.categoryId = categoryId
     }
     
     deinit {
@@ -40,6 +42,9 @@ final class SearchListResultCoordinator<P: Coordinator>: SearchListResultViewCoo
     @discardableResult
     func start() -> some View {
         let modelStore = SearchListResultModelStore()
+        if let categoryId = self.categoryId {
+            modelStore.searchItemSaved = categoryId
+        }
         let view = SearchListResultFactory.make(with:self,  modelStore: modelStore, searchedItem: self.searchedItem, totalItems: self.totalItems)
         return NavigationLinkWrapper(destination: view, isPresented: isPresented)
     }

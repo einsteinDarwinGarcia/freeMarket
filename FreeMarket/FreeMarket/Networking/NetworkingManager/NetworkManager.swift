@@ -11,6 +11,7 @@ protocol NetworkManagerLayer {
     associatedtype Configuration:NetworkConfiguration
     func getData(text: String) -> AnyPublisher<Configuration.responseDataType?, Never>
     func getCoreDataResult() -> AnyPublisher<[Configuration.responseDataType]?, Never>
+    func getSecurityThumbnail(text: String) -> AnyPublisher<[DetailRootSecureThumbnail]?, Never>
 }
 
 class NetworkManager<Configuration: NetworkConfiguration>: NetworkManagerLayer {
@@ -19,6 +20,7 @@ class NetworkManager<Configuration: NetworkConfiguration>: NetworkManagerLayer {
     
     private var configuration: Configuration
     private var persistenceBridge: PersistenceManager<Configuration.responseDataType>?
+    private var miPersistence = PersistenceManager<[DetailRootSecureThumbnail]>(persistenceType: APIRestPersistence(serviceType: .secureThumbnail))
     
     init(configuration: Configuration) {
         self.configuration = configuration
@@ -37,6 +39,10 @@ class NetworkManager<Configuration: NetworkConfiguration>: NetworkManagerLayer {
             return errorInitializedPersistence()
         }
         return persistence.getData(text: text)
+    }
+    
+    func getSecurityThumbnail(text: String) -> AnyPublisher<[DetailRootSecureThumbnail]?, Never> {
+         return miPersistence.getData(text: text)
     }
     
     func getCoreDataResult() -> AnyPublisher<[Configuration.responseDataType]?, Never> {

@@ -39,7 +39,7 @@ class ContentActions<C: ContentViewCoordinator, D: FluxDispatcher>:  Action<C>, 
     private var searchTotalFilter: [ItemSearchModel]?
     private var historicalProminentItems: [ItemsModel]?
     
-    private var networkingLayer: NetworkingSearchItems!
+    private var networkingLayer: NetworkingSearchItems<ConfigurationSearchService>!
     private var networkingLayerSearchedItemsCoreData: CoreDataSearchItem!
     private var networkingLayerProminentCoreData: CoreDataProminentItem!
     
@@ -81,17 +81,27 @@ class ContentActions<C: ContentViewCoordinator, D: FluxDispatcher>:  Action<C>, 
         
     }
     
+    @ViewBuilder
     func presentListResult(isPresented: Binding<Bool>, itemSelected: ItemSearchModel) -> some View {
-       /* if self.totalItemsSearched == nil {
-            self.networkingAction(text: itemSelected.category) // TODO: waiting to make a search
+        if self.totalItemsSearched?.count ?? 0 <= 0 {
+           presentItemsSavedCategory(isPresented: isPresented, categoryId: itemSelected.id)
+        } else {
+           presentListResultItems(isPresented: isPresented, itemSelected: itemSelected)
         }
-        */
-        let itemSearched = self.totalItemsSearched?.filter { $0.model == itemSelected.id }
-        return coordinator?.presentListResult(isPresented: isPresented, itemSelected: itemSearched, totalItems: self.totalItemsSearched)
     }
     
     func presentListHistoricalProminentItem(isPresented: Binding<Bool>, itemSelected: ItemsModel) -> some View  {
         return coordinator?.presentListResult(isPresented: isPresented, itemSelected: [itemSelected], totalItems: self.historicalProminentItems)
+    }
+    
+    
+    func presentItemsSavedCategory(isPresented: Binding<Bool>, categoryId: String) -> some View {
+         return coordinator?.presentItemsSaved(isPresented: isPresented, categoryId: categoryId)
+    }
+    
+    func presentListResultItems(isPresented: Binding<Bool>, itemSelected: ItemSearchModel) -> some View {
+        let itemSearched = self.totalItemsSearched?.filter { $0.model == itemSelected.id }
+        return coordinator?.presentListResult(isPresented: isPresented, itemSelected: itemSearched, totalItems: self.totalItemsSearched)
     }
     
     func getSavedItems() {
@@ -117,7 +127,7 @@ class ContentActions<C: ContentViewCoordinator, D: FluxDispatcher>:  Action<C>, 
 // MARK: networking conection layer
 extension ContentActions {
     func setupNetworkingLayer() {
-        self.networkingLayer = NetworkingSearchItems()
+        self.networkingLayer = NetworkingSearchItems(configService: ConfigurationSearchService())
         self.networkingLayerSearchedItemsCoreData = CoreDataSearchItem()
         self.networkingLayerProminentCoreData = CoreDataProminentItem()
         cancellables = []

@@ -11,7 +11,7 @@ struct RootClass : Decodable {
 
         let paging : Paging?
         let query : String?
-        let results : [Results]?
+        var results : [Results]?
         let siteId : String?
 
         enum CodingKeys: String, CodingKey {

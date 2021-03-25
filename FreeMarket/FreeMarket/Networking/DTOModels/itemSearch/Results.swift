@@ -33,7 +33,7 @@ struct Results : Decodable {
         let soldQuantity : Int?
         let stopTime : String?
         let tags : [String]?
-        let thumbnail : String?
+        var thumbnail : String?
         let title : String?
 
         enum CodingKeys: String, CodingKey {

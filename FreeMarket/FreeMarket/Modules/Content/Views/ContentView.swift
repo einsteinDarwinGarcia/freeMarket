@@ -49,7 +49,7 @@ struct ContentView<A: ContentActionsProtocol>: View where A.M == ContentModelSto
                     }
                     .add(self.searchBar)
                     .navigationBarTitleDisplayMode(.inline)
-                    .navigationTitle("FreeMarket")
+//                    .navigationTitle("FreeMarket")
         }
         
         .onAppear {

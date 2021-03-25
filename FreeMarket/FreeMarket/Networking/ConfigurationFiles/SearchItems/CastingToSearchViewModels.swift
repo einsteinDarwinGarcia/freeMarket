@@ -10,12 +10,12 @@ import Combine
 
 class CastingToSearchViewModels: CastingToModels {
      
-    func casting(rootClass: RootClass?) -> Future<SearchingModel?, Never> {
+    func casting(rootClass: [Results]?) -> Future<SearchingModel?, Never> {
         return Future<SearchingModel?, Never> { promise in
             var items: [ItemsModel]?
             var itemSearchModel: [ItemSearchModel]? = []
             
-            items = rootClass?.results?.lazy.compactMap({ (model) -> ItemsModel? in
+            items = rootClass?.lazy.compactMap({ (model) -> ItemsModel? in
                 
                 let modelItem = model.attributes?.lazy.compactMap { $0 }.filter { $0.id == "MODEL" }.first
                 

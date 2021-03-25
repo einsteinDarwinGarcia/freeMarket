@@ -12,12 +12,12 @@ import Combine
 protocol SearchListResultActionsProtocol: ViewActionsProtocol {
     associatedtype V: View
     func combineItems()
+    func getItemsSavedCategory(categoryId: String)
     func goToItemDetail(isPresented: Binding<Bool>, item: ItemsModel) -> V
 }
 
 enum SearchListResultListActions: ListActions {
     case loadItems([ItemsModel])
-    
     func setCategoryToCLog() -> Category {
         .login
     }
@@ -31,6 +31,7 @@ class SearchListResultActions<C: SearchListResultViewCoordinator, D: FluxDispatc
     private var searchedItem: [ItemsModel]?
     private var totalItems: [ItemsModel]?
     
+    private var networkingLayer: NetworkingSearchItems<ConfigurationSearchService>!
     var cancellables: [AnyCancellable] = []
     
     lazy var coreDataStore: CoreDataStoring = {
@@ -41,8 +42,8 @@ class SearchListResultActions<C: SearchListResultViewCoordinator, D: FluxDispatc
         self.dispatcher = dispatcher
         self.searchedItem = searchedItem
         self.totalItems = totalItems
-        
         super.init(coordinator: coordinator)
+        setupNetworkingLayer()
     }
     
     func configureViewStore(modelStore: SearchListResultModelStore) {
@@ -93,5 +94,25 @@ class SearchListResultActions<C: SearchListResultViewCoordinator, D: FluxDispatc
             }
             .store(in: &cancellables)
         
+    }
+    
+    
+}
+
+// MARK: networking conection layer
+extension SearchListResultActions {
+    func setupNetworkingLayer() {
+        self.networkingLayer = NetworkingSearchItems(configService: ConfigurationSearchService())
+        cancellables = []
+    }
+    
+    func getItemsSavedCategory(categoryId: String) {
+        self.networkingLayer.networkingLayerService(text: categoryId).sink(receiveValue: { (items) in
+            guard let totalItems = items?.items else {
+                return // TODO: Logger
+            }
+            self.totalItems = totalItems
+            self.dispatcher.dispatch(.loadItems(totalItems))
+        }).store(in: &cancellables)
     }
 }

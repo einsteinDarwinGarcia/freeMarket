@@ -10,7 +10,7 @@
 import Combine
 
 class SearchListResultModelStore: ObservableObject {
-    @Published var isLoggedOut: Bool = true
+    @Published var searchItemSaved: String? = nil
     @Published var searchedItem: [ItemsModel] = []
 }
 
@@ -31,5 +31,9 @@ class SearchListResultViewStore<D: FluxDispatcher, MS: SearchListResultModelStor
                 strongSelf.modelStore.searchedItem = value
             }
         }
+    }
+    
+    deinit {
+        self.modelStore.searchedItem.removeAll()
     }
 }

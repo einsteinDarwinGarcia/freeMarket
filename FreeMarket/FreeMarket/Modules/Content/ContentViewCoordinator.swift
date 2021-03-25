@@ -19,6 +19,11 @@ extension ContentViewCoordinator {
         let coordinator = SearchListResultCoordinator<Self>(isPresented: isPresented, searchedItem: itemSelected, totalItems: totalItems)
         return coordinate(to: coordinator)
     }
+    
+    func presentItemsSaved(isPresented: Binding<Bool>, categoryId: String) -> some View {
+        let coordinator = SearchListResultCoordinator<Self>(isPresented: isPresented, searchedItem: nil, totalItems: nil, categoryId: categoryId)
+        return coordinate(to: coordinator)
+    }
 }
 
 final class ContentCoordinator<P: Coordinator>: ContentViewCoordinator {

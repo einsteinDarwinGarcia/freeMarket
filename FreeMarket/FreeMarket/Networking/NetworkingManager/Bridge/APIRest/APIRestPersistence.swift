@@ -12,6 +12,7 @@ enum ServiceItem {
     case searchItems
     case detailItems
     case categoryItems
+    case secureThumbnail
     
     func returnEndpoint(text: String) -> Endpoint {
         switch self {
@@ -21,16 +22,21 @@ enum ServiceItem {
             return Endpoint.searchItems(text: text)
         case .categoryItems:
             return Endpoint.searchCategories(idCategory: text)
+        case .secureThumbnail:
+            return Endpoint.searchItemDetailSecureThumbnail(idItem: text)
         }
     }
 }
 
+enum ParsingError: Error {
+    case parsingError
+    case weakself
+    case error500
+}
+
 class APIRestPersistence: APIRestProtocol, Persistence {
     
-    enum ParsingError: Error {
-        case parsingError
-        case weakself
-    }
+   
 
     var cancellabe: Set<AnyCancellable>
     var serviceType: ServiceItem
@@ -91,24 +97,27 @@ class APIRestPersistence: APIRestProtocol, Persistence {
                 }
             }
             
-           URLSession.shared.dataTaskPublisher(for: urlRequest).tryMap { data, response in
+            URLSession.shared.dataTaskPublisher(for: urlRequest).tryMap { data, response -> Data in
+                guard let httpResponse = response as? HTTPURLResponse, 200...299 ~= httpResponse.statusCode else {
+                    throw ParsingError.error500
+                }
                 return data
-           }
-           .receive(on: RunLoop.main)
-           .sink { (response) in
-            switch response {
-            case .failure(let error):
-                print(error.localizedDescription)
-            default:
-                break
             }
-           } receiveValue: { (data) in
-            guard let itemCasting: T = JsonFetch.jsonFetch(data: data) else {
-                return // TODO: logger
-            }
-            promise(.success(itemCasting))
-            
-           }.store(in: &strongSelf.cancellabe)
+            .receive(on: RunLoop.main)
+            .sink { (response) in
+                switch response {
+                case .failure(let error):
+                    print(error.localizedDescription) // TODO: logger
+                default:
+                    break
+                }
+            } receiveValue: { (data) in
+                guard let itemCasting: T = JsonFetch.jsonFetch(data: data) else {
+                    return // TODO: logger
+                }
+                promise(.success(itemCasting))
+                
+            }.store(in: &strongSelf.cancellabe)
             
         }
         .eraseToAnyPublisher()

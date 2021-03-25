@@ -39,12 +39,18 @@ extension Endpoint {
     }
     
     static func searchCategories(idCategory: String) -> Self {
-        return Endpoint(path: "/sites/MCO/search?category=\(idCategory)")
+        return Endpoint(path: "/sites/MCO/search",
+                        queryItems: [URLQueryItem(name: "category", value: idCategory)])
     }
     
     static func searchItemDetail(idItem: String) -> Self {
         return Endpoint(path: "/items",
                         queryItems: [URLQueryItem(name: "ids", value: idItem)])
+    }
+    
+    static func searchItemDetailSecureThumbnail(idItem: String) -> Self {
+        return Endpoint(path: "/items",
+                        queryItems: [URLQueryItem(name: "ids", value: idItem), URLQueryItem(name: "attributes", value: "secure_thumbnail")])
     }
   
 }
