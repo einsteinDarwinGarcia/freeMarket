@@ -26,13 +26,9 @@ struct RowListResultImportant: View {
                 .frame(width: 150)
                  
                 VStack(alignment: .leading) {
-                    Text(item?.title ?? "Product Title ")
-                        .font(.subheadline)
-                        .padding(.top, 7)
+                    ItemTitle(text: item?.title ?? "")
                     Spacer()
-                    Text(String(item?.price ?? 0))
-                        .font(.title2)
-                        .frame(height: 15)
+                    ItemPrice(price: item?.price ?? 0)
                     Spacer()
                     
                     if item?.freeChipping ?? false {
@@ -51,7 +47,7 @@ struct RowListResultImportant: View {
             }
             .frame(height:120 ,alignment: .center)
             .padding()
-            .background(Color(UIColor.white).shadow(radius: 2))
+            .background(Color.backgroundClear.shadow(radius: 2))
             
         }
     }

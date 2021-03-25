@@ -19,6 +19,7 @@ struct ProminentItem: View {
                     Text("Visto Recientemente")
                         .font(.subheadline)
                         .bold()
+                        .foregroundColor(Color.textColor)
                         .padding(.leading, 20)
                     Spacer()
                 }
@@ -35,32 +36,33 @@ struct ProminentItem: View {
                 .padding()
                 .frame(width: 200)
                 
-                Text(item.title)
-                    .font(.subheadline)
-                    .padding(.top, 7)
-                Text(String(item.price ?? 0))
-                    .font(.title2)
-                    .frame(height: 15)
-                LineBar().frame(height:1)
+                VStack(alignment:.leading) {
+                    ItemTitle(text: item.title)
+                    ItemPrice(price: item.price ?? 0).padding(.top, 5)
+                    LineBar().frame(height:1)
+                }
                 
                 HStack {
                     Text("Ver historial de navegacion")
                         .font(.footnote)
+                        .foregroundColor(Color.textColor)
                         .padding(.leading, 20)
                     Spacer()
                     Image(systemName: "chevron.right")
                         .resizable()
                         .frame(width: 10, height: 15)
+                        .foregroundColor(Color.backgroundSecondary)
                         .padding(10)
                 }
+                .padding(.bottom, -10)
+                .padding(.top, -5)
                 
             }.padding()
-            
             
         }
         .overlay(
                     RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color(UIColor.lightGray), lineWidth: 1)
+                        .stroke(Color.backgroundPrimary, lineWidth: 1)
                 )
         
         .padding()

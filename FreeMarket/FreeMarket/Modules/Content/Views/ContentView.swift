@@ -26,32 +26,33 @@ struct ContentView<A: ContentActionsProtocol>: View where A.M == ContentModelSto
     
     var body: some View {
         NavigationView {
-            Group {
-                ZStack {
-                    if searchBar.beginEditing {
-                        
-                        ListView(items: store.items.lazy.filter {
-                            searchBar.text.isEmpty ||
-                                $0.id.localizedStandardContains(searchBar.text)
-                        }) { item  in
-                            NavigationButton(contentView: RowSearchBar(title: item.id, saved: item.saved),
-                                             navigationView: { isPresented in
-                                                self.actions.presentListResult(isPresented: isPresented, itemSelected: item)
-                            })
-                        }
-                    } else {
-                        if let prominent = validateProminentItem() {
-                            NavigationButton(contentView: ProminentItem(item: prominent),
-                                             navigationView: { isPresented in
-                                                self.actions.presentListHistoricalProminentItem(isPresented: isPresented, itemSelected: prominent)
-                            })
+                    ZStack {
+                        if searchBar.beginEditing {
+                            
+                            ListView(items: store.items.lazy.filter {
+                                searchBar.text.isEmpty ||
+                                    $0.id.localizedStandardContains(searchBar.text)
+                            }) { item  in
+                                NavigationButton(contentView: RowSearchBar(title: item.id, saved: item.saved),
+                                                 navigationView: { isPresented in
+                                                    self.actions.presentListResult(isPresented: isPresented, itemSelected: item)
+                                                 })
+                            }
+                        } else {
+                            if let prominent = validateProminentItem() {
+                                NavigationButton(contentView: ProminentItem(item: prominent),
+                                                 navigationView: { isPresented in
+                                                    self.actions.presentListHistoricalProminentItem(isPresented: isPresented, itemSelected: prominent)
+                                                 })
+                            }
                         }
                     }
-                }
-                .add(self.searchBar)
-                .navigationBarTitleDisplayMode(.inline)
-            }
-        }.onAppear {
+                    .add(self.searchBar)
+                    .navigationBarTitleDisplayMode(.inline)
+                    .navigationTitle("FreeMarket")
+        }
+        
+        .onAppear {
             actions.initSearchBar(searchBar: searchBar)
         }
     }

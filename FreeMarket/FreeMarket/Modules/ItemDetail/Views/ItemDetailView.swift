@@ -14,6 +14,19 @@ struct ItemDetailView<A: ItemDetailActionsProtocol>: View where A.M == ItemDetai
     @ObservedObject var store: ItemDetailModelStore
     private var actions: A
     
+    @State var position = CardPosition.bottom
+    
+    var totalPrice: String {
+    
+        let formatter = NumberFormatter()
+        formatter.currencySymbol = "$"
+        formatter.numberStyle = .currency
+
+        let total = Double(store.itemDetail.price ?? 0.0)
+
+        return formatter.string(from: NSNumber(value: total )) ?? "$0"
+    }
+    
     init(actions: A,  modelStore: ItemDetailModelStore) {
         self.store = modelStore
         self.actions = actions
@@ -27,13 +40,28 @@ struct ItemDetailView<A: ItemDetailActionsProtocol>: View where A.M == ItemDetai
                 VStack(alignment:.leading) {
                     Text(store.itemDetail.condition ?? String())
                         .font(.caption)
+                        .foregroundColor(Color.textColor)
                         .padding(.leading, 25)
                     Text(store.itemDetail.title ?? String())
                         .font(.title3)
+                        .foregroundColor(Color.textColor)
                         .padding(.leading, 25)
+                        .padding(.trailing, 25)
+                    
                     Carousel(images: store.itemDetail.photos)
+                   
                     AttributesSelectView()
-                    Text(String(store.itemDetail.price ?? 0.0)).font(.largeTitle)
+                        .gesture(
+                            TapGesture().onEnded{
+                                position = CardPosition.middle
+                            }
+                        ).padding(.top, -35)
+                        .padding(.trailing, 5)
+                        .padding(.leading, 5)
+                    
+                    Text(totalPrice)
+                        .font(.largeTitle)
+                        .foregroundColor(Color.textColor)
                         .padding(.leading, 25)
                     
                     VStack(alignment: .leading) {
@@ -46,7 +74,7 @@ struct ItemDetailView<A: ItemDetailActionsProtocol>: View where A.M == ItemDetai
                 .padding(.bottom, 200)
             }
             
-            SlideOverCard {
+            SlideOverCard(position: $position) {
                 AttributesDetail(attributes: store.itemDetail.attributes)
             }.frame(maxWidth:.infinity)
         }

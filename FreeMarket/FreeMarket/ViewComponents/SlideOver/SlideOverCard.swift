@@ -19,7 +19,7 @@ struct Handle : View {
 
 struct SlideOverCard<Content: View> : View {
     @GestureState private var dragState = DragState.inactive
-    @State var position = CardPosition.bottom
+    @Binding var position: CardPosition
     
     var content: () -> Content
     var body: some View {
@@ -32,6 +32,7 @@ struct SlideOverCard<Content: View> : View {
         return Group {
             Handle()
             self.content()
+                .padding(.bottom, 150)
         }
         .frame(height: UIScreen.main.bounds.height)
         .background(Color.white)

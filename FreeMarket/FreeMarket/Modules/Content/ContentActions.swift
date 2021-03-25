@@ -108,7 +108,7 @@ class ContentActions<C: ContentViewCoordinator, D: FluxDispatcher>:  Action<C>, 
     func getProminentItems() {
         self.networkingLayerProminentCoreData.networkingLayerService(text: String()).sink { [weak self] (value) in
             self?.historicalProminentItems = value.map { $0 }?.removingDuplicates()
-            self?.dispatcher.dispatch(.setProminentItem(self?.historicalProminentItems?.first))
+            self?.dispatcher.dispatch(.setProminentItem(self?.historicalProminentItems?.last))
         }.store(in: &cancellables)
     }
     

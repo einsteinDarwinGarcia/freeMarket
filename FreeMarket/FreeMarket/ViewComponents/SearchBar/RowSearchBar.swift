@@ -18,20 +18,21 @@ struct RowSearchBar: View {
                 
                 Image(systemName: "square.and.arrow.down")
                     .resizable()
-                    .frame(width: 15, height: 15)
+                    .frame(width: 12, height: 15)
+                    .foregroundColor(Color.textColor)
                     .padding(10)
                 
             } else {
                 Image(systemName: "magnifyingglass")
                     .resizable()
                     .frame(width: 15, height: 15)
+                    .foregroundColor(Color.textColor)
                     .padding(10)
             }
             
-           
-            
             Text(title)
                 .font(.subheadline)
+                .foregroundColor(Color.textColor)
                 .padding()
         }
     }

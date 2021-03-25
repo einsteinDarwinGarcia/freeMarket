@@ -31,6 +31,7 @@ struct SearchListResultView<A: SearchListResultActionsProtocol>: View where A.M 
                 
                
             }
+            .navigationTitle("Resultados")
         }.onAppear{
             self.actions.combineItems()
         }

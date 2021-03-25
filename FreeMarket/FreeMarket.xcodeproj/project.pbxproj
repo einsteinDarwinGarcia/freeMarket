@@ -116,6 +116,8 @@
 		0C472A46260BD85A00EE9FBC /* ConfigurationProminentItemEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C472A45260BD85A00EE9FBC /* ConfigurationProminentItemEntity.swift */; };
 		0C472A4B260BDA1000EE9FBC /* CoreDataProminentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C472A4A260BDA1000EE9FBC /* CoreDataProminentItem.swift */; };
 		0C472A54260BEAF300EE9FBC /* FreeMarketCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0C472A52260BEAF300EE9FBC /* FreeMarketCoreData.xcdatamodeld */; };
+		0C472A5A260C1A0800EE9FBC /* ItemText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C472A59260C1A0800EE9FBC /* ItemText.swift */; };
+		0C472A65260C2DA300EE9FBC /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C472A64260C2DA300EE9FBC /* Colors.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -250,6 +252,8 @@
 		0C472A45260BD85A00EE9FBC /* ConfigurationProminentItemEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationProminentItemEntity.swift; sourceTree = "<group>"; };
 		0C472A4A260BDA1000EE9FBC /* CoreDataProminentItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataProminentItem.swift; sourceTree = "<group>"; };
 		0C472A53260BEAF300EE9FBC /* FreeMarketCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = FreeMarketCoreData.xcdatamodel; sourceTree = "<group>"; };
+		0C472A59260C1A0800EE9FBC /* ItemText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemText.swift; sourceTree = "<group>"; };
+		0C472A64260C2DA300EE9FBC /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -368,6 +372,7 @@
 				0C4728AE2602769700EE9FBC /* RemoveDuplicatesElements+Array.swift */,
 				0C4728DA2602CC8D00EE9FBC /* Navigations+View.swift */,
 				0C472A2F260ADBAF00EE9FBC /* EnvironmentValues+ImageCache.swift */,
+				0C472A64260C2DA300EE9FBC /* Colors.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -482,6 +487,7 @@
 		0C47286026011B2900EE9FBC /* ViewComponents */ = {
 			isa = PBXGroup;
 			children = (
+				0C472A58260C194E00EE9FBC /* TextComponents */,
 				0C472A37260BAC8E00EE9FBC /* ProminentHistoricalItem */,
 				0C472A1C260ADA5000EE9FBC /* ImagesAsync */,
 				0C4729B226094B4500EE9FBC /* SlideOver */,
@@ -749,6 +755,14 @@
 			path = ConfigurationsFiles;
 			sourceTree = "<group>";
 		};
+		0C472A58260C194E00EE9FBC /* TextComponents */ = {
+			isa = PBXGroup;
+			children = (
+				0C472A59260C1A0800EE9FBC /* ItemText.swift */,
+			);
+			path = TextComponents;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -937,6 +951,7 @@
 				0C4729882609360000EE9FBC /* ItemDetailView.swift in Sources */,
 				0C472A30260ADBAF00EE9FBC /* EnvironmentValues+ImageCache.swift in Sources */,
 				0C472848260030C400EE9FBC /* Attribute.swift in Sources */,
+				0C472A5A260C1A0800EE9FBC /* ItemText.swift in Sources */,
 				0C4728862601504600EE9FBC /* CastingToSearchViewModels.swift in Sources */,
 				0C4729CD2609518D00EE9FBC /* DetailSaleTerm.swift in Sources */,
 				0C47279C25FFAC1900EE9FBC /* AssociatedObjects.swift in Sources */,
@@ -945,6 +960,7 @@
 				0C472A0026095BB600EE9FBC /* CastingToIItemDetailModel.swift in Sources */,
 				0C4729F526095A6F00EE9FBC /* ConfigurationDetailItemService.swift in Sources */,
 				0C47289326018D0B00EE9FBC /* RowSearchBar.swift in Sources */,
+				0C472A65260C2DA300EE9FBC /* Colors.swift in Sources */,
 				0C47290D2603BD1000EE9FBC /* LineBar.swift in Sources */,
 				0C472845260030C400EE9FBC /* SellerAddress.swift in Sources */,
 				0C472825260010C600EE9FBC /* ConfigurationSearchService.swift in Sources */,

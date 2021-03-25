@@ -28,6 +28,7 @@ struct NavigationButton<CV: View, NV: View>: View {
                     navigationView($isPresented)
                 )
         }
+        .buttonStyle(PlainButtonStyle())
     }
 }
 
@@ -55,7 +56,9 @@ struct NavigationLinkWrapper<T: View>: View {
     var body: some View {
         NavigationLink(destination: destination, isActive: $isPresented) {
             EmptyView()
-        }.isDetailLink(isDetailLink)
+        }
+        .isDetailLink(isDetailLink)
+        
     }
 }
 

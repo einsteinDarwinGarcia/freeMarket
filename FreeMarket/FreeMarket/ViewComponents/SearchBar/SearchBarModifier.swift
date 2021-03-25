@@ -16,6 +16,11 @@ struct SearchBarModifier: ViewModifier {
             .overlay(
                 ViewControllerResolver { viewController in
                     viewController.navigationItem.searchController = self.searchBar.searchController
+                    viewController.navigationController?.navigationBar.barTintColor = UIColor(Color.black)
+                    viewController.navigationController?.navigationBar.tintColor = UIColor(Color.backgroundSecondary)
+                    viewController.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor :  UIColor.gray]
+                    viewController.navigationItem.searchController?.searchBar.searchBarStyle = .prominent
+                    viewController.navigationItem.searchController?.searchBar.searchTextField.tintColor = .white
                 }
                     .frame(width: 0, height: 0)
             )

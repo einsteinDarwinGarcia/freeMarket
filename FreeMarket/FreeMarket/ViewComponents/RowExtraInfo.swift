@@ -20,7 +20,9 @@ struct RowExtraInfo: View {
                 .padding(.leading, 25)
             Text(title)
                 .font(.caption)
+                    .foregroundColor(Color.textColor)
         }.padding(.top, -5)
+        
     }
 }
 

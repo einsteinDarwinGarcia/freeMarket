@@ -13,7 +13,7 @@ struct LineBar: View {
                 ZStack {
                            Rectangle().frame(width: geometry.size.width , height: geometry.size.height)
                                .opacity(0.3)
-                            .foregroundColor(Color.gray)
+                            .foregroundColor(Color.backgroundSecondary)
                        }.cornerRadius(45.0)
                 }
     }

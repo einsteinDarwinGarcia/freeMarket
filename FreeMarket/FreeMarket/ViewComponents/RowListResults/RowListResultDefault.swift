@@ -23,15 +23,9 @@ struct RowListResultDefault: View {
                 }.frame(width: 150)
                 
                 VStack(alignment: .leading) {
-                    Text(item?.title ?? "Product Title")
-                        .font(.subheadline)
-                        .padding(.top, 7)
-                        .padding(.bottom, 7)
-                    
+                    ItemTitle(text: item?.title ?? "")
                     Spacer()
-                    Text(String(item?.price ?? 0))
-                        .font(.title2)
-                        .frame(height: 15)
+                    ItemPrice(price: item?.price ?? 0)
                     Spacer()
                     if item?.freeChipping != nil {
                         Text("Envio Gratis")

@@ -12,14 +12,16 @@ struct AttributesSelectView: View {
         VStack {
             HStack {
                 Text("Caracteristicas")
+                    .foregroundColor(Color.textColor)
                     .padding()
                 Spacer()
                 Image(systemName: "chevron.right")
                     .resizable()
                     .frame(width: 10, height: 15)
+                    .foregroundColor(Color.backgroundSecondary)
                     .padding()
             }
-            .background(Color.gray)
+            .background(Color.backgroundPrimary)
             .cornerRadius(10)
         }.padding()
     }

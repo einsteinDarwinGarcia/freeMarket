@@ -12,20 +12,25 @@ struct RowAttribute: View {
     let value: String
     
     var body: some View {
-        VStack(alignment:.leading) {
+        VStack(alignment:.trailing) {
             HStack(alignment:.center) {
                 Text(title)
                     .font(.caption)
                     .fontWeight(.bold)
                     .padding()
+                    .frame(width:200)
                 Spacer()
-                Text(value)
-                        .font(.caption)
-                    .padding()
-                Spacer()
-            }
+                
+                    Text(value)
+                            .font(.caption)
+                            .foregroundColor(Color.textColor)
+                        .padding()
+                        .frame(width:200)
+                    Spacer()
+                
+            }.background(Color.white)
         }
-        .border(Color.gray, width: 0.4)
+        .border(Color.backgroundSecondary, width: 0.4)
        
     }
 }

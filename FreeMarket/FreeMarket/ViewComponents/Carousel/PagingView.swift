@@ -51,6 +51,7 @@ struct PagingView<Content>: View where Content: View {
                 )
             }
             .clipped()
+            .padding(.bottom, 45)
 
             PageControl(index: $index, maxIndex: maxIndex)
         }
@@ -80,7 +81,7 @@ struct PageControl: View {
         HStack(spacing: 8) {
             ForEach(0...maxIndex, id: \.self) { index in
                 Circle()
-                    .fill(index == self.index ? Color.white : Color.gray)
+                    .fill(index == self.index ? Color.backgroundSecondary : Color.backgroundPrimary)
                     .frame(width: 8, height: 8)
             }
         }
