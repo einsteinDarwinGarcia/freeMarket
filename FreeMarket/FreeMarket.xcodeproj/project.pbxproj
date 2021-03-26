@@ -119,6 +119,10 @@
 		0C472A5A260C1A0800EE9FBC /* ItemText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C472A59260C1A0800EE9FBC /* ItemText.swift */; };
 		0C472A65260C2DA300EE9FBC /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C472A64260C2DA300EE9FBC /* Colors.swift */; };
 		0C472A6A260CD1CE00EE9FBC /* ConfigurationCategoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C472A69260CD1CD00EE9FBC /* ConfigurationCategoryService.swift */; };
+		0C79DCCD260D8EBE006B4723 /* PortraitDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C79DCCC260D8EBE006B4723 /* PortraitDetailView.swift */; };
+		0C79DCD2260D9010006B4723 /* LandscapeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C79DCD1260D9010006B4723 /* LandscapeDetailView.swift */; };
+		0C79DCD7260D9895006B4723 /* PortraitProminentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C79DCD6260D9895006B4723 /* PortraitProminentItem.swift */; };
+		0C79DCDC260D9925006B4723 /* LandscapeProminentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C79DCDB260D9925006B4723 /* LandscapeProminentItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -256,6 +260,10 @@
 		0C472A59260C1A0800EE9FBC /* ItemText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemText.swift; sourceTree = "<group>"; };
 		0C472A64260C2DA300EE9FBC /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		0C472A69260CD1CD00EE9FBC /* ConfigurationCategoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationCategoryService.swift; sourceTree = "<group>"; };
+		0C79DCCC260D8EBE006B4723 /* PortraitDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortraitDetailView.swift; sourceTree = "<group>"; };
+		0C79DCD1260D9010006B4723 /* LandscapeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandscapeDetailView.swift; sourceTree = "<group>"; };
+		0C79DCD6260D9895006B4723 /* PortraitProminentItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortraitProminentItem.swift; sourceTree = "<group>"; };
+		0C79DCDB260D9925006B4723 /* LandscapeProminentItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandscapeProminentItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -644,6 +652,8 @@
 			isa = PBXGroup;
 			children = (
 				0C4729872609360000EE9FBC /* ItemDetailView.swift */,
+				0C79DCCC260D8EBE006B4723 /* PortraitDetailView.swift */,
+				0C79DCD1260D9010006B4723 /* LandscapeDetailView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -737,6 +747,8 @@
 			isa = PBXGroup;
 			children = (
 				0C472A38260BAE4900EE9FBC /* ProminentItem.swift */,
+				0C79DCD6260D9895006B4723 /* PortraitProminentItem.swift */,
+				0C79DCDB260D9925006B4723 /* LandscapeProminentItem.swift */,
 			);
 			path = ProminentHistoricalItem;
 			sourceTree = "<group>";
@@ -925,6 +937,7 @@
 				0C4728AF2602769700EE9FBC /* RemoveDuplicatesElements+Array.swift in Sources */,
 				0C4729332603FF5500EE9FBC /* CoreDataFetchResultsPublisher.swift in Sources */,
 				0C4729D32609518D00EE9FBC /* DetailState.swift in Sources */,
+				0C79DCCD260D8EBE006B4723 /* PortraitDetailView.swift in Sources */,
 				0C472A0F26098DAE00EE9FBC /* APIRestPersistence.swift in Sources */,
 				0C47292B2603FD2700EE9FBC /* CoreDataStore.swift in Sources */,
 				0C47291B2603C2F700EE9FBC /* RowListResultDefault.swift in Sources */,
@@ -977,12 +990,14 @@
 				0C4728F02602D2C500EE9FBC /* SearchListResultView.swift in Sources */,
 				0C472843260030C400EE9FBC /* Seller.swift in Sources */,
 				0C47297C260935E600EE9FBC /* ItemDetailActions.swift in Sources */,
+				0C79DCDC260D9925006B4723 /* LandscapeProminentItem.swift in Sources */,
 				0C47275F25FFA7FE00EE9FBC /* AppDelegate.swift in Sources */,
 				0C47283D260030C400EE9FBC /* Country.swift in Sources */,
 				0C4729D52609518D00EE9FBC /* DetailRule.swift in Sources */,
 				0C4729162603C23D00EE9FBC /* RowListResultImportant.swift in Sources */,
 				0C4727D325FFB64E00EE9FBC /* FluxBaseStore.swift in Sources */,
 				0C472A46260BD85A00EE9FBC /* ConfigurationProminentItemEntity.swift in Sources */,
+				0C79DCD2260D9010006B4723 /* LandscapeDetailView.swift in Sources */,
 				0C4728E42602D2AB00EE9FBC /* SearchListResultActions.swift in Sources */,
 				0C4729A42609440500EE9FBC /* RowExtraInfo.swift in Sources */,
 				0C47299626093BB200EE9FBC /* PagingView.swift in Sources */,
@@ -1001,6 +1016,7 @@
 				0C47287E2601437A00EE9FBC /* ItemsModel.swift in Sources */,
 				0C47286B26011F1500EE9FBC /* SearchBarModifier.swift in Sources */,
 				0C4729D42609518D00EE9FBC /* DetailAttribute.swift in Sources */,
+				0C79DCD7260D9895006B4723 /* PortraitProminentItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

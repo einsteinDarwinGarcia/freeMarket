@@ -59,11 +59,15 @@ class ContentActions<C: ContentViewCoordinator, D: FluxDispatcher>:  Action<C>, 
     }
     
     func clearData() {
+        removeData()
+        getSavedItems()
+        getProminentItems()
+    }
+    
+    func removeData() {
         self.totalItemsSearched?.removeAll()
         self.searchTotalFilter?.removeAll()
         self.historicalProminentItems?.removeAll()
-        getSavedItems()
-        getProminentItems()
     }
     
     func initSearchBar(searchBar: SearchBar) {
@@ -120,6 +124,10 @@ class ContentActions<C: ContentViewCoordinator, D: FluxDispatcher>:  Action<C>, 
             self?.historicalProminentItems = value.map { $0 }?.removingDuplicates()
             self?.dispatcher.dispatch(.setProminentItem(self?.historicalProminentItems?.last))
         }.store(in: &cancellables)
+    }
+    
+    deinit {
+        removeData()
     }
     
 }

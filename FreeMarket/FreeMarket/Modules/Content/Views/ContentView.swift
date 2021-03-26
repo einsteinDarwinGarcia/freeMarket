@@ -49,8 +49,9 @@ struct ContentView<A: ContentActionsProtocol>: View where A.M == ContentModelSto
                     }
                     .add(self.searchBar)
                     .navigationBarTitleDisplayMode(.inline)
-//                    .navigationTitle("FreeMarket")
+                    .navigationBarTitle("FreeMarket")
         }
+        .phoneOnlyStackNavigationView()
         
         .onAppear {
             actions.initSearchBar(searchBar: searchBar)
@@ -73,5 +74,16 @@ struct ContentView_Previews: PreviewProvider {
     
     static var previews: some View {
         return ContentFactory.make(with: ContentCoordinator<AppCoordinator>(isPresented:$isActive), modelStore: modelStore)
+    }
+}
+
+
+extension View {
+    func phoneOnlyStackNavigationView() -> some View {
+        if UIDevice.current.userInterfaceIdiom == .phone || UIDevice.current.userInterfaceIdiom == .pad {
+            return AnyView(self.navigationViewStyle(StackNavigationViewStyle()))
+        } else {
+            return AnyView(self)
+        }
     }
 }

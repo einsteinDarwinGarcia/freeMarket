@@ -9,6 +9,7 @@
 
 import SwiftUI
 
+
 struct SearchListResultView<A: SearchListResultActionsProtocol>: View where A.M == SearchListResultModelStore {
     
     @ObservedObject var store: SearchListResultModelStore
@@ -21,17 +22,21 @@ struct SearchListResultView<A: SearchListResultActionsProtocol>: View where A.M 
     }
 
     var body: some View {
-        VStack {
-            ListView(items: store.searchedItem) { item  in
-                NavigationButton(contentView: RowListResults(item: item),
-                                 navigationView: { isPresented in
-                                    self.actions.goToItemDetail(isPresented: isPresented, item: item)
-                })
+            VStack {
+                Divider()
+                Group {
+                    ListView(items: store.searchedItem) { item  in
+                        NavigationButton(contentView: RowListResults(item: item),
+                                         navigationView: { isPresented in
+                                            self.actions.goToItemDetail(isPresented: isPresented, item: item)
+                        })
+                    }
+                    .navigationTitle("Resultados")
+                }
+            }.onAppear{
+                validateService()
             }
-            .navigationTitle("Resultados")
-        }.onAppear{
-            validateService()
-        }
+            
     }
     
     func validateService() {

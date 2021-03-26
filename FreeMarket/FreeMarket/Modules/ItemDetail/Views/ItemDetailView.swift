@@ -11,6 +11,8 @@ import SwiftUI
 
 struct ItemDetailView<A: ItemDetailActionsProtocol>: View where A.M == ItemDetailModelStore {
     
+    @Environment(\.horizontalSizeClass) var sizeClass
+    
     @ObservedObject var store: ItemDetailModelStore
     private var actions: A
     
@@ -34,52 +36,17 @@ struct ItemDetailView<A: ItemDetailActionsProtocol>: View where A.M == ItemDetai
     }
 
     var body: some View {
-        
-        ZStack(alignment: .top) {
-            ScrollView {
-                VStack(alignment:.leading) {
-                    Text(store.itemDetail.condition ?? String())
-                        .font(.caption)
-                        .foregroundColor(Color.textColor)
-                        .padding(.leading, 25)
-                    Text(store.itemDetail.title ?? String())
-                        .font(.title3)
-                        .foregroundColor(Color.textColor)
-                        .padding(.leading, 25)
-                        .padding(.trailing, 25)
-                    
-                    Carousel(images: store.itemDetail.photos)
-                   
-                    AttributesSelectView()
-                        .gesture(
-                            TapGesture().onEnded{
-                                position = CardPosition.middle
-                            }
-                        ).padding(.top, -35)
-                        .padding(.trailing, 5)
-                        .padding(.leading, 5)
-                    
-                    Text(totalPrice)
-                        .font(.largeTitle)
-                        .foregroundColor(Color.textColor)
-                        .padding(.leading, 25)
-                    
-                    VStack(alignment: .leading) {
-                        RowExtraInfo(image: "creditcard", title: "Paga con Mercado Pago")
-                        RowExtraInfo(image: "server.rack", title: "Cantidad \(store.itemDetail.stock ?? 0)")
-                        RowExtraInfo(image: "rosette", title: store.itemDetail.warranty ?? String())
-                    }
-                    
-                }.padding(.top, 100)
-                .padding(.bottom, 200)
+        if sizeClass == .compact {
+            PortraitDetailView(itemDetail: store.itemDetail, position: position, totalPrice: totalPrice)
+                .onAppear {
+                self.actions.loadData()
             }
-            
-            SlideOverCard(position: $position) {
-                AttributesDetail(attributes: store.itemDetail.attributes)
-            }.frame(maxWidth:.infinity)
-        }
-        .onAppear {
-            self.actions.loadData()
+        } else {
+       
+            LandscapeDetailView(itemDetail: store.itemDetail, position: position, totalPrice: totalPrice)
+                .onAppear {
+                self.actions.loadData()
+            }
         }
     }
 }
