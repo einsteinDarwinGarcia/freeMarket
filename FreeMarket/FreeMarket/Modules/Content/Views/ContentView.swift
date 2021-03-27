@@ -28,7 +28,6 @@ struct ContentView<A: ContentActionsProtocol>: View where A.M == ContentModelSto
         NavigationView {
                     ZStack {
                         if searchBar.beginEditing {
-                            
                             ListView(items: store.items.lazy.filter {
                                 searchBar.text.isEmpty ||
                                     $0.id.localizedStandardContains(searchBar.text)
@@ -39,11 +38,24 @@ struct ContentView<A: ContentActionsProtocol>: View where A.M == ContentModelSto
                                                  })
                             }
                         } else {
-                            if let prominent = validateProminentItem() {
-                                NavigationButton(contentView: ProminentItem(item: prominent),
-                                                 navigationView: { isPresented in
-                                                    self.actions.presentListHistoricalProminentItem(isPresented: isPresented, itemSelected: prominent)
-                                                 })
+                            VStack {
+                                if let prominent = validateProminentItem() {
+                                    NavigationButton(contentView: ProminentItem(item: prominent),
+                                                     navigationView: { isPresented in
+                                                        self.actions.presentListHistoricalProminentItem(isPresented: isPresented, itemSelected: prominent)
+                                                     })
+                                }
+                                Spacer()
+                                HStack {
+                                    Text("Busqueda Tendencias").font(.caption).bold().padding()
+                                    if let prediction = validatePrediction() {
+                                        Text(prediction.cars.getData(total: prediction.totalSearched)).font(.caption).padding()
+                                        Text(prediction.mobiles.getData(total: prediction.totalSearched)).font(.caption).padding()
+                                        Text(prediction.meat.getData(total: prediction.totalSearched)).font(.caption).padding()
+                                    }
+                                }
+                                .background(Color.backgroundPrimary)
+                                
                             }
                         }
                     }
@@ -63,6 +75,13 @@ struct ContentView<A: ContentActionsProtocol>: View where A.M == ContentModelSto
             return nil
         }
         return prominent
+    }
+    
+    func validatePrediction() -> PredictiveData? {
+        guard let prediction = self.store.prediction else {
+            return nil
+        }
+        return prediction
     }
 }
 

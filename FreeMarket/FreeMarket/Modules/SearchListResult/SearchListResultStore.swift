@@ -8,10 +8,29 @@
 //
 
 import Combine
+import SwiftUI
+
+class ToggleViewModel: ObservableObject {
+    let priceDidChange = PassthroughSubject<Bool, Never>()
+    let availableDidChange = PassthroughSubject<Bool, Never>()
+
+    var priceSort = false {
+        didSet {
+            priceDidChange.send(priceSort)
+        }
+    }
+
+    var availableSort = false {
+        didSet {
+            availableDidChange.send(availableSort)
+        }
+    }
+}
 
 class SearchListResultModelStore: ObservableObject {
     @Published var searchItemSaved: String? = nil
     @Published var searchedItem: [ItemsModel] = []
+    var price = CurrentValueSubject<Binding<Bool>, Never>(.constant(false))
 }
 
 class SearchListResultViewStore<D: FluxDispatcher, MS: SearchListResultModelStore >: FluxStore where D.L == SearchListResultListActions {

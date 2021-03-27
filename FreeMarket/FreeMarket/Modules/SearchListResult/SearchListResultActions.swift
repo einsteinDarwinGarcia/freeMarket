@@ -14,6 +14,7 @@ protocol SearchListResultActionsProtocol: ViewActionsProtocol {
     func combineItems()
     func getItemsSavedCategory(categoryId: String)
     func goToItemDetail(isPresented: Binding<Bool>, item: ItemsModel) -> V
+    func sorted(sort: ToggleViewModel)
 }
 
 enum SearchListResultListActions: ListActions {
@@ -96,6 +97,41 @@ class SearchListResultActions<C: SearchListResultViewCoordinator, D: FluxDispatc
         
     }
     
+    func sorted(sort: ToggleViewModel) {
+        sort.priceDidChange.sink { [weak self] (sort) in
+            self?.priceSort(sort: sort)
+        }.store(in: &cancellables)
+        
+        sort.availableDidChange.sink { [weak self] (sort) in
+            self?.availableSort(sort: sort)
+        }.store(in: &cancellables)
+    }
+    
+    func priceSort(sort: Bool) {
+        totalItems?.sort(by: { (item, item2) -> Bool in
+            guard let price1 = item.price, let price2 = item2.price else {
+                return false
+            }
+            return (sort) ? price1 < price2 : price1 > price2
+        })
+        guard let sortItems = totalItems else {
+            return // TODO: logger
+        }
+        dispatcher.dispatch(.loadItems(sortItems))
+    }
+    
+    func availableSort(sort: Bool) {
+        totalItems?.sort(by: { (item, item2) -> Bool in
+            guard let available = item.availableQuantity, let available2 = item2.availableQuantity else {
+                return false
+            }
+            return (sort) ? available < available2 : available > available2
+        })
+        guard let sortItems = totalItems else {
+            return // TODO: logger
+        }
+        dispatcher.dispatch(.loadItems(sortItems))
+    }
     
 }
 

@@ -34,7 +34,7 @@ struct Carousel: View {
     }
     
     func validateImage(image: String) -> URL {
-        guard let url = URL(string: image) else { return URL(string: "http://http2.mlstatic.com/D_937927-MCO31896772245_082019-O.jpg")! }
+        guard let url = URL(string: image) else { return URL(string: "https://media1.tenor.com/images/556e9ff845b7dd0c62dcdbbb00babb4b/tenor.gif")! }
         return url
     }
 }

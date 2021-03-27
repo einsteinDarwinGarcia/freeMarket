@@ -14,7 +14,7 @@ struct RowListResultDefault: View {
         VStack {
             HStack(alignment:.top) {
                 VStack {
-                    AsyncImage(url: validateImage(),
+                    AsyncImage(url: validateImage(item: item),
                                placeholder: { Text("Loading ...") },
                                image: { Image(uiImage: $0).resizable() }
                                )
@@ -48,11 +48,6 @@ struct RowListResultDefault: View {
                 .padding(.trailing, 20)
                 .padding(.bottom, 0)
         }
-    }
-    
-    func validateImage() -> URL {
-        guard let thumbnail = item?.thumbnail, let url = URL(string: thumbnail) else { return URL(string: "")! }
-        return url
     }
 }
 

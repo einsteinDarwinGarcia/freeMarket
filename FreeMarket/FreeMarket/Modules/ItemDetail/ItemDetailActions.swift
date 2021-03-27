@@ -8,6 +8,7 @@
 //
 import SwiftUI
 import Combine
+import CoreML
 
 protocol ItemDetailActionsProtocol: ViewActionsProtocol {
     func loadData()
@@ -31,6 +32,7 @@ class ItemDetailActions<C: ItemDetailViewCoordinator, D: FluxDispatcher>:  Actio
     
     private var networkingLayer: NetworkingDetailItems!
     private var cancellables: Set<AnyCancellable>!
+    private var modelMeli: modelMELI?
     
     lazy var coreDataStore: CoreDataStoring = {
         return CoreDataStore.default
@@ -41,11 +43,45 @@ class ItemDetailActions<C: ItemDetailViewCoordinator, D: FluxDispatcher>:  Actio
         self.itemDetail = itemDetail
         super.init(coordinator: coordinator)
         setupNetworkingLayer()
-        saveCoreData()
+        
     }
     
     func configureViewStore(modelStore: ItemDetailModelStore) {
         self.contentViewStore = ItemDetailViewStore(dispatcher: self.dispatcher, modelStore: modelStore)
+    }
+    
+    func predictiveProduct() {
+        do {
+            modelMeli = try modelMELI(configuration: MLModelConfiguration())
+            let meliPredictor = try modelMeli?.prediction(text: "")
+            guard let predictionItem = meliPredictor?.label else {
+                return
+            }
+            savePredictionProduct(prediction: predictionItem)
+        } catch {
+            print(error.localizedDescription) // TODO: logger
+        }
+        
+    }
+    
+    func savePredictionProduct(prediction: String) {
+        let action: ActionCoreData = { [coreDataStore] in
+            let predictionEntity: ItemPredictionEntity = coreDataStore.createEntity()
+            predictionEntity.category = prediction
+        }
+        
+        coreDataStore
+            .publicher(save: action).sink { completion in
+                if case .failure(let error) = completion {
+                    print(error.localizedDescription) // TODO: logger
+                }
+            } receiveValue: { success in
+                if success {
+                  print("Saving PREDICTION") // TODO: logger
+                }
+            }
+            .store(in: &cancellables)
+        
     }
     
     func saveCoreData() {
@@ -72,7 +108,6 @@ class ItemDetailActions<C: ItemDetailViewCoordinator, D: FluxDispatcher>:  Actio
                 }
             }
             .store(in: &cancellables)
-        
     }
     
 }
@@ -86,11 +121,13 @@ extension ItemDetailActions {
     }
     
     func loadData() {
-        self.networkingLayer.networkingLayerService(text: self.itemDetail.id).sink { [dispatcher] itemDetailModel in
+        self.networkingLayer.networkingLayerService(text: self.itemDetail.id).sink { [weak self] itemDetailModel in
             guard let item = itemDetailModel else {
                 return // TODO: logger
             }
-            dispatcher.dispatch(.setItemDetail(item))
+            self?.saveCoreData()
+            self?.predictiveProduct()
+            self?.dispatcher.dispatch(.setItemDetail(item))
         }.store(in: &cancellables)
     }
 }

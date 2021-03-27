@@ -15,6 +15,8 @@ struct SearchListResultView<A: SearchListResultActionsProtocol>: View where A.M 
     @ObservedObject var store: SearchListResultModelStore
     private var actions: A
     
+    @ObservedObject var toggleViewModel: ToggleViewModel = ToggleViewModel()
+    
     init(actions: A,  modelStore: SearchListResultModelStore) {
         self.store = modelStore
         self.actions = actions
@@ -23,7 +25,28 @@ struct SearchListResultView<A: SearchListResultActionsProtocol>: View where A.M 
 
     var body: some View {
             VStack {
-                Divider()
+                VStack {
+                    HStack(alignment:.center) {
+                        Text("Ordenar: ")
+                            .font(.subheadline)
+                            .bold()
+                            .frame(width: 100)
+                        Toggle("Precio", isOn: $toggleViewModel.priceSort)
+                            .toggleStyle(SwitchToggleStyle(tint: .black))
+                            .font(.caption)
+                            .frame(width:120)
+                        Spacer()
+                        Toggle("Cantidad", isOn: $toggleViewModel.availableSort)
+                            .toggleStyle(SwitchToggleStyle(tint: .black))
+                            .font(.caption)
+                            
+                            .frame(width:120)
+                    }
+                    .padding(.top, 10)
+                    .padding(.bottom, 10)
+                    .padding(.trailing, 20)
+                }.background(Color.backgroundPrimary)
+                
                 Group {
                     ListView(items: store.searchedItem) { item  in
                         NavigationButton(contentView: RowListResults(item: item),
@@ -35,6 +58,7 @@ struct SearchListResultView<A: SearchListResultActionsProtocol>: View where A.M 
                 }
             }.onAppear{
                 validateService()
+                self.actions.sorted(sort: self.toggleViewModel)
             }
             
     }

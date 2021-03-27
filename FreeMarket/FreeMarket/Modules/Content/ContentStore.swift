@@ -13,6 +13,7 @@ class ContentModelStore: ObservableObject {
     @Published var isLoggedOut: Bool = true
     @Published var items: [ItemSearchModel] = []
     @Published var prominentItem: ItemsModel?
+    @Published var prediction: PredictiveData?
 }
 
 class ContentViewStore<D: FluxDispatcher, MS: ContentModelStore >: FluxStore where D.L == ContentListActions {
@@ -37,6 +38,8 @@ class ContentViewStore<D: FluxDispatcher, MS: ContentModelStore >: FluxStore whe
                 strongSelf.modelStore.items = items
             case .setProminentItem(let item):
                 strongSelf.modelStore.prominentItem = item
+            case .setPredictions(let prediction):
+                strongSelf.modelStore.prediction = prediction
             }
             
         }

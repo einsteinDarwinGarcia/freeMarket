@@ -24,7 +24,7 @@ struct PortraitProminentItem: View {
                 LineBar().frame(height:1)
                 
                 VStack {
-                    AsyncImage(url: validateImage(),
+                    AsyncImage(url: validateImage(item: item),
                                placeholder: { Text("Loading ...") },
                                image: { Image(uiImage: $0).resizable() }
                                )
@@ -65,11 +65,15 @@ struct PortraitProminentItem: View {
         
         .padding()
     }
-    
-    func validateImage() -> URL {
-        guard let thumbnail = item.thumbnail, let url = URL(string: thumbnail) else { return URL(string: "")! }
+}
+
+extension View {
+    func validateImage(item: ItemsModel?) -> URL {
+        guard let thumbnail = item?.thumbnail, let url = URL(string: thumbnail) else {
+            
+            return URL(string: "https://media1.tenor.com/images/556e9ff845b7dd0c62dcdbbb00babb4b/tenor.gif")!
+            
+        }
         return url
     }
 }
-
-

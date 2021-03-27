@@ -123,6 +123,10 @@
 		0C79DCD2260D9010006B4723 /* LandscapeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C79DCD1260D9010006B4723 /* LandscapeDetailView.swift */; };
 		0C79DCD7260D9895006B4723 /* PortraitProminentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C79DCD6260D9895006B4723 /* PortraitProminentItem.swift */; };
 		0C79DCDC260D9925006B4723 /* LandscapeProminentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C79DCDB260D9925006B4723 /* LandscapeProminentItem.swift */; };
+		0C79DD1D260E95D1006B4723 /* modelMELI.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 0C79DD1C260E95D1006B4723 /* modelMELI.mlmodel */; };
+		0C79DD22260EA7AF006B4723 /* CoreDataPredictiveSearching.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C79DD21260EA7AF006B4723 /* CoreDataPredictiveSearching.swift */; };
+		0C79DD27260EA812006B4723 /* ConfigurationPredictiveEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C79DD26260EA812006B4723 /* ConfigurationPredictiveEntity.swift */; };
+		0C79DD2C260EAA71006B4723 /* PredictiveModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C79DD2B260EAA71006B4723 /* PredictiveModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -264,6 +268,10 @@
 		0C79DCD1260D9010006B4723 /* LandscapeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandscapeDetailView.swift; sourceTree = "<group>"; };
 		0C79DCD6260D9895006B4723 /* PortraitProminentItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortraitProminentItem.swift; sourceTree = "<group>"; };
 		0C79DCDB260D9925006B4723 /* LandscapeProminentItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandscapeProminentItem.swift; sourceTree = "<group>"; };
+		0C79DD1C260E95D1006B4723 /* modelMELI.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = modelMELI.mlmodel; sourceTree = "<group>"; };
+		0C79DD21260EA7AF006B4723 /* CoreDataPredictiveSearching.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataPredictiveSearching.swift; sourceTree = "<group>"; };
+		0C79DD26260EA812006B4723 /* ConfigurationPredictiveEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationPredictiveEntity.swift; sourceTree = "<group>"; };
+		0C79DD2B260EAA71006B4723 /* PredictiveModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredictiveModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -322,6 +330,7 @@
 				0C47287C260142F000EE9FBC /* ViewModels */,
 				0C4727A825FFB0B700EE9FBC /* Modules */,
 				0C47275E25FFA7FE00EE9FBC /* AppDelegate.swift */,
+				0C79DD1C260E95D1006B4723 /* modelMELI.mlmodel */,
 				0C47276025FFA7FE00EE9FBC /* SceneDelegate.swift */,
 				0C47276425FFA80800EE9FBC /* Assets.xcassets */,
 				0C47276925FFA80800EE9FBC /* LaunchScreen.storyboard */,
@@ -538,6 +547,7 @@
 			children = (
 				0C47297126092D2400EE9FBC /* ItemDetail */,
 				0C4728A52602513E00EE9FBC /* SearchBar */,
+				0C79DD2B260EAA71006B4723 /* PredictiveModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -758,6 +768,7 @@
 			children = (
 				0C472A44260BD82C00EE9FBC /* ConfigurationsFiles */,
 				0C472A4A260BDA1000EE9FBC /* CoreDataProminentItem.swift */,
+				0C79DD21260EA7AF006B4723 /* CoreDataPredictiveSearching.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -766,6 +777,7 @@
 			isa = PBXGroup;
 			children = (
 				0C472A45260BD85A00EE9FBC /* ConfigurationProminentItemEntity.swift */,
+				0C79DD26260EA812006B4723 /* ConfigurationPredictiveEntity.swift */,
 			);
 			path = ConfigurationsFiles;
 			sourceTree = "<group>";
@@ -949,6 +961,7 @@
 				0C4729D82609518D00EE9FBC /* DetailSellerAddress.swift in Sources */,
 				0C47280925FFCE6C00EE9FBC /* MockPersistence.swift in Sources */,
 				0C4727BE25FFB44F00EE9FBC /* Logs.swift in Sources */,
+				0C79DD2C260EAA71006B4723 /* PredictiveModel.swift in Sources */,
 				0C47299B26093DA500EE9FBC /* AttributesSelectView.swift in Sources */,
 				0C4729502604FA3400EE9FBC /* ConfigurationSearchEntity.swift in Sources */,
 				0C4729CC2609518C00EE9FBC /* DetailBody.swift in Sources */,
@@ -971,6 +984,7 @@
 				0C4728862601504600EE9FBC /* CastingToSearchViewModels.swift in Sources */,
 				0C4729CD2609518D00EE9FBC /* DetailSaleTerm.swift in Sources */,
 				0C47279C25FFAC1900EE9FBC /* AssociatedObjects.swift in Sources */,
+				0C79DD1D260E95D1006B4723 /* modelMELI.mlmodel in Sources */,
 				0C472964260507FF00EE9FBC /* CastingCoreDataToViewModel.swift in Sources */,
 				0C4728162600087F00EE9FBC /* NetworkManager.swift in Sources */,
 				0C472A0026095BB600EE9FBC /* CastingToIItemDetailModel.swift in Sources */,
@@ -988,6 +1002,7 @@
 				0C47280325FFCD6100EE9FBC /* PersistenceManager.swift in Sources */,
 				0C4727E125FFBB0500EE9FBC /* ContentViewCoordinator.swift in Sources */,
 				0C4728F02602D2C500EE9FBC /* SearchListResultView.swift in Sources */,
+				0C79DD22260EA7AF006B4723 /* CoreDataPredictiveSearching.swift in Sources */,
 				0C472843260030C400EE9FBC /* Seller.swift in Sources */,
 				0C47297C260935E600EE9FBC /* ItemDetailActions.swift in Sources */,
 				0C79DCDC260D9925006B4723 /* LandscapeProminentItem.swift in Sources */,
@@ -1010,6 +1025,7 @@
 				0C4729B426094B5500EE9FBC /* SlideOverCard.swift in Sources */,
 				0C472A54260BEAF300EE9FBC /* FreeMarketCoreData.xcdatamodeld in Sources */,
 				0C47276125FFA7FE00EE9FBC /* SceneDelegate.swift in Sources */,
+				0C79DD27260EA812006B4723 /* ConfigurationPredictiveEntity.swift in Sources */,
 				0C4729D02609518D00EE9FBC /* DetailDescription.swift in Sources */,
 				0C4727E225FFBB0500EE9FBC /* ContentStore.swift in Sources */,
 				0C4729CF2609518D00EE9FBC /* DetailShipping.swift in Sources */,

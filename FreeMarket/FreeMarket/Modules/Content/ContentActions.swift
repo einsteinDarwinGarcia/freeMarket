@@ -22,6 +22,7 @@ enum ContentListActions: ListActions {
     case isLoggedOut(Bool)
     case setItems([ItemSearchModel]?)
     case setProminentItem(ItemsModel?)
+    case setPredictions(PredictiveData?)
     func setCategoryToCLog() -> Category {
         .login
     }
@@ -33,15 +34,16 @@ class ContentActions<C: ContentViewCoordinator, D: FluxDispatcher>:  Action<C>, 
     private var contentViewStore: AnyObject?
 
     private var searchBar: SearchBar?
-    private var cancellables: Set<AnyCancellable>!
+    private var cancellables: Set<AnyCancellable> = []
     
     private var totalItemsSearched: [ItemsModel]?
     private var searchTotalFilter: [ItemSearchModel]?
     private var historicalProminentItems: [ItemsModel]?
     
-    private var networkingLayer: NetworkingSearchItems<ConfigurationSearchService>!
-    private var networkingLayerSearchedItemsCoreData: CoreDataSearchItem!
-    private var networkingLayerProminentCoreData: CoreDataProminentItem!
+    private var networkingLayer: NetworkingSearchItems<ConfigurationSearchService>?
+    private var networkingLayerSearchedItemsCoreData: CoreDataSearchItem?
+    private var networkingLayerProminentCoreData: CoreDataProminentItem?
+    private var networkingLayerPredictiveCoreData: CoreDataPredictiveSearching?
     
     lazy var coreDataStore: CoreDataStoring = {
         return CoreDataStore.default
@@ -60,8 +62,6 @@ class ContentActions<C: ContentViewCoordinator, D: FluxDispatcher>:  Action<C>, 
     
     func clearData() {
         removeData()
-        getSavedItems()
-        getProminentItems()
     }
     
     func removeData() {
@@ -70,9 +70,15 @@ class ContentActions<C: ContentViewCoordinator, D: FluxDispatcher>:  Action<C>, 
         self.historicalProminentItems?.removeAll()
     }
     
+    func loadCoreData() {
+        getPredictiveSearching()
+        getSavedItems()
+        getProminentItems()
+    }
+    
     func initSearchBar(searchBar: SearchBar) {
+        loadCoreData()
         self.searchBar = searchBar
-        
         self.searchBar?.activeSearchService.sink(receiveValue: { [weak self] searchingText in
             if SearchBarValidations.isValidateTextToActiveSearchService(text: searchingText) {
                 self?.networkingAction(text: searchingText)
@@ -81,6 +87,7 @@ class ContentActions<C: ContentViewCoordinator, D: FluxDispatcher>:  Action<C>, 
         
         self.searchBar?.$resetSearching.sink(receiveValue: { [weak self] searchingText in
             self?.clearData()
+            self?.loadCoreData()
         }).store(in: &cancellables)
         
     }
@@ -109,7 +116,7 @@ class ContentActions<C: ContentViewCoordinator, D: FluxDispatcher>:  Action<C>, 
     }
     
     func getSavedItems() {
-        self.networkingLayerSearchedItemsCoreData.networkingLayerService(text: String()).sink { [weak self] (value) in
+        self.networkingLayerSearchedItemsCoreData?.networkingLayerService(text: String()).sink { [weak self] (value) in
             // get saved Items, remove duplicates and set true flag saved to visual propouse
             self?.searchTotalFilter = value?.map({ $0 }).removingDuplicates().map {
                 let model = ItemSearchModel(id:$0.id, category: $0.category, saved: true)
@@ -120,10 +127,23 @@ class ContentActions<C: ContentViewCoordinator, D: FluxDispatcher>:  Action<C>, 
     }
     
     func getProminentItems() {
-        self.networkingLayerProminentCoreData.networkingLayerService(text: String()).sink { [weak self] (value) in
+        self.networkingLayerProminentCoreData?.networkingLayerService(text: String()).sink { [weak self] (value) in
             self?.historicalProminentItems = value.map { $0 }?.removingDuplicates()
             self?.dispatcher.dispatch(.setProminentItem(self?.historicalProminentItems?.last))
         }.store(in: &cancellables)
+    }
+    
+    func getPredictiveSearching() {
+        self.networkingLayerPredictiveCoreData?.networkingLayerService(text: String()).sink(receiveValue: { [dispatcher] (value) in
+            
+         let numberCars = value?.filter { $0.category == CategoriesPredictive.cars(0).getValue() }.count
+         let numberPhones = value?.filter { $0.category == CategoriesPredictive.mobiles(0).getValue() }.count
+         let numberMeat = value?.filter { $0.category == CategoriesPredictive.meat(0).getValue() }.count
+            
+         let data = PredictiveData(cars: .cars(numberCars), mobiles: .mobiles(numberPhones), meat: .meat(numberMeat), totalSearched: value?.count ?? 0)
+         dispatcher.dispatch(.setPredictions(data))
+            
+        }).store(in: &cancellables)
     }
     
     deinit {
@@ -138,11 +158,11 @@ extension ContentActions {
         self.networkingLayer = NetworkingSearchItems(configService: ConfigurationSearchService())
         self.networkingLayerSearchedItemsCoreData = CoreDataSearchItem()
         self.networkingLayerProminentCoreData = CoreDataProminentItem()
-        cancellables = []
+        self.networkingLayerPredictiveCoreData = CoreDataPredictiveSearching()
     }
     
     func networkingAction(text: String) {
-        self.networkingLayer.networkingLayerService(text: text).sink(receiveValue: { (items) in
+        self.networkingLayer?.networkingLayerService(text: text).sink(receiveValue: { (items) in
             
             self.totalItemsSearched = items?.items
             // remove items with the same category

@@ -35,18 +35,11 @@ final class NetworkingSearchItems<C:NetworkConfiguration>: NetworkingLayer {
                     return promise(.success(nil)) // TODO: Logger manage error
                 }
                 
-               /* castingModel.casting(rootClass: rootResponse.results).sink { value in
-                    return promise(.success(value))
-                }.store(in: &strongSelf.cancellables)*/
                 strongSelf.getSecurityThumbnail(data: rootResponse.results!).sink { (resultWithSecureThumbnail) in
-                    
                     castingModel.casting(rootClass: resultWithSecureThumbnail).sink { value in
                         return promise(.success(value))
                     }.store(in: &strongSelf.cancellables)
-                    
                 }.store(in: &strongSelf.cancellables) 
-                
-                
                 
             }.store(in: &strongSelf.cancellables)
         }

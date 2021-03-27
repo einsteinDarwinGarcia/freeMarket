@@ -24,7 +24,7 @@ struct LandscapeProminentItem: View {
                 LineBar().frame(height:1)
                 HStack {
                     VStack {
-                        AsyncImage(url: validateImage(),
+                        AsyncImage(url: validateImage(item: item),
                                    placeholder: { Text("Loading ...") },
                                    image: { Image(uiImage: $0).resizable() }
                         )
@@ -67,11 +67,6 @@ struct LandscapeProminentItem: View {
         
         .padding()
         .frame(width: 500)
-    }
-    
-    func validateImage() -> URL {
-        guard let thumbnail = item.thumbnail, let url = URL(string: thumbnail) else { return URL(string: "")! }
-        return url
     }
 }
 
