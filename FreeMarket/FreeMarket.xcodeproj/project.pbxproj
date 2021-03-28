@@ -123,10 +123,14 @@
 		0C79DCD2260D9010006B4723 /* LandscapeDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C79DCD1260D9010006B4723 /* LandscapeDetailView.swift */; };
 		0C79DCD7260D9895006B4723 /* PortraitProminentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C79DCD6260D9895006B4723 /* PortraitProminentItem.swift */; };
 		0C79DCDC260D9925006B4723 /* LandscapeProminentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C79DCDB260D9925006B4723 /* LandscapeProminentItem.swift */; };
-		0C79DD1D260E95D1006B4723 /* modelMELI.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 0C79DD1C260E95D1006B4723 /* modelMELI.mlmodel */; };
 		0C79DD22260EA7AF006B4723 /* CoreDataPredictiveSearching.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C79DD21260EA7AF006B4723 /* CoreDataPredictiveSearching.swift */; };
 		0C79DD27260EA812006B4723 /* ConfigurationPredictiveEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C79DD26260EA812006B4723 /* ConfigurationPredictiveEntity.swift */; };
 		0C79DD2C260EAA71006B4723 /* PredictiveModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C79DD2B260EAA71006B4723 /* PredictiveModel.swift */; };
+		0C79DD44260FF6FF006B4723 /* ModelMELIPhones.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 0C79DD43260FF6FF006B4723 /* ModelMELIPhones.mlmodel */; };
+		0C79DD49261003AA006B4723 /* SearchTrend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C79DD48261003AA006B4723 /* SearchTrend.swift */; };
+		0C79DD4E261004D5006B4723 /* BannerTrend.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C79DD4D261004D5006B4723 /* BannerTrend.swift */; };
+		0C79DD5726100C0B006B4723 /* ContentViewPortraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C79DD5626100C0B006B4723 /* ContentViewPortraint.swift */; };
+		0C79DD5C26100C20006B4723 /* ContentViewLandscape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C79DD5B26100C20006B4723 /* ContentViewLandscape.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -268,10 +272,14 @@
 		0C79DCD1260D9010006B4723 /* LandscapeDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandscapeDetailView.swift; sourceTree = "<group>"; };
 		0C79DCD6260D9895006B4723 /* PortraitProminentItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PortraitProminentItem.swift; sourceTree = "<group>"; };
 		0C79DCDB260D9925006B4723 /* LandscapeProminentItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandscapeProminentItem.swift; sourceTree = "<group>"; };
-		0C79DD1C260E95D1006B4723 /* modelMELI.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = modelMELI.mlmodel; sourceTree = "<group>"; };
 		0C79DD21260EA7AF006B4723 /* CoreDataPredictiveSearching.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataPredictiveSearching.swift; sourceTree = "<group>"; };
 		0C79DD26260EA812006B4723 /* ConfigurationPredictiveEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationPredictiveEntity.swift; sourceTree = "<group>"; };
 		0C79DD2B260EAA71006B4723 /* PredictiveModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredictiveModel.swift; sourceTree = "<group>"; };
+		0C79DD43260FF6FF006B4723 /* ModelMELIPhones.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = ModelMELIPhones.mlmodel; sourceTree = "<group>"; };
+		0C79DD48261003AA006B4723 /* SearchTrend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTrend.swift; sourceTree = "<group>"; };
+		0C79DD4D261004D5006B4723 /* BannerTrend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerTrend.swift; sourceTree = "<group>"; };
+		0C79DD5626100C0B006B4723 /* ContentViewPortraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewPortraint.swift; sourceTree = "<group>"; };
+		0C79DD5B26100C20006B4723 /* ContentViewLandscape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewLandscape.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -330,7 +338,7 @@
 				0C47287C260142F000EE9FBC /* ViewModels */,
 				0C4727A825FFB0B700EE9FBC /* Modules */,
 				0C47275E25FFA7FE00EE9FBC /* AppDelegate.swift */,
-				0C79DD1C260E95D1006B4723 /* modelMELI.mlmodel */,
+				0C79DD43260FF6FF006B4723 /* ModelMELIPhones.mlmodel */,
 				0C47276025FFA7FE00EE9FBC /* SceneDelegate.swift */,
 				0C47276425FFA80800EE9FBC /* Assets.xcassets */,
 				0C47276925FFA80800EE9FBC /* LaunchScreen.storyboard */,
@@ -421,6 +429,8 @@
 			isa = PBXGroup;
 			children = (
 				0C4727EB25FFBB2A00EE9FBC /* ContentView.swift */,
+				0C79DD5626100C0B006B4723 /* ContentViewPortraint.swift */,
+				0C79DD5B26100C20006B4723 /* ContentViewLandscape.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -518,6 +528,7 @@
 				0C47290C2603BD1000EE9FBC /* LineBar.swift */,
 				0C47299F26093DAC00EE9FBC /* Attributes */,
 				0C4729A32609440500EE9FBC /* RowExtraInfo.swift */,
+				0C79DD52261004DC006B4723 /* Trend */,
 			);
 			path = ViewComponents;
 			sourceTree = "<group>";
@@ -790,6 +801,15 @@
 			path = TextComponents;
 			sourceTree = "<group>";
 		};
+		0C79DD52261004DC006B4723 /* Trend */ = {
+			isa = PBXGroup;
+			children = (
+				0C79DD48261003AA006B4723 /* SearchTrend.swift */,
+				0C79DD4D261004D5006B4723 /* BannerTrend.swift */,
+			);
+			path = Trend;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -970,6 +990,7 @@
 				0C4727E025FFBB0500EE9FBC /* ContentActions.swift in Sources */,
 				0C4729DA2609518D00EE9FBC /* DetailSearchLocation.swift in Sources */,
 				0C472842260030C400EE9FBC /* RootClass.swift in Sources */,
+				0C79DD4E261004D5006B4723 /* BannerTrend.swift in Sources */,
 				0C47295F2604FDC400EE9FBC /* CoreDataSearchItems.swift in Sources */,
 				0C47279325FFABBC00EE9FBC /* Coordinator.swift in Sources */,
 				0C472A39260BAE4900EE9FBC /* ProminentItem.swift in Sources */,
@@ -984,7 +1005,6 @@
 				0C4728862601504600EE9FBC /* CastingToSearchViewModels.swift in Sources */,
 				0C4729CD2609518D00EE9FBC /* DetailSaleTerm.swift in Sources */,
 				0C47279C25FFAC1900EE9FBC /* AssociatedObjects.swift in Sources */,
-				0C79DD1D260E95D1006B4723 /* modelMELI.mlmodel in Sources */,
 				0C472964260507FF00EE9FBC /* CastingCoreDataToViewModel.swift in Sources */,
 				0C4728162600087F00EE9FBC /* NetworkManager.swift in Sources */,
 				0C472A0026095BB600EE9FBC /* CastingToIItemDetailModel.swift in Sources */,
@@ -1000,12 +1020,14 @@
 				0C4728BA26029B6E00EE9FBC /* NetworkingSearchItems.swift in Sources */,
 				0C4729A9260946ED00EE9FBC /* AttributesDetail.swift in Sources */,
 				0C47280325FFCD6100EE9FBC /* PersistenceManager.swift in Sources */,
+				0C79DD44260FF6FF006B4723 /* ModelMELIPhones.mlmodel in Sources */,
 				0C4727E125FFBB0500EE9FBC /* ContentViewCoordinator.swift in Sources */,
 				0C4728F02602D2C500EE9FBC /* SearchListResultView.swift in Sources */,
 				0C79DD22260EA7AF006B4723 /* CoreDataPredictiveSearching.swift in Sources */,
 				0C472843260030C400EE9FBC /* Seller.swift in Sources */,
 				0C47297C260935E600EE9FBC /* ItemDetailActions.swift in Sources */,
 				0C79DCDC260D9925006B4723 /* LandscapeProminentItem.swift in Sources */,
+				0C79DD5726100C0B006B4723 /* ContentViewPortraint.swift in Sources */,
 				0C47275F25FFA7FE00EE9FBC /* AppDelegate.swift in Sources */,
 				0C47283D260030C400EE9FBC /* Country.swift in Sources */,
 				0C4729D52609518D00EE9FBC /* DetailRule.swift in Sources */,
@@ -1015,11 +1037,13 @@
 				0C79DCD2260D9010006B4723 /* LandscapeDetailView.swift in Sources */,
 				0C4728E42602D2AB00EE9FBC /* SearchListResultActions.swift in Sources */,
 				0C4729A42609440500EE9FBC /* RowExtraInfo.swift in Sources */,
+				0C79DD49261003AA006B4723 /* SearchTrend.swift in Sources */,
 				0C47299626093BB200EE9FBC /* PagingView.swift in Sources */,
 				0C47294426041FCF00EE9FBC /* CoreDataPersistence.swift in Sources */,
 				0C4729EC260959E700EE9FBC /* NetworkingDetaiIItem.swift in Sources */,
 				0C472847260030C400EE9FBC /* Paging.swift in Sources */,
 				0C472A4B260BDA1000EE9FBC /* CoreDataProminentItem.swift in Sources */,
+				0C79DD5C26100C20006B4723 /* ContentViewLandscape.swift in Sources */,
 				0C4729D22609518D00EE9FBC /* DetailFreeMethod.swift in Sources */,
 				0C47297D260935E600EE9FBC /* ItemDetailViewCoordinator.swift in Sources */,
 				0C4729B426094B5500EE9FBC /* SlideOverCard.swift in Sources */,

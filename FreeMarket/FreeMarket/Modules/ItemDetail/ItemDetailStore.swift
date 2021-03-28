@@ -18,7 +18,8 @@ class ItemDetailModelStore: ObservableObject {
                                                                  price: 1799900,
                                                                  mercadoPago: true,
                                                                  warranty: "Garantía de fábrica: 12 meses",
-                                                                 stock: 4)
+                                                                 stock: 4,
+                                                                 categoryId: "MCO1055")
 }
 
 class ItemDetailViewStore<D: FluxDispatcher, MS: ItemDetailModelStore >: FluxStore where D.L == ItemDetailListActions {

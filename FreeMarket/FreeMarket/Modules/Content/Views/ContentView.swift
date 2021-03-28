@@ -12,6 +12,8 @@ import Combine
 
 struct ContentView<A: ContentActionsProtocol>: View where A.M == ContentModelStore {
     
+    @Environment(\.horizontalSizeClass) var sizeClass
+    
     @ObservedObject var store: ContentModelStore
     @ObservedObject var searchBar: SearchBar = SearchBar()
     
@@ -38,25 +40,19 @@ struct ContentView<A: ContentActionsProtocol>: View where A.M == ContentModelSto
                                                  })
                             }
                         } else {
-                            VStack {
-                                if let prominent = validateProminentItem() {
-                                    NavigationButton(contentView: ProminentItem(item: prominent),
-                                                     navigationView: { isPresented in
-                                                        self.actions.presentListHistoricalProminentItem(isPresented: isPresented, itemSelected: prominent)
-                                                     })
-                                }
-                                Spacer()
-                                HStack {
-                                    Text("Busqueda Tendencias").font(.caption).bold().padding()
-                                    if let prediction = validatePrediction() {
-                                        Text(prediction.cars.getData(total: prediction.totalSearched)).font(.caption).padding()
-                                        Text(prediction.mobiles.getData(total: prediction.totalSearched)).font(.caption).padding()
-                                        Text(prediction.meat.getData(total: prediction.totalSearched)).font(.caption).padding()
-                                    }
-                                }
-                                .background(Color.backgroundPrimary)
+                            if sizeClass == .compact {
                                 
+                                    ContentViewPortraint(prediction: store.prediction, prominent: store.prominentItem) { prominent, isPresented in
+                                        self.actions.presentListHistoricalProminentItem(isPresented: isPresented, itemSelected: prominent)
+                                    }
+                                
+                            } else {
+                                ContentViewLandscape(prediction: store.prediction, prominent: store.prominentItem) { prominent, isPresented in
+                                    self.actions.presentListHistoricalProminentItem(isPresented: isPresented, itemSelected: prominent)
+                                }
                             }
+                            
+                           
                         }
                     }
                     .add(self.searchBar)
@@ -70,19 +66,9 @@ struct ContentView<A: ContentActionsProtocol>: View where A.M == ContentModelSto
         }
     }
     
-    func validateProminentItem() -> ItemsModel? {
-        guard let prominent = self.store.prominentItem else {
-            return nil
-        }
-        return prominent
-    }
+   
     
-    func validatePrediction() -> PredictiveData? {
-        guard let prediction = self.store.prediction else {
-            return nil
-        }
-        return prediction
-    }
+    
 }
 
 
@@ -104,5 +90,19 @@ extension View {
         } else {
             return AnyView(self)
         }
+    }
+    
+    func validatePrediction(prediction: PredictiveData?) -> PredictiveData? {
+        guard let prediction = prediction else {
+            return nil
+        }
+        return prediction
+    }
+    
+    func validateProminentItem(prominent: ItemsModel?) -> ItemsModel? {
+        guard let prominent = prominent else {
+            return nil
+        }
+        return prominent
     }
 }

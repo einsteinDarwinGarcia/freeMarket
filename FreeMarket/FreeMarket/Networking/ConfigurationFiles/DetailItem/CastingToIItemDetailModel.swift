@@ -28,7 +28,8 @@ class CastingToItemDetailModels: CastingToModels {
                              price: root?.price,
                              mercadoPago: root?.acceptsMercadopago,
                              warranty: root?.warranty,
-                             stock: root?.availableQuantity)
+                             stock: root?.availableQuantity,
+                             categoryId: root?.categoryId)
             
             return promise(.success(item))
         }

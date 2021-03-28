@@ -32,7 +32,7 @@ class ItemDetailActions<C: ItemDetailViewCoordinator, D: FluxDispatcher>:  Actio
     
     private var networkingLayer: NetworkingDetailItems!
     private var cancellables: Set<AnyCancellable>!
-    private var modelMeli: modelMELI?
+    private var modelMeli: ModelMELIPhones?
     
     lazy var coreDataStore: CoreDataStoring = {
         return CoreDataStore.default
@@ -52,8 +52,8 @@ class ItemDetailActions<C: ItemDetailViewCoordinator, D: FluxDispatcher>:  Actio
     
     func predictiveProduct() {
         do {
-            modelMeli = try modelMELI(configuration: MLModelConfiguration())
-            let meliPredictor = try modelMeli?.prediction(text: "")
+            modelMeli = try ModelMELIPhones(configuration: MLModelConfiguration())
+            let meliPredictor = try modelMeli?.prediction(text: itemDetail.title)
             guard let predictionItem = meliPredictor?.label else {
                 return
             }
@@ -61,7 +61,6 @@ class ItemDetailActions<C: ItemDetailViewCoordinator, D: FluxDispatcher>:  Actio
         } catch {
             print(error.localizedDescription) // TODO: logger
         }
-        
     }
     
     func savePredictionProduct(prediction: String) {
@@ -126,7 +125,11 @@ extension ItemDetailActions {
                 return // TODO: logger
             }
             self?.saveCoreData()
-            self?.predictiveProduct()
+            
+            if itemDetailModel?.categoryId == "MCO1055" {
+                self?.predictiveProduct()
+            }
+            
             self?.dispatcher.dispatch(.setItemDetail(item))
         }.store(in: &cancellables)
     }

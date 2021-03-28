@@ -17,6 +17,7 @@ struct ItemDetailModel: Hashable, Identifiable {
     let mercadoPago: Bool?
     let warranty: String?
     let stock: Int?
+    let categoryId: String?
     
 }
 

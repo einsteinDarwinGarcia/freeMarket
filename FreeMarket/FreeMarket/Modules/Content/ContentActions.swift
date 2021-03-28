@@ -135,14 +135,13 @@ class ContentActions<C: ContentViewCoordinator, D: FluxDispatcher>:  Action<C>, 
     
     func getPredictiveSearching() {
         self.networkingLayerPredictiveCoreData?.networkingLayerService(text: String()).sink(receiveValue: { [dispatcher] (value) in
-            
-         let numberCars = value?.filter { $0.category == CategoriesPredictive.cars(0).getValue() }.count
-         let numberPhones = value?.filter { $0.category == CategoriesPredictive.mobiles(0).getValue() }.count
-         let numberMeat = value?.filter { $0.category == CategoriesPredictive.meat(0).getValue() }.count
-            
-         let data = PredictiveData(cars: .cars(numberCars), mobiles: .mobiles(numberPhones), meat: .meat(numberMeat), totalSearched: value?.count ?? 0)
-         dispatcher.dispatch(.setPredictions(data))
-            
+            guard let numberiPhone = value?.filter({ $0.category == CategoriesPredictive.iphone(0).getValue() }).count else { return }
+            guard let numberSamsung = value?.filter({ $0.category == CategoriesPredictive.samsung(0).getValue() }).count else { return }
+            guard let total = value?.count else { return }
+            if (numberiPhone > 0 || numberSamsung > 0) &&  total > 0 {
+                let data = PredictiveData(iphone: .iphone(numberiPhone), samsung: .samsung(numberSamsung), totalSearched: total)
+                dispatcher.dispatch(.setPredictions(data))
+            }
         }).store(in: &cancellables)
     }
     

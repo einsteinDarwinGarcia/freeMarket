@@ -17,7 +17,7 @@ class CastingToSearchViewModels: CastingToModels {
             
             items = rootClass?.lazy.compactMap({ (model) -> ItemsModel? in
                 
-                let modelItem = model.attributes?.lazy.compactMap { $0 }.filter { $0.id == "MODEL" }.first
+                let modelItem = model.attributes?.lazy.compactMap { $0 }.filter { $0.id == "title" }.first
                 
                 let modelProduct = (modelItem?.valueName) == nil ? model.title : modelItem?.valueName
                 
@@ -41,7 +41,7 @@ class CastingToSearchViewModels: CastingToModels {
                                            model: modelProduct ?? String(),
                                            attributes: attributes)
                 
-                itemSearchModel?.append(ItemSearchModel(id: modelProduct ?? String(),
+                itemSearchModel?.append(ItemSearchModel(id: model.title ?? String(),
                                                         category: model.categoryId ?? String(),
                                                         saved: false))
                 

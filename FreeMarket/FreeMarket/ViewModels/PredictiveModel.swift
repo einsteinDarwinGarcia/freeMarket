@@ -12,37 +12,47 @@ struct ItemPredictiveModel: Hashable, Decodable {
 }
 
 enum CategoriesPredictive {
-    case cars(Int?)
-    case mobiles(Int?)
-    case meat(Int?)
+    case iphone(Int?)
+    case samsung(Int?)
     
     func getValue() -> String {
         switch self {
-        case .cars:
-            return "cars"
-        case .mobiles:
-            return "mobiles"
-        default:
-            return "meat"
+        case .iphone:
+            return "iphone"
+        case .samsung:
+            return "samsung"
         }
     }
     
     func getData(total: Int) -> String {
         switch self {
-        case .cars(let val):
-            return "Vehiculos: \(val ?? 0)"
-        case .mobiles(let val):
-            return "Celularres: \(val ?? 0)"
-        case .meat(let val):
-            return "Asadores: \(val ?? 0)"
+        case .iphone(let val):
+            guard let value = val else {
+                return String()
+            }
+            return "iPhones: \(value * 100 / total)%"
+        case .samsung(let val):
+            guard let value = val else {
+                return String()
+            }
+            return "Samsungs: \(value * 100 / total)%"
+       
+        }
+    }
+    
+    func getNumber() -> Int {
+        switch self {
+        case .iphone(let val):
+            return val ?? 0
+        case .samsung(let val):
+            return val ?? 0
         }
     }
 }
 
 struct PredictiveData {
-    let cars: CategoriesPredictive
-    let mobiles: CategoriesPredictive
-    let meat: CategoriesPredictive
+    let iphone: CategoriesPredictive
+    let samsung: CategoriesPredictive
     
     let totalSearched: Int
 }
