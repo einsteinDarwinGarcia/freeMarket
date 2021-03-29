@@ -132,6 +132,9 @@
 		0C79DD5726100C0B006B4723 /* ContentViewPortraint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C79DD5626100C0B006B4723 /* ContentViewPortraint.swift */; };
 		0C79DD5C26100C20006B4723 /* ContentViewLandscape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C79DD5B26100C20006B4723 /* ContentViewLandscape.swift */; };
 		0C79DDB22612397F006B4723 /* NetworkingDetailItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C79DDB12612397F006B4723 /* NetworkingDetailItem.swift */; };
+		0C79DDC326124F75006B4723 /* ConfigurationSaveEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C79DDC226124F75006B4723 /* ConfigurationSaveEntity.swift */; };
+		0C79DDCB2612674B006B4723 /* CoreDataTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C79DDCA2612674A006B4723 /* CoreDataTest.swift */; };
+		0C79DDD3261275BB006B4723 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C79DDD2261275BB006B4723 /* Strings.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -282,6 +285,9 @@
 		0C79DD5626100C0B006B4723 /* ContentViewPortraint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewPortraint.swift; sourceTree = "<group>"; };
 		0C79DD5B26100C20006B4723 /* ContentViewLandscape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewLandscape.swift; sourceTree = "<group>"; };
 		0C79DDB12612397F006B4723 /* NetworkingDetailItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingDetailItem.swift; sourceTree = "<group>"; };
+		0C79DDC226124F75006B4723 /* ConfigurationSaveEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationSaveEntity.swift; sourceTree = "<group>"; };
+		0C79DDCA2612674A006B4723 /* CoreDataTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataTest.swift; sourceTree = "<group>"; };
+		0C79DDD2261275BB006B4723 /* Strings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -365,8 +371,9 @@
 			children = (
 				0C4728C62602B75100EE9FBC /* NetworkingSearchItemTest.swift */,
 				0C79DDB12612397F006B4723 /* NetworkingDetailItem.swift */,
-				0C47277525FFA80800EE9FBC /* FreeMarketTests.swift */,
 				0C47288A2601562B00EE9FBC /* CastingModelsTest.swift */,
+				0C79DDCA2612674A006B4723 /* CoreDataTest.swift */,
+				0C47277525FFA80800EE9FBC /* FreeMarketTests.swift */,
 				0C47277725FFA80800EE9FBC /* Info.plist */,
 			);
 			path = FreeMarketTests;
@@ -402,6 +409,7 @@
 				0C4728DA2602CC8D00EE9FBC /* Navigations+View.swift */,
 				0C472A2F260ADBAF00EE9FBC /* EnvironmentValues+ImageCache.swift */,
 				0C472A64260C2DA300EE9FBC /* Colors.swift */,
+				0C79DDD2261275BB006B4723 /* Strings.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -743,6 +751,7 @@
 			isa = PBXGroup;
 			children = (
 				0C4729F426095A6F00EE9FBC /* ConfigurationDetailItemService.swift */,
+				0C79DDC226124F75006B4723 /* ConfigurationSaveEntity.swift */,
 			);
 			path = ConfigurationFiles;
 			sourceTree = "<group>";
@@ -976,6 +985,7 @@
 				0C472A1E260ADA8600EE9FBC /* AsyncImage.swift in Sources */,
 				0C472846260030C400EE9FBC /* StateCountry.swift in Sources */,
 				0C472A1726098EA200EE9FBC /* APIRestLayerImplementation.swift in Sources */,
+				0C79DDD3261275BB006B4723 /* Strings.swift in Sources */,
 				0C4728E52602D2AB00EE9FBC /* SearchListResultViewCoordinator.swift in Sources */,
 				0C4728AF2602769700EE9FBC /* RemoveDuplicatesElements+Array.swift in Sources */,
 				0C4729332603FF5500EE9FBC /* CoreDataFetchResultsPublisher.swift in Sources */,
@@ -1045,6 +1055,7 @@
 				0C4729162603C23D00EE9FBC /* RowListResultImportant.swift in Sources */,
 				0C4727D325FFB64E00EE9FBC /* FluxBaseStore.swift in Sources */,
 				0C472A46260BD85A00EE9FBC /* ConfigurationProminentItemEntity.swift in Sources */,
+				0C79DDC326124F75006B4723 /* ConfigurationSaveEntity.swift in Sources */,
 				0C79DCD2260D9010006B4723 /* LandscapeDetailView.swift in Sources */,
 				0C4728E42602D2AB00EE9FBC /* SearchListResultActions.swift in Sources */,
 				0C4729A42609440500EE9FBC /* RowExtraInfo.swift in Sources */,
@@ -1075,6 +1086,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C79DDCB2612674B006B4723 /* CoreDataTest.swift in Sources */,
 				0C47277625FFA80800EE9FBC /* FreeMarketTests.swift in Sources */,
 				0C47288B2601562B00EE9FBC /* CastingModelsTest.swift in Sources */,
 				0C4728C72602B75200EE9FBC /* NetworkingSearchItemTest.swift in Sources */,

@@ -10,9 +10,11 @@ import CoreData
 
 final class CoreDataPersistence<Entity: NSManagedObject>: Persistence {
     
-    lazy var coreDataStore: CoreDataStoring = {
-        return CoreDataStore.default
-    }()
+    var coreDataStore: CoreDataStoring
+    
+    init(typeStorage: CoreDataStoring) {
+        self.coreDataStore = typeStorage
+    }
     
     var cancellable: [AnyCancellable] = []
     
@@ -22,9 +24,10 @@ final class CoreDataPersistence<Entity: NSManagedObject>: Persistence {
         }.eraseToAnyPublisher()
     }
     
-    func getItems<T : Decodable>() -> AnyPublisher<[T]?, Error>  {
+    func getItems<T : Decodable>(sort: NSSortDescriptor) -> AnyPublisher<[T]?, Error>  {
         return Future<[T]?, Error> { [coreDataStore] promise in
             let request = NSFetchRequest<Entity>(entityName: Entity.entityName)
+            request.sortDescriptors = [sort]
             let cancellable = coreDataStore
                 .publicher(fetch: request)
                 .sink { completion in
@@ -60,6 +63,22 @@ final class CoreDataPersistence<Entity: NSManagedObject>: Persistence {
                 }
             cancellable.cancel()
         }.eraseToAnyPublisher()
+    }
+    
+    func saveData(action: @escaping ActionCoreData) {
+        let cancellable = coreDataStore
+            .publicher(save: action)
+            .sink { completion in
+                if case .failure(let error) = completion {
+                    print(error.localizedDescription) // TODO: logger
+                }
+            } receiveValue: { success in
+                if success {
+                  print("Saving entities succeeded") // TODO: logger
+                }
+            }
+            
+        cancellable.cancel()
     }
     
 }

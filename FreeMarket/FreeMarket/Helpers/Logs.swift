@@ -28,6 +28,7 @@ enum Category: String {
     case url
     case itemDetail
     case searchItem
+    case coreData
 }
 
 struct CLogger {

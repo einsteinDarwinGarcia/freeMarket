@@ -6,6 +6,7 @@
 //
 
 import Combine
+import CoreData
 
 final class PersistenceManager<T: Decodable>: Switch {
     
@@ -19,8 +20,12 @@ final class PersistenceManager<T: Decodable>: Switch {
         return self.persistence.getData(text: text)
     }
     
-    func getItems() -> AnyPublisher<[T]?, Error> {
-        return self.persistence.getItems()
+    func getItems(sort: NSSortDescriptor) -> AnyPublisher<[T]?, Error> {
+        return self.persistence.getItems(sort: sort)
+    }
+    
+    func saveData(action: @escaping ActionCoreData) {
+        self.persistence.saveData(action: action)
     }
     
 }

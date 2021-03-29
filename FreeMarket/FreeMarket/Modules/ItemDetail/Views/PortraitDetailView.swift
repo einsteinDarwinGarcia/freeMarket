@@ -46,8 +46,8 @@ struct PortraitDetailView: View {
                         .padding(.leading, 25)
                     
                     VStack(alignment: .leading) {
-                        RowExtraInfo(image: "creditcard", title: "Paga con Mercado Pago")
-                        RowExtraInfo(image: "server.rack", title: "Cantidad \(itemDetail.stock ?? 0)")
+                        RowExtraInfo(image: "creditcard", title: Strings.detailViewMercadoPago)
+                        RowExtraInfo(image: "server.rack", title: Strings.searchResultCantidad + " \(itemDetail.stock ?? 0)")
                         RowExtraInfo(image: "rosette", title: itemDetail.warranty ?? String())
                     }
                     

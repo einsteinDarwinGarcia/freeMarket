@@ -10,5 +10,5 @@ import Foundation
 
 class ConfigurationPredictiveEntity: NetworkConfiguration {
     typealias responseDataType = ItemPredictiveModel
-    var provider: Provider = .coreData(coreDataPersistence: CoreDataPersistence<ItemPredictionEntity>())
+    var provider: Provider = .coreData(coreDataPersistence: CoreDataPersistence<ItemPredictionEntity>(typeStorage: CoreDataStore.default))
 }

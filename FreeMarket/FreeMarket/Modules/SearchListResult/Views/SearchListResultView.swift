@@ -27,16 +27,16 @@ struct SearchListResultView<A: SearchListResultActionsProtocol>: View where A.M 
             VStack {
                 VStack {
                     HStack(alignment:.center) {
-                        Text("Ordenar: ")
+                        Text(Strings.searchResultOrdenar)
                             .font(.subheadline)
                             .bold()
                             .frame(width: 100)
-                        Toggle("Precio", isOn: $toggleViewModel.priceSort)
+                        Toggle(Strings.searchResultPrecio, isOn: $toggleViewModel.priceSort)
                             .toggleStyle(SwitchToggleStyle(tint: .black))
                             .font(.caption)
                             .frame(width:120)
                         Spacer()
-                        Toggle("Cantidad", isOn: $toggleViewModel.availableSort)
+                        Toggle(Strings.searchResultCantidad, isOn: $toggleViewModel.availableSort)
                             .toggleStyle(SwitchToggleStyle(tint: .black))
                             .font(.caption)
                             
@@ -54,7 +54,7 @@ struct SearchListResultView<A: SearchListResultActionsProtocol>: View where A.M 
                                             self.actions.goToItemDetail(isPresented: isPresented, item: item)
                         })
                     }
-                    .navigationTitle("Resultados")
+                    .navigationTitle(Strings.titleNavigationBarSearch)
                 }
             }.onAppear{
                 validateService()

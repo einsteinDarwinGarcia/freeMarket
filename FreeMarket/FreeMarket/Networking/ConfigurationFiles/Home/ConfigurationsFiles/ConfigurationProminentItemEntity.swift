@@ -9,5 +9,5 @@ import Foundation
 
 class ConfigurationProminentItemEntity: NetworkConfiguration {
     typealias responseDataType = ItemsModel
-    var provider: Provider = .coreData(coreDataPersistence: CoreDataPersistence<ItemDetailHistoryEntity>())
+    var provider: Provider = .coreData(coreDataPersistence: CoreDataPersistence<ItemDetailHistoryEntity>(typeStorage: CoreDataStore.default))
 }

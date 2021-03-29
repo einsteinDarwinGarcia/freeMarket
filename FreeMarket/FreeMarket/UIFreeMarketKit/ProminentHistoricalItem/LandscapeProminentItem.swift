@@ -14,7 +14,7 @@ struct LandscapeProminentItem: View {
         VStack(alignment: .center) {
             VStack {
                 HStack() {
-                    Text("Visto Recientemente")
+                    Text(Strings.prominentItemVistas)
                         .font(.subheadline)
                         .bold()
                         .foregroundColor(Color.textColor)
@@ -25,7 +25,7 @@ struct LandscapeProminentItem: View {
                 HStack {
                     VStack {
                         AsyncImage(url: validateImage(item: item),
-                                   placeholder: { Text("Loading ...") },
+                                   placeholder: { Text(Strings.loading) },
                                    image: { Image(uiImage: $0).resizable() }
                         )
                         .aspectRatio(contentMode: .fit)
@@ -43,7 +43,7 @@ struct LandscapeProminentItem: View {
                 }
                 LineBar().frame(height:1)
                 HStack {
-                    Text("Ver historial de navegacion")
+                    Text(Strings.prominentItemHistorial)
                         .font(.footnote)
                         .foregroundColor(Color.textColor)
                         .padding(.leading, 20)

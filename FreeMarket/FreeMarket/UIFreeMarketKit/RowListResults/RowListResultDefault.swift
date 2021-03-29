@@ -15,7 +15,7 @@ struct RowListResultDefault: View {
             HStack(alignment:.top) {
                 VStack {
                     AsyncImage(url: validateImage(item: item),
-                               placeholder: { Text("Loading ...") },
+                               placeholder: { Text(Strings.loading) },
                                image: { Image(uiImage: $0).resizable() }
                                )
                     .aspectRatio(contentMode: .fit)
@@ -28,12 +28,12 @@ struct RowListResultDefault: View {
                     ItemPrice(price: item?.price ?? 0)
                     Spacer()
                     if item?.freeChipping != nil {
-                        Text("Envio Gratis")
+                        Text(Strings.searchResultEnvioGratis)
                             .font(.caption)
                             .frame(height: 15)
                     }
                     if let available = item?.availableQuantity {
-                        Text("Disponibles \(available)")
+                        Text(Strings.searchRresultDisponibles + " \(available)")
                             .font(.footnote)
                             .frame(height: 15)
                     }

@@ -28,7 +28,7 @@ struct RowAttribute: View {
                         .frame(width:200)
                     Spacer()
                 
-            }.background(Color.white)
+            }.background(Color.background)
         }
         .border(Color.backgroundSecondary, width: 0.4)
        

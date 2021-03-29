@@ -33,6 +33,7 @@ class SearchListResultActions<C: SearchListResultViewCoordinator, D: FluxDispatc
     private var totalItems: [ItemsModel]?
     
     private var networkingLayer: NetworkingSearchItems<ConfigurationSearchService>?
+    private var coreDataManager: NetworkManager<ConfigurationSaveEntity>?
     var cancellables: [AnyCancellable] = []
     
     lazy var coreDataStore: CoreDataStoring = {
@@ -82,18 +83,7 @@ class SearchListResultActions<C: SearchListResultViewCoordinator, D: FluxDispatc
             item.category = searchedItem?.first?.categoryId
         }
         
-        coreDataStore
-            .publicher(save: action)
-            .sink { completion in
-                if case .failure(let error) = completion {
-                    print(error.localizedDescription) // TODO: logger
-                }
-            } receiveValue: { success in
-                if success {
-                  print("Saving entities succeeded") // TODO: logger
-                }
-            }
-            .store(in: &cancellables)
+        self.coreDataManager?.saveData(action: action)
         
     }
     
@@ -139,6 +129,7 @@ class SearchListResultActions<C: SearchListResultViewCoordinator, D: FluxDispatc
 extension SearchListResultActions {
     func setupNetworkingLayer() {
         self.networkingLayer = NetworkingSearchItems(configService: ConfigurationSearchService())
+        self.coreDataManager = NetworkManager(configuration: ConfigurationSaveEntity())
         cancellables = []
     }
     

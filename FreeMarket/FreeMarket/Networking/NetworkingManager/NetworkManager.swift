@@ -6,12 +6,14 @@
 //
 
 import Combine
+import CoreData
 
 protocol NetworkManagerLayer {
     associatedtype Configuration:NetworkConfiguration
     func getData(text: String) -> Future<Configuration.responseDataType?, Error>
-    func getCoreDataResult() -> AnyPublisher<[Configuration.responseDataType]?, Error>
+    func getCoreDataResult(sort: NSSortDescriptor) -> AnyPublisher<[Configuration.responseDataType]?, Error>
     func getSecurityThumbnail(text: String) -> AnyPublisher<[DetailRootSecureThumbnail]?, Error>
+    func saveData(action: @escaping ActionCoreData)
 }
 
 class NetworkManager<Configuration: NetworkConfiguration>: NetworkManagerLayer {
@@ -68,14 +70,16 @@ class NetworkManager<Configuration: NetworkConfiguration>: NetworkManagerLayer {
          return miPersistence.getData(text: text)
     }
     
-    func getCoreDataResult() -> AnyPublisher<[Configuration.responseDataType]?, Error> {
+    func getCoreDataResult(sort: NSSortDescriptor) -> AnyPublisher<[Configuration.responseDataType]?, Error> {
         return Future<[Configuration.responseDataType]?, Error> { [weak self] promise in
             
             guard let strongSelf = self else {
                 return promise(.success(nil))
             }
             
-            strongSelf.persistenceBridge?.getItems().sink(receiveCompletion: { (completion) in
+            
+            
+            strongSelf.persistenceBridge?.getItems(sort: sort).sink(receiveCompletion: { (completion) in
                 switch completion {
                 case .failure(let error):
                     CLogger.log(category: .parsing).error("error: '\(error.localizedDescription)'")
@@ -88,6 +92,11 @@ class NetworkManager<Configuration: NetworkConfiguration>: NetworkManagerLayer {
             }).store(in: &strongSelf.cancellabe)
             
         }.eraseToAnyPublisher()
+    }
+    
+    func saveData(action: @escaping ActionCoreData) {
+        self.persistenceBridge?.saveData(action: action)
+        
     }
 }
 

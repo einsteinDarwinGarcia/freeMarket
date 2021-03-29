@@ -31,6 +31,7 @@ class ItemDetailActions<C: ItemDetailViewCoordinator, D: FluxDispatcher>:  Actio
     private var itemDetail: ItemsModel
     
     private var networkingLayer: NetworkingDetailItems<ConfigurationDetailItemService>?
+    private var coreDataManager: NetworkManager<ConfigurationSaveEntity>?
     private var cancellables: Set<AnyCancellable> = []
     private var modelMeli: ModelMELIPhones?
     
@@ -67,20 +68,14 @@ class ItemDetailActions<C: ItemDetailViewCoordinator, D: FluxDispatcher>:  Actio
         let action: ActionCoreData = { [coreDataStore] in
             let predictionEntity: ItemPredictionEntity = coreDataStore.createEntity()
             predictionEntity.category = prediction
+            
+            
         }
         
-        coreDataStore
-            .publicher(save: action).sink { completion in
-                if case .failure(let error) = completion {
-                    print(error.localizedDescription) // TODO: logger
-                }
-            } receiveValue: { success in
-                if success {
-                  print("Saving PREDICTION") // TODO: logger
-                }
-            }
-            .store(in: &cancellables)
         
+        
+        self.coreDataManager?.saveData(action: action)
+    
     }
     
     func saveCoreData() {
@@ -95,18 +90,8 @@ class ItemDetailActions<C: ItemDetailViewCoordinator, D: FluxDispatcher>:  Actio
             item.model = itemDetail.model
         }
         
-        coreDataStore
-            .publicher(save: action)
-            .sink { completion in
-                if case .failure(let error) = completion {
-                    print(error.localizedDescription) // TODO: logger
-                }
-            } receiveValue: { success in
-                if success {
-                  print("Saving entities succeeded") // TODO: logger
-                }
-            }
-            .store(in: &cancellables)
+        self.coreDataManager?.saveData(action: action)
+        
     }
     
 }
@@ -116,6 +101,7 @@ extension ItemDetailActions {
     
     func setupNetworkingLayer() {
         self.networkingLayer = NetworkingDetailItems(configService: ConfigurationDetailItemService())
+        self.coreDataManager = NetworkManager(configuration: ConfigurationSaveEntity())
     }
     
     func loadData() {

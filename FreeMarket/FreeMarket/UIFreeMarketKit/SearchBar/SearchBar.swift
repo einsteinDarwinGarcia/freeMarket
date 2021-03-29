@@ -21,7 +21,7 @@ class SearchBar: NSObject, ObservableObject {
         super.init()
         self.searchController.obscuresBackgroundDuringPresentation = false
         self.searchController.searchResultsUpdater = self
-        self.searchController.searchBar.placeholder = "Busca tu articulo"
+        self.searchController.searchBar.placeholder = Strings.placeholderSearchBar
         
         self.searchController.searchBar.tintColor = .white
         self.searchController.searchBar.delegate = self

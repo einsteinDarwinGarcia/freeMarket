@@ -8,7 +8,7 @@
 import CoreData
 
 enum StorageType {
-    case persistent, inMemory
+    case persistent, inMemory, isntPersistent
 }
 
 extension NSManagedObject {
@@ -62,6 +62,10 @@ class CoreDataStore: CoreDataStoring {
         return CoreDataStore(name: "FreeMarketCoreData", in: .persistent)
     }()
     
+    static var isntPersistent:  CoreDataStoring = {
+        return CoreDataStore(name: "FreeMarketCoreData", in: .isntPersistent)
+    }()
+    
     var viewContext: NSManagedObjectContext {
         return self.container.viewContext
     }
@@ -80,6 +84,10 @@ class CoreDataStore: CoreDataStoring {
         if storageType  == .inMemory {
             let description = NSPersistentStoreDescription()
             description.url = URL(fileURLWithPath: "/dev/null")
+            self.container.persistentStoreDescriptions = [description]
+        } else if storageType == .isntPersistent {
+            let description = NSPersistentStoreDescription()
+            description.type = NSInMemoryStoreType
             self.container.persistentStoreDescriptions = [description]
         }
     }

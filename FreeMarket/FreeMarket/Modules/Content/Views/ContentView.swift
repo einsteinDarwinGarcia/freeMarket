@@ -57,7 +57,7 @@ struct ContentView<A: ContentActionsProtocol>: View where A.M == ContentModelSto
                     }
                     .add(self.searchBar)
                     .navigationBarTitleDisplayMode(.inline)
-                    .navigationBarTitle("FreeMarket")
+                    .navigationBarTitle(Strings.titleNavigationBar)
         }
         .phoneOnlyStackNavigationView()
         

@@ -14,7 +14,7 @@ struct PortraitProminentItem: View {
         VStack {
             VStack {
                 HStack() {
-                    Text("Visto Recientemente")
+                    Text(Strings.prominentItemVistas)
                         .font(.subheadline)
                         .bold()
                         .foregroundColor(Color.textColor)
@@ -25,7 +25,7 @@ struct PortraitProminentItem: View {
                 
                 VStack {
                     AsyncImage(url: validateImage(item: item),
-                               placeholder: { Text("Loading ...") },
+                               placeholder: { Text(Strings.loading) },
                                image: { Image(uiImage: $0).resizable() }
                                )
                     .aspectRatio(contentMode: .fit)
@@ -41,7 +41,7 @@ struct PortraitProminentItem: View {
                 }
                 
                 HStack {
-                    Text("Ver historial de navegacion")
+                    Text(Strings.prominentItemHistorial)
                         .font(.footnote)
                         .foregroundColor(Color.textColor)
                         .padding(.leading, 20)

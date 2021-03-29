@@ -6,6 +6,7 @@
 //
 
 import Combine
+import CoreData
 
 final class CoreDataPredictiveSearching: NetworkingLayer {
     
@@ -23,7 +24,9 @@ final class CoreDataPredictiveSearching: NetworkingLayer {
     
     func networkingLayerService(text: String) -> Future<CastingModel.FinalData?, Error> {
         return Future<CastingModel.FinalData?, Error> { promise in
-            self.networkManager.getCoreDataResult().sink { (completion) in
+            let nameSort = NSSortDescriptor(key:"category", ascending:true)
+            
+            self.networkManager.getCoreDataResult(sort:nameSort).sink { (completion) in
                 switch completion {
                 case .failure(let error):
                     CLogger.log(category: .parsing).error("error: '\(error.localizedDescription)'")

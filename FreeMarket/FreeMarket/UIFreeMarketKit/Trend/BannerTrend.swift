@@ -14,7 +14,7 @@ struct BannerTrend: View {
     var body: some View {
         BannerTrendStack(prediction: prediction) { product in
             VStack(alignment: .center) {
-               Text("Promociones").font(.title3)
+                Text(Strings.bannerPromociones).font(.title3)
                Text(product).font(.title).bold()
             }.padding()
         }.overlay(
@@ -27,9 +27,9 @@ struct BannerTrend: View {
 struct BannerView: View {
     var body: some View {
         VStack(alignment: .leading) {
-            Text("Banner Publicitario.").font(.caption)
-            Text("Activa promoción según la tendencia de busqueda entre iPhone, Samsung").font(.caption)
-            Text("Modelo de Machine Learning").font(.subheadline).bold()
+            Text(Strings.bannerPromocionesTex1).font(.caption)
+            Text(Strings.bannerPromocionesTex2).font(.caption)
+            Text(Strings.bannerPromocionesText3).font(.subheadline).bold()
         }
         .frame(width:200)
         .padding()
