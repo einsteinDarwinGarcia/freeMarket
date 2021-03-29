@@ -10,8 +10,8 @@ import Combine
 
 class CastingToSearchViewModels: CastingToModels {
      
-    func casting(rootClass: [Results]?) -> Future<SearchingModel?, Never> {
-        return Future<SearchingModel?, Never> { promise in
+    func casting(rootClass: [Results]?) -> Future<SearchingModel?, Error> {
+        return Future<SearchingModel?, Error> { promise in
             var items: [ItemsModel]?
             var itemSearchModel: [ItemSearchModel]? = []
             

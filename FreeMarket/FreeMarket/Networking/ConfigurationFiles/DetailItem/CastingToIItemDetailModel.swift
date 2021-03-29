@@ -9,8 +9,8 @@ import Combine
 
 class CastingToItemDetailModels: CastingToModels {
      
-    func casting(rootClass: DetailRootClass?) -> Future<ItemDetailModel?, Never> {
-        return Future<ItemDetailModel?, Never> { promise in
+    func casting(rootClass: DetailRootClass?) -> Future<ItemDetailModel?, Error> {
+        return Future<ItemDetailModel?, Error> { promise in
             let root = rootClass?.body
             let photos = root?.pictures?.map { $0.secureUrl ?? "" }
             let attributes = root?.attributes?.map {

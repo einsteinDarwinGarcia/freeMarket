@@ -9,16 +9,19 @@ import XCTest
 @testable import FreeMarket
 import Combine
 
+class ConfigurationSearchServiceMock: NetworkConfiguration {
+    typealias responseDataType = RootClass
+    var provider: Provider = .mock(jsonName: "itemSearch")
+}
+
 class NetworkingSearchItemTest: XCTestCase {
     
-    var sut: NetworkingSearchItems!
-    var ay: CoreDataPersistence<ItemSearchEntity>!
+    var sut: NetworkingSearchItems<ConfigurationSearchServiceMock>!
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
         try super.setUpWithError()
-        sut = NetworkingSearchItems()
-        ay = CoreDataPersistence()
+        sut = NetworkingSearchItems(configService: ConfigurationSearchServiceMock())
     }
 
     override func tearDownWithError() throws {
@@ -29,27 +32,22 @@ class NetworkingSearchItemTest: XCTestCase {
         
         var error: Error?
         
-        guard let result = try awaitFurute(sut.networkingLayerService()) else {
+        guard let result = try awaitFurute(sut.networkingLayerService(text: "iphone")) else {
             error = ParsingError.parsingError
             XCTAssertNil(error)
             return
         }
         
-        XCTAssertEqual(result?.itemSearch.first?.id, "iPhone 11")
-    
-        guard let removeDuplicates = result?.itemSearch.removingDuplicates() else {
+        guard let resultCount = result?.itemSearch.count else {
+            error = ParsingError.parsingError
+            XCTAssertNil(error)
             return
         }
         
-        XCTAssertLessThan( removeDuplicates.filter { $0.id == "iPhone 11"}.count, 2)
+        XCTAssertTrue(resultCount > 0)
         
     }
     
-    func testAY() throws {
-        ay.searchCoreData()
-        
-    }
-
     func testPerformanceExample() throws {
         // This is an example of a performance test case.
         self.measure {
@@ -60,11 +58,19 @@ class NetworkingSearchItemTest: XCTestCase {
 }
 
 extension XCTestCase {
-    func awaitFurute<T>(_ future: Future<T, Never>) throws -> T? {
+    func awaitFurute<T>(_ future: Future<T, Error>) throws -> T? {
         let expectation = self.expectation(description: "Async call")
-        var result: Result<T, Never>?
+        var result: Result<T, Error>?
         
-        let cancellable = future.sink { asyncResult in
+        let cancellable = future.sink { (completion) in
+            switch completion {
+            case .failure(let error):
+                result = .failure(error)
+            default:
+                break
+            }
+            
+        } receiveValue: { asyncResult in
             result = .success(asyncResult)
             expectation.fulfill()
         }

@@ -21,9 +21,17 @@ final class CoreDataProminentItem: NetworkingLayer {
         cancellables = []
     }
     
-    func networkingLayerService(text: String) -> Future<CastingModel.FinalData?, Never> {
-        return Future<CastingModel.FinalData?, Never> { promise in
-            self.networkManager.getCoreDataResult().sink { value in
+    func networkingLayerService(text: String) -> Future<CastingModel.FinalData?, Error> {
+        return Future<CastingModel.FinalData?, Error> { promise in
+            self.networkManager.getCoreDataResult().sink { (completion) in
+                switch completion {
+                case .failure(let error):
+                    CLogger.log(category: .parsing).error("error: '\(error.localizedDescription)'")
+                    return promise(.failure(error))
+                default:
+                    break
+                }
+            } receiveValue: { (value) in
                 return promise(.success(value))
             }.store(in: &self.cancellables)
         }

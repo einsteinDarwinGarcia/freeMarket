@@ -28,16 +28,30 @@ enum ServiceItem {
     }
 }
 
-enum ParsingError: Error {
+enum ParsingError: Error, CustomStringConvertible {
     case parsingError
     case weakself
     case error500
+    case persistenceNil
+}
+
+extension ParsingError {
+    var description: String {
+        switch self {
+        case .parsingError:
+            return "Error en el parsing"
+        case .weakself:
+            return "se perdio la referencia"
+        case .error500:
+            return "error 500 en la conexion"
+        case .persistenceNil:
+            return "Persistencia no inicializada"
+        }
+    }
 }
 
 class APIRestPersistence: APIRestProtocol, Persistence {
     
-   
-
     var cancellabe: Set<AnyCancellable>
     var serviceType: ServiceItem
     
@@ -47,12 +61,13 @@ class APIRestPersistence: APIRestProtocol, Persistence {
     }
     
     
-    func getData<T>(text: String) -> AnyPublisher<T?, Never> where T : Decodable {
+    func getData<T>(text: String) -> AnyPublisher<T?, Error> where T : Decodable {
         
-        return Future<T?, Never> { [weak self] promise in
+        return Future<T?, Error> { [weak self] promise in
             
             guard let strongSelf = self else {
-                return promise(.success(nil)) // TODO: Logger manage error
+                CLogger.log(category: .parsing).warning("error: '\(ParsingError.weakself)'")
+                return promise(.success(nil))
             }
             
             let endpoint = strongSelf.serviceType.returnEndpoint(text: text)
@@ -60,8 +75,8 @@ class APIRestPersistence: APIRestProtocol, Persistence {
             strongSelf.get(type: T.self, url: endpoint.url, headers: endpoint.headers).sink { (response) in
                 switch response {
                 case .failure(let error):
-                    print(error.localizedDescription)
-                    break // TODO: logger
+                    CLogger.log(category: .parsing).error("error: '\(error.localizedDescription)'")
+                    return promise(.failure(error))
                 default:
                     break
                 }
@@ -85,7 +100,8 @@ class APIRestPersistence: APIRestProtocol, Persistence {
         return Future<T, Error> { [weak self] promise in
             
             guard let strongSelf = self else {
-                return promise(.failure(ParsingError.weakself)) // TODO: Logger manage error
+                CLogger.log(category: .parsing).error("error: '\(ParsingError.weakself)'")
+                return promise(.failure(ParsingError.weakself))
             }
             
             var urlRequest = URLRequest(url: url)
@@ -107,13 +123,15 @@ class APIRestPersistence: APIRestProtocol, Persistence {
             .sink { (response) in
                 switch response {
                 case .failure(let error):
-                    print(error.localizedDescription) // TODO: logger
+                    CLogger.log(category: .url).error("error: '\(error.localizedDescription)'")
+                    return promise(.failure(error))
                 default:
                     break
                 }
             } receiveValue: { (data) in
                 guard let itemCasting: T = JsonFetch.jsonFetch(data: data) else {
-                    return // TODO: logger
+                    CLogger.log(category: .parsing).error("error: '\(ParsingError.parsingError)'")
+                    return
                 }
                 promise(.success(itemCasting))
                 

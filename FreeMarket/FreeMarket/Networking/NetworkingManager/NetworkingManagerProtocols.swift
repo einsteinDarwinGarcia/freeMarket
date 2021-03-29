@@ -26,11 +26,10 @@ protocol NetworkConfiguration {
 protocol CastingToModels {
     associatedtype FinalData
     associatedtype BaseClass
-    func casting(rootClass: BaseClass?) -> Future<FinalData?, Never>
+    func casting(rootClass: BaseClass?) -> Future<FinalData?, Error>
 }
 
 protocol NetworkingLayer {
-//     where CastingModel.BaseClass == NetworkingConfiguration.responseDataType
     associatedtype NetworkingConfiguration: NetworkConfiguration
     associatedtype CastingModel: CastingToModels
     
@@ -39,5 +38,5 @@ protocol NetworkingLayer {
     var castingModel: CastingModel  { get set }
     var cancellables: Set<AnyCancellable> { get set}
     
-    func networkingLayerService(text: String) -> Future<CastingModel.FinalData?, Never>
+    func networkingLayerService(text: String) -> Future<CastingModel.FinalData?, Error>
 }

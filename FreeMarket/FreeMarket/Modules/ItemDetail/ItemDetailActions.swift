@@ -18,7 +18,7 @@ enum ItemDetailListActions: ListActions {
     case setItemDetail(ItemDetailModel)
     
     func setCategoryToCLog() -> Category {
-        .login
+        .itemDetail
     }
 }
 
@@ -30,8 +30,8 @@ class ItemDetailActions<C: ItemDetailViewCoordinator, D: FluxDispatcher>:  Actio
     
     private var itemDetail: ItemsModel
     
-    private var networkingLayer: NetworkingDetailItems!
-    private var cancellables: Set<AnyCancellable>!
+    private var networkingLayer: NetworkingDetailItems<ConfigurationDetailItemService>?
+    private var cancellables: Set<AnyCancellable> = []
     private var modelMeli: ModelMELIPhones?
     
     lazy var coreDataStore: CoreDataStoring = {
@@ -115,12 +115,20 @@ class ItemDetailActions<C: ItemDetailViewCoordinator, D: FluxDispatcher>:  Actio
 extension ItemDetailActions {
     
     func setupNetworkingLayer() {
-        self.networkingLayer = NetworkingDetailItems()
-        cancellables = []
+        self.networkingLayer = NetworkingDetailItems(configService: ConfigurationDetailItemService())
     }
     
     func loadData() {
-        self.networkingLayer.networkingLayerService(text: self.itemDetail.id).sink { [weak self] itemDetailModel in
+        
+        self.networkingLayer?.networkingLayerService(text: self.itemDetail.id).sink { (completion) in
+            switch completion {
+            case .failure(let error):
+                CLogger.log(category: .parsing).error("error: '\(error.localizedDescription)'")
+                return
+            default:
+                break
+            }
+        } receiveValue: { [weak self]  (itemDetailModel) in
             guard let item = itemDetailModel else {
                 return // TODO: logger
             }
@@ -132,5 +140,6 @@ extension ItemDetailActions {
             
             self?.dispatcher.dispatch(.setItemDetail(item))
         }.store(in: &cancellables)
+
     }
 }

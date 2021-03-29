@@ -31,10 +31,10 @@ class FreeMarketTests: XCTestCase {
     func testNetworkMock() throws {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
-        var error: Error?
+      /*  var error: Error?
         var iphones: RootClass
         let networkmanager = NetworkManager(configuration: sut)
-        networkmanager.getData()
+        networkmanager.getData(text: "")
         
         guard let result = try await(sut.networkResponse) else {
             error = ParsingError.parsingError
@@ -44,7 +44,7 @@ class FreeMarketTests: XCTestCase {
 
         iphones = result
         
-        XCTAssertEqual(iphones.results?.first?.siteId, "MCO")
+        XCTAssertEqual(iphones.results?.first?.siteId, "MCO")*/
         
     }
 

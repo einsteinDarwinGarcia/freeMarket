@@ -24,7 +24,7 @@ enum ContentListActions: ListActions {
     case setProminentItem(ItemsModel?)
     case setPredictions(PredictiveData?)
     func setCategoryToCLog() -> Category {
-        .login
+        .itemDetail
     }
 }
 
@@ -116,33 +116,62 @@ class ContentActions<C: ContentViewCoordinator, D: FluxDispatcher>:  Action<C>, 
     }
     
     func getSavedItems() {
-        self.networkingLayerSearchedItemsCoreData?.networkingLayerService(text: String()).sink { [weak self] (value) in
+        
+        self.networkingLayerSearchedItemsCoreData?.networkingLayerService(text: String()).sink(receiveCompletion: { (completion) in
+            switch completion {
+            case .failure(let error):
+                CLogger.log(category: .parsing).error("error: '\(error.localizedDescription)'")
+                return
+            default:
+                break
+            }
+        }, receiveValue: { [weak self] (value) in
             // get saved Items, remove duplicates and set true flag saved to visual propouse
             self?.searchTotalFilter = value?.map({ $0 }).removingDuplicates().map {
                 let model = ItemSearchModel(id:$0.id, category: $0.category, saved: true)
                 return model
             }
             self?.dispatcher.dispatch(.setItems(self?.searchTotalFilter))
-        }.store(in: &cancellables)
+        }).store(in: &cancellables)
+        
     }
     
     func getProminentItems() {
-        self.networkingLayerProminentCoreData?.networkingLayerService(text: String()).sink { [weak self] (value) in
+        self.networkingLayerProminentCoreData?.networkingLayerService(text: String()).sink(receiveCompletion: { (completion) in
+            switch completion {
+            case .failure(let error):
+                CLogger.log(category: .parsing).error("error: '\(error.localizedDescription)'")
+                return
+            default:
+                break
+            }
+        }, receiveValue: { [weak self] (value) in
             self?.historicalProminentItems = value.map { $0 }?.removingDuplicates()
             self?.dispatcher.dispatch(.setProminentItem(self?.historicalProminentItems?.last))
-        }.store(in: &cancellables)
+        }).store(in: &cancellables)
+        
     }
     
     func getPredictiveSearching() {
-        self.networkingLayerPredictiveCoreData?.networkingLayerService(text: String()).sink(receiveValue: { [dispatcher] (value) in
-            guard let numberiPhone = value?.filter({ $0.category == CategoriesPredictive.iphone(0).getValue() }).count else { return }
-            guard let numberSamsung = value?.filter({ $0.category == CategoriesPredictive.samsung(0).getValue() }).count else { return }
-            guard let total = value?.count else { return }
-            if (numberiPhone > 0 || numberSamsung > 0) &&  total > 0 {
-                let data = PredictiveData(iphone: .iphone(numberiPhone), samsung: .samsung(numberSamsung), totalSearched: total)
-                dispatcher.dispatch(.setPredictions(data))
+        
+        self.networkingLayerPredictiveCoreData?.networkingLayerService(text: String()).sink(receiveCompletion: { (completion) in
+            switch completion {
+            case .failure(let error):
+                CLogger.log(category: .parsing).error("error: '\(error.localizedDescription)'")
+                return
+            default:
+                break
             }
+        }, receiveValue: { [dispatcher] (value) in
+               guard let numberiPhone = value?.filter({ $0.category == CategoriesPredictive.iphone(0).getValue() }).count else { return }
+               guard let numberSamsung = value?.filter({ $0.category == CategoriesPredictive.samsung(0).getValue() }).count else { return }
+               guard let total = value?.count else { return }
+               if (numberiPhone > 0 || numberSamsung > 0) &&  total > 0 {
+                   let data = PredictiveData(iphone: .iphone(numberiPhone), samsung: .samsung(numberSamsung), totalSearched: total)
+                   dispatcher.dispatch(.setPredictions(data))
+               }
         }).store(in: &cancellables)
+        
     }
     
     deinit {
@@ -161,8 +190,15 @@ extension ContentActions {
     }
     
     func networkingAction(text: String) {
-        self.networkingLayer?.networkingLayerService(text: text).sink(receiveValue: { (items) in
-            
+        self.networkingLayer?.networkingLayerService(text: text).sink(receiveCompletion: { (completion) in
+            switch completion {
+            case .failure(let error):
+                CLogger.log(category: .parsing).error("error: '\(error.localizedDescription)'")
+                return
+            default:
+                break
+            }
+        }, receiveValue: { (items) in
             self.totalItemsSearched = items?.items
             // remove items with the same category
             var searchFilter = items?.itemSearch.removingDuplicates()
@@ -177,7 +213,6 @@ extension ContentActions {
             }
             
             self.dispatcher.dispatch(.setItems(searchFilterSaved + searchFilterService))
-            
         }).store(in: &cancellables)
     }
 }

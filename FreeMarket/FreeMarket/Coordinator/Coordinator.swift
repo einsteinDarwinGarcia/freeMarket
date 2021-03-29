@@ -40,7 +40,6 @@ extension Coordinator {
         set { setAssociatedObject(newValue, for: &childrenKey) }
     }
     
-    // parent must be `weak` so we don't create a retain cycle
     private(set) weak var parent: P? {
         get { associatedObject(for: &parentKey) }
         set { setAssociatedObject(newValue, for: &parentKey, policy: .weak) }

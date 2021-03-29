@@ -22,31 +22,61 @@ final class NetworkingSearchItems<C:NetworkConfiguration>: NetworkingLayer {
     }
     
     
-    func networkingLayerService(text: String) -> Future<CastingModel.FinalData?, Never> {
+    func networkingLayerService(text: String) -> Future<CastingModel.FinalData?, Error> {
         
         self.configurationService.provider = .APIRest(serviceItem: .searchItems)
         
-        return Future<CastingModel.FinalData?, Never> { [weak self, castingModel] promise in
+        return Future<CastingModel.FinalData?, Error> { [weak self, castingModel] promise in
             guard let strongSelf = self else {
-                return promise(.success(nil)) // TODO: Logger manage error
+                return promise(.success(nil)) 
             }
-            strongSelf.networkManager.getData(text:text).sink {  (response) in
-                guard let rootResponse = response as? RootClass else {
-                    return promise(.success(nil)) // TODO: Logger manage error
+            
+            
+            strongSelf.networkManager.getData(text: text).sink { (completion) in
+                switch completion {
+                case .failure(let error):
+                    CLogger.log(category: .parsing).error("error servicio: '\(error.localizedDescription)'")
+                    return promise(.failure(error))
+                default:
+                    break
+                }
+            } receiveValue: { (response) in
+                guard let rootResponse = response as? RootClass, let result = rootResponse.results else {
+                    return promise(.success(nil))
                 }
                 
-                strongSelf.getSecurityThumbnail(data: rootResponse.results!).sink { (resultWithSecureThumbnail) in
-                    castingModel.casting(rootClass: resultWithSecureThumbnail).sink { value in
+                strongSelf.getSecurityThumbnail(data: result).sink { (completion) in
+                    switch completion {
+                    case .failure(let error):
+                        CLogger.log(category: .parsing).error("error get securete Image: '\(error.localizedDescription)'")
+                        return promise(.failure(error))
+                    default:
+                        break
+                    }
+                } receiveValue: { (resultWithSecureThumbnail) in
+                    castingModel.casting(rootClass: resultWithSecureThumbnail).sink { (completion) in
+                        switch completion {
+                        case .failure(let error):
+                            CLogger.log(category: .parsing).error("error casting to model: '\(error.localizedDescription)'")
+                            return promise(.failure(error))
+                        default:
+                            break
+                        }
+                    } receiveValue: { (value) in
                         return promise(.success(value))
+                        
                     }.store(in: &strongSelf.cancellables)
-                }.store(in: &strongSelf.cancellables) 
+
+                }.store(in: &strongSelf.cancellables)
+
                 
             }.store(in: &strongSelf.cancellables)
+
         }
     }
     
-    func getSecurityThumbnail(data: [Results]) ->  AnyPublisher<[Results]?, Never> {
-        return Future<[Results]?, Never> { [weak self] promise in
+    func getSecurityThumbnail(data: [Results]) ->  AnyPublisher<[Results]?, Error> {
+        return Future<[Results]?, Error> { [weak self] promise in
             guard let strongSelf = self else {
                 return promise(.success(nil)) // TODO: Logger manage error
             }
@@ -78,10 +108,21 @@ final class NetworkingSearchItems<C:NetworkConfiguration>: NetworkingLayer {
             guard let strongSelf = self, let id = data.id else {
                 return promise(.failure(ParsingError.weakself)) // TODO: Logger manage error
             }
-            strongSelf.networkManager.getSecurityThumbnail(text: id).sink {  (response) in
+            
+            strongSelf.networkManager.getSecurityThumbnail(text: id).sink { (completion) in
+                switch completion {
+                case .failure(let error):
+                    CLogger.log(category: .parsing).error("error: '\(error.localizedDescription)'")
+                    return promise(.failure(error))
+                default:
+                    break
+                }
+            } receiveValue: { (response) in
                 dataThumbnail.thumbnail = response?.first?.body?.secure_thumbnail
                 return promise(.success(dataThumbnail))
             }.store(in: &strongSelf.cancellables)
+
+            
         }.eraseToAnyPublisher()
     }
     

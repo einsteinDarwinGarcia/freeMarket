@@ -7,30 +7,52 @@
 
 import Combine
 
-final class NetworkingDetailItems: NetworkingLayer {
+final class NetworkingDetailItems<C:NetworkConfiguration>: NetworkingLayer {
     
-    var configurationService: ConfigurationDetailItemService
-    var networkManager: NetworkManager<ConfigurationDetailItemService>
+    var configurationService: C
+    var networkManager: NetworkManager<C>
     var castingModel: CastingToItemDetailModels
     var cancellables: Set<AnyCancellable>
     
-    init() {
-        self.configurationService = ConfigurationDetailItemService()
+    init(configService: C) {
+        self.configurationService = configService
         self.networkManager = NetworkManager(configuration: self.configurationService)
         self.castingModel = CastingToItemDetailModels()
         cancellables = []
     }
     
-    func networkingLayerService(text: String) -> Future<ItemDetailModel?, Never> {
-        return Future<ItemDetailModel?, Never> { [weak self, castingModel] promise in
+    func networkingLayerService(text: String) -> Future<ItemDetailModel?, Error> {
+        return Future<ItemDetailModel?, Error> { [weak self, castingModel] promise in
             guard let strongSelf = self else {
-                return promise(.success(nil)) // TODO: Logger manage error
+                return promise(.success(nil)) 
             }
-            strongSelf.networkManager.getData(text:text).sink {  (response) in
-                castingModel.casting(rootClass: response?.first).sink { value in
+            strongSelf.networkManager.getData(text: text).sink { (completion) in
+                switch completion {
+                case .failure(let error):
+                    CLogger.log(category: .parsing).error("error: '\(error.localizedDescription)'")
+                    return promise(.failure(error))
+                default:
+                    break
+                }
+            } receiveValue: { (response) in
+                
+                guard let rootResponse = response as? [DetailRootClass] else {
+                    return promise(.success(nil))
+                }
+                
+                castingModel.casting(rootClass: rootResponse.first).sink { (completion) in
+                    switch completion {
+                    case .failure(let error):
+                        CLogger.log(category: .parsing).error("error: '\(error.localizedDescription)'")
+                        return promise(.failure(error))
+                    default:
+                        break
+                    }
+                } receiveValue: { (value) in
                     return promise(.success(value))
                 }.store(in: &strongSelf.cancellables)
             }.store(in: &strongSelf.cancellables)
+           
         }
     }
     

@@ -20,7 +20,7 @@ protocol SearchListResultActionsProtocol: ViewActionsProtocol {
 enum SearchListResultListActions: ListActions {
     case loadItems([ItemsModel])
     func setCategoryToCLog() -> Category {
-        .login
+        .searchItem
     }
 }
 
@@ -32,7 +32,7 @@ class SearchListResultActions<C: SearchListResultViewCoordinator, D: FluxDispatc
     private var searchedItem: [ItemsModel]?
     private var totalItems: [ItemsModel]?
     
-    private var networkingLayer: NetworkingSearchItems<ConfigurationSearchService>!
+    private var networkingLayer: NetworkingSearchItems<ConfigurationSearchService>?
     var cancellables: [AnyCancellable] = []
     
     lazy var coreDataStore: CoreDataStoring = {
@@ -143,12 +143,21 @@ extension SearchListResultActions {
     }
     
     func getItemsSavedCategory(categoryId: String) {
-        self.networkingLayer.networkingLayerService(text: categoryId).sink(receiveValue: { (items) in
+        self.networkingLayer?.networkingLayerService(text: categoryId).sink { (completion) in
+            switch completion {
+            case .failure(let error):
+                CLogger.log(category: .parsing).error("error: '\(error.localizedDescription)'")
+                return
+            default:
+                break
+            }
+        } receiveValue: { (items) in
             guard let totalItems = items?.items else {
-                return // TODO: Logger
+                CLogger.log(category: .parsing).warning("nil data")
+                return
             }
             self.totalItems = totalItems
             self.dispatcher.dispatch(.loadItems(totalItems))
-        }).store(in: &cancellables)
+        }.store(in: &cancellables)
     }
 }

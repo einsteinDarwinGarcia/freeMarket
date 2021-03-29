@@ -54,6 +54,6 @@ extension SearchBar: UISearchBarDelegate {
 
 struct SearchBarValidations {
     static func isValidateTextToActiveSearchService(text: String) -> Bool {
-        return text.count > 2
+        return text.count > 1
     }
 }

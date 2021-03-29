@@ -11,18 +11,18 @@ import Combine
 protocol Switch {
     associatedtype T: Decodable
     var persistence: Persistence { get set }
-    func getData(text: String) -> AnyPublisher<T?, Never>
-    func getItems() -> AnyPublisher<[T]?, Never>
+    func getData(text: String) -> AnyPublisher<T?, Error>
+    func getItems() -> AnyPublisher<[T]?, Error>
 }
 
 protocol Persistence {
-    func getData<T: Decodable>(text: String) -> AnyPublisher<T?, Never>
-    func getItems<T : Decodable>() -> AnyPublisher<[T]?, Never>
+    func getData<T: Decodable>(text: String) -> AnyPublisher<T?, Error>
+    func getItems<T : Decodable>() -> AnyPublisher<[T]?, Error>
 }
 
 extension Persistence {
-    func getItems<T : Decodable>() -> AnyPublisher<[T]?, Never> {
-        return Future<[T]?, Never> { promise in
+    func getItems<T : Decodable>() -> AnyPublisher<[T]?, Error> {
+        return Future<[T]?, Error> { promise in
             // TODO: logger
         }.eraseToAnyPublisher()
     }

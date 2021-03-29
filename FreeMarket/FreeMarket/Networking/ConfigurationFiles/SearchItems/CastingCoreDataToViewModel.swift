@@ -12,8 +12,8 @@ class CastingCoreDataToViewModel<T>: CastingToModels {
     typealias FinalData = [T]
     typealias BaseClass = [T]
     
-    func casting(rootClass: BaseClass?) -> Future<FinalData?, Never> {
-        return Future<FinalData?, Never> { promise in
+    func casting(rootClass: BaseClass?) -> Future<FinalData?, Error> {
+        return Future<FinalData?, Error> { promise in
             return promise(.success(rootClass))
         }
     }

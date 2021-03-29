@@ -16,9 +16,9 @@ final class MockPersistence: Persistence {
         self.jsonName = name
     }
     
-    func getData<T: Decodable>(text: String) -> AnyPublisher<T?, Never> {
-        return Future<T?, Never> { promise in
-            return promise(.success(self.jsonFetch())) // TODO: logger
+    func getData<T: Decodable>(text: String) -> AnyPublisher<T?, Error> {
+        return Future<T?, Error> { promise in
+            return promise(.success(self.jsonFetch())) 
         }.eraseToAnyPublisher()
     }
     
@@ -57,7 +57,7 @@ struct JsonFetch {
             CLogger.log(category: .parsing).fault("type '\(type.self)' mismatch: \(context.debugDescription), codingPath: \(context.codingPath)")
             return nil
         } catch {
-            print("error: ", error)
+            CLogger.log(category: .parsing).error("error: '\(error.localizedDescription)'")
             return nil
         }
     }

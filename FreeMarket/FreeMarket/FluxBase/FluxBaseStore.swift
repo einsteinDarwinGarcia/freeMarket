@@ -13,11 +13,3 @@ protocol FluxStore {
     var dispatcher: D { get set }
     init(dispatcher: D, modelStore: MS)
 }
-
-protocol FluxStoreNetworking {
-    associatedtype D: FluxDispatcher
-    associatedtype MS: ObservableObject
-    associatedtype DataT
-    var dispatcher: D { get set }
-    init(dispatcher: D, modelStore: MS, dataRequest: DataT)
-}

@@ -16,35 +16,39 @@ final class CoreDataPersistence<Entity: NSManagedObject>: Persistence {
     
     var cancellable: [AnyCancellable] = []
     
-    func getData<T : Decodable>(text: String) -> AnyPublisher<T?, Never>  {
-        return Future<T?,Never> { promise in
+    func getData<T : Decodable>(text: String) -> AnyPublisher<T?, Error>  {
+        return Future<T?,Error> { promise in
             
         }.eraseToAnyPublisher()
     }
     
-    func getItems<T : Decodable>() -> AnyPublisher<[T]?, Never>  {
-        return Future<[T]?, Never> { [coreDataStore] promise in
+    func getItems<T : Decodable>() -> AnyPublisher<[T]?, Error>  {
+        return Future<[T]?, Error> { [coreDataStore] promise in
             let request = NSFetchRequest<Entity>(entityName: Entity.entityName)
             let cancellable = coreDataStore
                 .publicher(fetch: request)
                 .sink { completion in
                     if case .failure(let error) = completion {
-                        print(error.localizedDescription) // TODO: logger
+                        CLogger.log(category: .parsing).error("error: '\(error.localizedDescription)'")
+                        return promise(.failure(error))
                     }
                 } receiveValue: { entity   in
                     var items: [T] = []
                     
                     entity.forEach {
                         guard let entityJson = $0.toJSON() else {
-                            return // TODO: logger
+                            CLogger.log(category: .parsing).error("error JSON: '\(ParsingError.parsingError)'")
+                            return promise(.failure(ParsingError.parsingError))
                         }
                         
                         guard let data = entityJson.data(using: .utf8) else {
-                            return // TODO: logger
+                            CLogger.log(category: .parsing).error("error DATA: '\(ParsingError.parsingError)'")
+                            return promise(.failure(ParsingError.parsingError))
                         }
                         
                         guard let itemCasting: T = JsonFetch.jsonFetch(data: data) else {
-                            return // TODO: logger
+                            CLogger.log(category: .parsing).error("error Casting: '\(ParsingError.parsingError)'")
+                            return promise(.failure(ParsingError.parsingError))
                         }
                         
                         items.append(itemCasting)
@@ -74,41 +78,4 @@ extension NSManagedObject {
   }
 }
 
-class DecoderWrapper: Decodable {
-
-    let decoder:Decoder
-
-    required init(from decoder:Decoder) throws {
-        self.decoder = decoder
-    }
-}
-
-protocol JSONDecoding {
-     func decodeWith(_ decoder: Decoder) throws
-}
-
-extension JSONDecoding where Self:NSManagedObject {
-
-    func decode(json:[String:Any]) throws {
-
-        let data = try JSONSerialization.data(withJSONObject: json, options: [])
-        let wrapper = try JSONDecoder().decode(DecoderWrapper.self, from: data)
-        try decodeWith(wrapper.decoder)
-    }
-}
-
-extension ItemSearchEntity: JSONDecoding {
-
-    enum CodingKeys: String, CodingKey {
-        case category // For example
-        case id
-    }
-
-    func decodeWith(_ decoder: Decoder) throws {
-        let container = try decoder.container(keyedBy: CodingKeys.self)
-
-        self.category = try container.decode(String.self, forKey: .category)
-        self.id = try container.decode(String.self, forKey: .id)
-    }
-}
 

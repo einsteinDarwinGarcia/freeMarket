@@ -1,23 +1,15 @@
 //
-//  FluxBaseActions.swift
+//  FluxBaseClass.swift
 //  FreeMarket
 //
 //  Created by Einstein Darwin Garcia Mendez on 15/03/21.
 //
 
-import Foundation
+import Combine
 
-import Foundation
+protocol ListActions: ConfigureCategoryCLog {}
 
-class Action<C: Coordinator> {
-    
-    private(set) weak var coordinator: C?
-    
-    init(coordinator: C) {
-        self.coordinator = coordinator
-    }
-    
-    deinit {
-        coordinator?.stop()
-    }
+protocol ViewActionsProtocol: ObservableObject {
+    associatedtype M: ObservableObject
+    func configureViewStore(modelStore: M)
 }
