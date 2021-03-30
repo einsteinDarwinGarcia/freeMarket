@@ -404,3 +404,11 @@ Se entrenó el modelo de clasificación de textos **MLTextClassifier** con los p
 ## Conclusiones
 
 Se implementó el paradigma Reactive Functional programming, junto con la nueva libreria de UI SwiftUI y Combine. La Arquitectura FLUX clarifica mucho más el flujo de datos en el paradigma reactivo. Se pudo entrenar un modelo de Machine Learning para clasificación de productos en su categoria (telefonos iphone, samsung). Se implementaron varias técnicas gestionando el correcto funcionamiento de memoria junto a patrones de diseño para estructurar el App.
+
+### Carpetas
+
+* **Coordinator** Base Coordinator
+* **FluxBase** Base FLUX
+* **Modules** implementación de las secciones del App
+* **UIFreeMarket** implementación componentes de UI
+* **Networking** capa de networking
