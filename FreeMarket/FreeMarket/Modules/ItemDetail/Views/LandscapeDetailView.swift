@@ -38,10 +38,12 @@ struct LandscapeDetailView: View {
                                 RowExtraInfo(image: "server.rack", title: Strings.searchResultCantidad + " \(itemDetail.stock ?? 0)")
                                 RowExtraInfo(image: "rosette", title: itemDetail.warranty ?? String())
                             }
-                        }
-                        VStack {
+                        }.frame(width:300)
+                        
                         Carousel(images: itemDetail.photos)
-                        }.frame(width: 500)
+                            .frame(height:310)
+                            .padding(.top, 20)
+                        
                     }
                         
                             AttributesSelectView()

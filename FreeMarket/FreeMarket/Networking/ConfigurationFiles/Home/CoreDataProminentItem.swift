@@ -25,7 +25,7 @@ final class CoreDataProminentItem: NetworkingLayer {
     func networkingLayerService(text: String) -> Future<CastingModel.FinalData?, Error> {
         return Future<CastingModel.FinalData?, Error> { promise in
             
-            let nameSort = NSSortDescriptor(key:"id", ascending:true)
+            let nameSort = NSSortDescriptor(key:"id", ascending:false)
             
             self.networkManager.getCoreDataResult(sort: nameSort).sink { (completion) in
                 switch completion {
